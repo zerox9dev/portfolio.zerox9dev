@@ -127,7 +127,6 @@ export const Project: FC<TypeProjectFields> = ({
                       asset={m}
                       data-vaul-no-drag
                       sizes="(min-width: 1024px) 793px, 83vw"
-                      width={793}
                       className="rounded-xl border border-muted-foreground/20 data-[loading]:top-0"
                     />
                   </CarouselItem>
