@@ -89,6 +89,7 @@ const config = {
             'h1, h2, h3, h4': {
               marginTop: '0.4em',
               marginBottom: '0.4em',
+              fontWeight: '400',
             },
             'ul, ol, li': {
               marginTop: '0.4em',
