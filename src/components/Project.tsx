@@ -1,7 +1,7 @@
 'use client'
 
 import { type TypeProjectFields, type TypePageHeadersFields } from '@/types/contentful'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import {
   Drawer,
   DrawerTrigger,
@@ -10,6 +10,11 @@ import {
   DrawerDescription,
   DrawerClose,
 } from './ui/drawer'
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 import { X } from 'lucide-react'
@@ -41,6 +46,8 @@ export const Project: FC<ProjectProps> = ({
   link,
   pageHeaders,
 }) => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
+
   const techList = Array.isArray(tech)
     ? tech
     : typeof tech === 'string'
@@ -128,12 +135,28 @@ export const Project: FC<ProjectProps> = ({
                     className="basis-10/12 pl-4 last:mr-4 md:pl-4 md:last:mr-4"
                     data-vaul-no-drag
                   >
-                    <ContentfulImage
-                      asset={m}
-                      data-vaul-no-drag
-                      sizes="(min-width: 1024px) 793px, 83vw"
-                      className="rounded-xl border border-muted-foreground/20 data-[loading]:top-0"
-                    />
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <div className="cursor-pointer">
+                          <ContentfulImage
+                            asset={m}
+                            data-vaul-no-drag
+                            sizes="(min-width: 1024px) 793px, 83vw"
+                            className="rounded-xl border border-muted-foreground/20 data-[loading]:top-0"
+                          />
+                        </div>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-4xl max-h-[90vh] p-0">
+                        <div className="relative">
+                          <ContentfulImage
+                            asset={m}
+                            data-vaul-no-drag
+                            sizes="(min-width: 1024px) 793px, 83vw"
+                            className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
+                          />
+                        </div>
+                      </DialogContent>
+                    </Dialog>
                   </CarouselItem>
                 ) : null,
               )}
