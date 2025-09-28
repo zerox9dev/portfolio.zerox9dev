@@ -52,7 +52,7 @@ export default function HomePageContent({
   }
 
   return (
-    <main className="mx-auto flex min-h-[100dvh] max-w-md flex-col gap-8 lg:px-4 lg:py-8 antialiased">
+    <main className="mx-auto flex min-h-[100dvh] max-w-md flex-col gap-8 px-4 py-8 md:px-0 md:py-0 antialiased">
       {headers?.aboutMeTitle && <SectionDivider title={headers.aboutMeTitle} />}
       <Intro
         body={introData.body}
