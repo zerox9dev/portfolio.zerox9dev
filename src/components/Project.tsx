@@ -133,8 +133,8 @@ export const Project: FC<TypeProjectFields> = ({
                 ) : null,
               )}
             </CarouselContent>
-            <CarouselPrevious className="left-6 hidden transition-opacity disabled:opacity-0 md:flex" />
-            <CarouselNext className="right-6 hidden transition-opacity disabled:opacity-0 md:flex" />
+            <CarouselPrevious className="left-6 hidden bg-white transition-opacity disabled:opacity-0 md:flex" />
+            <CarouselNext className="right-6 hidden bg-white transition-opacity disabled:opacity-0 md:flex" />
           </Carousel>
           <div className="mt-4 max-w-prose px-4 pb-4 md:px-4">
             <div className="prose prose-sm dark:prose-invert">
