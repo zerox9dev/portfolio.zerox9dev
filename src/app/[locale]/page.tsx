@@ -1,0 +1,49 @@
+import { client } from '@/lib/contentful'
+import { TypeIntroSkeleton, TypeProjectSkeleton } from '@/types/contentful'
+import HomePageContent from './HomePageContent'
+import { notFound } from 'next/navigation'
+
+// Tell Next.js which locales are supported
+export async function generateStaticParams() {
+  return [{ locale: 'en-US' }, { locale: 'uk-UA' }]
+}
+
+interface HomeProps {
+  params: {
+    locale: string
+  }
+}
+
+export default async function Home({ params }: HomeProps) {
+  const { locale } = params
+
+  // Fetch data in parallel
+  const [introEntry, projectEntries] = await Promise.all([
+    client.getEntries<TypeIntroSkeleton>({
+      content_type: 'intro',
+      limit: 1,
+      include: 1,
+      locale,
+    }),
+    client.getEntries<TypeProjectSkeleton>({
+      content_type: 'project',
+      include: 2,
+      locale,
+    }),
+  ])
+
+  const introData = introEntry.items[0]?.fields
+
+  // If essential data is missing, render the 404 page
+  if (!introData) {
+    notFound()
+  }
+
+  // Render the client component with the fetched data
+  return (
+    <HomePageContent
+      introData={introData}
+      projectEntries={projectEntries.items}
+    />
+  )
+}

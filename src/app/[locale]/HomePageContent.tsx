@@ -1,49 +1,29 @@
 'use client'
 
+import { useState } from 'react'
+import { Entry } from 'contentful'
 import { Intro } from '@/components/Intro'
 import { Project } from '@/components/Project'
-import { client } from '@/lib/contentful'
-import {
-  TypeIntroFields,
-  TypeIntroSkeleton,
-  TypeProject,
-  TypeProjectSkeleton,
-} from '@/types/contentful'
+import { SectionDivider } from '@/components/SectionDivider'
+import { ContactForm } from '@/components/ContactForm'
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs'
-import { useEffect, useState } from 'react'
-import { SectionDivider } from '@/components/SectionDivider'
-import { ContactForm } from '@/components/ContactForm'
+import { TypeIntroFields, TypeProjectSkeleton } from '@/types/contentful'
 
-import { Entry } from 'contentful'
+interface HomePageContentProps {
+  introData: TypeIntroFields
+  projectEntries: Entry<TypeProjectSkeleton, 'WITHOUT_UNRESOLVABLE_LINKS', string>[]
+}
 
-export default function Home() {
-  const [introData, setIntroData] = useState<TypeIntroFields | null>(null)
-  const [projectEntries, setProjectEntries] = useState<
-    Entry<TypeProjectSkeleton, 'WITHOUT_UNRESOLVABLE_LINKS', string>[]
-  >([])
+export default function HomePageContent({
+  introData,
+  projectEntries,
+}: HomePageContentProps) {
   const [activeTab, setActiveTab] = useState('Дизайн')
-
-  useEffect(() => {
-    async function fetchData() {
-      const introEntry = await client.getEntries<TypeIntroSkeleton>({
-        content_type: 'intro',
-        limit: 1,
-        include: 1,
-      })
-      const projectEntries = await client.getEntries<TypeProjectSkeleton>({
-        content_type: 'project',
-        include: 2,
-      })
-      setIntroData(introEntry.items[0]?.fields)
-      setProjectEntries(projectEntries.items)
-    }
-    fetchData()
-  }, [])
 
   if (!projectEntries.length || !introData) return null
 
@@ -69,7 +49,6 @@ export default function Home() {
   return (
     <main className="mx-auto flex min-h-[100dvh] max-w-md flex-col gap-8 lg:px-4 lg:py-8 antialiased">
       <SectionDivider title="КРАТКО ОБО МНЕ" />
-      {/* TODO: Replace name with a dynamic one from your CMS */}
       <Intro
         body={introData.body}
         avatar={introData.avatar}
