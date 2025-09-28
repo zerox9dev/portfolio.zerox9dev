@@ -53,6 +53,7 @@ export interface TypePageHeadersFields {
   contactTitle: string;
   designCategory: string;
   developmentCategory: string;
+  viewButtonText: string;
 }
 
 export type TypePageHeaders = Entry<TypePageHeadersSkeleton>;

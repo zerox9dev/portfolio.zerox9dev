@@ -28,7 +28,7 @@ export default function HomePageContent({
   pageHeaders,
 }: HomePageContentProps) {
   const headers = pageHeaders
-  const [activeTab, setActiveTab] = React.useState(headers?.designCategory || 'Дизайн')
+  const [activeTab, setActiveTab] = React.useState(headers?.designCategory)
 
   if (!projectEntries.length || !introData) return null
 
@@ -43,7 +43,7 @@ export default function HomePageContent({
             className="group relative flex flex-col"
             key={project.sys.id}
           >
-            {project.fields && <Project {...(project.fields as TypeProjectFields)} />}
+            {project.fields && <Project {...(project.fields as TypeProjectFields)} pageHeaders={pageHeaders} />}
             <hr className="absolute -bottom-3 right-0 w-[calc(100%-3.5rem)] self-end group-last:hidden md:group-[:nth-last-child(2)]:hidden" />
           </div>
         ))}
@@ -53,13 +53,13 @@ export default function HomePageContent({
 
   return (
     <main className="mx-auto flex min-h-[100dvh] max-w-md flex-col gap-8 lg:px-4 lg:py-8 antialiased">
-      {headers && headers.aboutMeTitle && <SectionDivider title={headers.aboutMeTitle} />}
+      {headers?.aboutMeTitle && <SectionDivider title={headers.aboutMeTitle} />}
       <Intro
         body={introData.body}
         avatar={introData.avatar}
       />
-      {headers && headers.projectsTitle && <SectionDivider title={headers.projectsTitle} />}
-      {headers && headers.designCategory && headers.developmentCategory && (
+      {headers?.projectsTitle && <SectionDivider title={headers.projectsTitle} />}
+      {headers?.designCategory && headers?.developmentCategory && (
         <div className="bg-white dark:bg-black p-4 rounded-xl">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="grid w-fit grid-cols-2 rounded-xl">
@@ -73,7 +73,7 @@ export default function HomePageContent({
           </Tabs>
         </div>
       )}
-      {headers && headers.contactTitle && <SectionDivider title={headers.contactTitle} />}
+      {headers?.contactTitle && <SectionDivider title={headers.contactTitle} />}
       <ContactForm contactData={contactData} />
     </main>
   )

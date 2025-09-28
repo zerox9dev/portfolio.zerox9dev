@@ -1,6 +1,6 @@
 'use client'
 
-import { type TypeProjectFields } from '@/types/contentful'
+import { type TypeProjectFields, type TypePageHeadersFields } from '@/types/contentful'
 import { FC } from 'react'
 import {
   Drawer,
@@ -27,7 +27,11 @@ import { ContentfulImage } from '@/components/ContentfulImage'
 
 import Image from 'next/image'
 
-export const Project: FC<TypeProjectFields> = ({
+interface ProjectProps extends TypeProjectFields {
+  pageHeaders?: TypePageHeadersFields;
+}
+
+export const Project: FC<ProjectProps> = ({
   title,
   strapline,
   logo,
@@ -35,6 +39,7 @@ export const Project: FC<TypeProjectFields> = ({
   media,
   body,
   link,
+  pageHeaders,
 }) => {
   const techList = Array.isArray(tech)
     ? tech
@@ -64,7 +69,7 @@ export const Project: FC<TypeProjectFields> = ({
             size="sm"
             variant="outline"
           >
-            Смотреть
+            {pageHeaders?.viewButtonText}
           </Button>
         </DrawerTrigger>
       </div>
@@ -94,7 +99,7 @@ export const Project: FC<TypeProjectFields> = ({
                 {strapline}
               </DrawerDescription>
               <Button onClick={() => window.open(link, '_blank')} className="mt-4 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white hover:text-white w-fit" variant="default" size="sm">
-                Смотреть
+                {pageHeaders?.viewButtonText}
             </Button>
               
             </div>
