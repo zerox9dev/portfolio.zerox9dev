@@ -62,7 +62,7 @@ export const Project: FC<ProjectProps> = ({
           src={`https:${logo.fields.file?.url as string}`}
           width={48}
           height={48}
-          className="h-12 w-12 rounded-xl border border-muted-foreground/20"
+          className="h-12 w-12 rounded-xl border "
         />
         <div className="mr-4 w-full">
           <h2 className="text-base font-medium font-bold">{title}</h2>
