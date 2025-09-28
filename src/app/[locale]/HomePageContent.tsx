@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import * as React from 'react';
 import { Entry } from 'contentful'
 import { Intro } from '@/components/Intro'
 import { Project } from '@/components/Project'
@@ -12,24 +12,24 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs'
-import { TypeIntroFields, TypeProjectSkeleton } from '@/types/contentful'
+import { TypeIntroFields, TypeProjectSkeleton, TypeProjectFields } from '@/types/contentful'
 
 interface HomePageContentProps {
   introData: TypeIntroFields
-  projectEntries: Entry<TypeProjectSkeleton, 'WITHOUT_UNRESOLVABLE_LINKS', string>[]
+  projectEntries: Entry<TypeProjectSkeleton>[]
 }
 
 export default function HomePageContent({
   introData,
   projectEntries,
 }: HomePageContentProps) {
-  const [activeTab, setActiveTab] = useState('Дизайн')
+  const [activeTab, setActiveTab] = React.useState('Дизайн')
 
   if (!projectEntries.length || !introData) return null
 
   const renderProjects = (category: 'Разработка' | 'Дизайн') => {
     const filteredProjects = projectEntries.filter(
-      (p) => p.fields.category === category,
+      (p) => p.fields && (p.fields as TypeProjectFields).category === category,
     )
     return (
       <div className="grid grid-cols-1 gap-x-12 gap-y-6 md:grid-cols-1 mt-4">
@@ -38,7 +38,7 @@ export default function HomePageContent({
             className="group relative flex flex-col"
             key={project.sys.id}
           >
-            {project.fields && <Project {...project.fields} />}
+            {project.fields && <Project {...(project.fields as TypeProjectFields)} />}
             <hr className="absolute -bottom-3 right-0 w-[calc(100%-3.5rem)] self-end group-last:hidden md:group-[:nth-last-child(2)]:hidden" />
           </div>
         ))}
