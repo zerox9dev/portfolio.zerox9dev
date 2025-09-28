@@ -1,4 +1,4 @@
-import { client } from '@/lib/contentful'
+import { createContentfulClient } from '@/lib/contentful'
 import { TypeIntroSkeleton, TypeProjectSkeleton } from '@/types/contentful'
 import HomePageContent from './HomePageContent'
 import { notFound } from 'next/navigation'
@@ -15,17 +15,19 @@ interface HomeProps {
 }
 
 export default async function Home({ params }: HomeProps) {
-  const { locale } = params
+  console.log(`[5] Page: Received locale "${params.locale}"`);
+  const locale = params.locale.replace('_', '-')
+  const contentfulClient = createContentfulClient(locale)
 
   // Fetch data in parallel
   const [introEntry, projectEntries] = await Promise.all([
-    client.getEntries<TypeIntroSkeleton>({
+    contentfulClient.getEntries<TypeIntroSkeleton>({
       content_type: 'intro',
       limit: 1,
       include: 1,
       locale,
     }),
-    client.getEntries<TypeProjectSkeleton>({
+    contentfulClient.getEntries<TypeProjectSkeleton>({
       content_type: 'project',
       include: 2,
       locale,

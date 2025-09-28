@@ -4,21 +4,25 @@ import parser from 'accept-language-parser'
 const locales = ['en-US', 'uk-UA']
 const defaultLocale = 'en-US'
 
+function getLocale(request: NextRequest) {
+  const acceptLanguage = request.headers.get('accept-language')
+  return parser.pick(locales, acceptLanguage || '', { loose: true }) || defaultLocale
+}
+
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
-  const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
+  const pathname = request.nextUrl.pathname
+  console.log(`[1] Middleware: Received request for "${pathname}"`);
+
+  const pathnameIsMissingLocale = locales.every(
+    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
   )
 
-  if (pathnameHasLocale) {
-    return
+  if (pathnameIsMissingLocale) {
+    const locale = getLocale(request)
+    const newUrl = new URL(`/${locale}${pathname}`, request.url)
+    console.log(`[2] Middleware: Rewriting to "${newUrl.href}"`);
+    return NextResponse.rewrite(newUrl)
   }
-
-  const acceptLanguage = request.headers.get('Accept-Language')
-  const preferredLocale = parser.pick(locales, acceptLanguage || '', { loose: true }) || defaultLocale
-
-  request.nextUrl.pathname = `/${preferredLocale}${pathname}`
-  return NextResponse.redirect(request.nextUrl)
 }
 
 export const config = {
