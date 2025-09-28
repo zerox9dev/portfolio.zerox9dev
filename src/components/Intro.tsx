@@ -1,7 +1,6 @@
 
 import { FC } from 'react'
 import { ThemeToggle } from './ThemeToggle'
-import { X } from './icons'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { Asset } from 'contentful'
 import { Document } from '@contentful/rich-text-types'
@@ -26,8 +25,8 @@ export const Intro: FC<IntroProps> = ({ body, avatar }) => {
         <ThemeToggle />
       </div>
       <div className="prose dark:prose-invert text-sm font-medium leading-normal">
-          {documentToReactComponents(body)}
-       </div>
+        {documentToReactComponents(body)}
+      </div>
     </div>
   )
 }

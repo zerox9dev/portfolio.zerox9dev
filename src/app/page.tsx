@@ -69,7 +69,11 @@ export default function Home() {
   return (
     <main className="mx-auto flex min-h-[100dvh] max-w-md flex-col gap-8 lg:px-4 lg:py-8 antialiased">
       <SectionDivider title="КРАТКО ОБО МНЕ" />
-      <Intro body={introData.body} avatar={introData.avatar} />
+      {/* TODO: Replace name with a dynamic one from your CMS */}
+      <Intro
+        body={introData.body}
+        avatar={introData.avatar}
+      />
       <SectionDivider title="ПОСЛЕДНИЕ ПРОЕКТЫ" />
       <div className="bg-white dark:bg-black p-4 rounded-xl">
         <Tabs value={activeTab} onValueChange={setActiveTab}>

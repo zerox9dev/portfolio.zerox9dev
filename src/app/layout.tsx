@@ -8,8 +8,9 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL || 'http://localhost:3001'),
-  title: 'Product Designer & Developer',
-  description: 'Product Designer & Developer',
+  title: 'Portfolio | Product Designer & Developer',
+  description:
+    'Portfolio of a Product Designer and Developer, showcasing projects in design and development.',
 }
 
 export default function RootLayout({
@@ -19,7 +20,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: 'Product Designer & Developer',
+              description:
+                'Portfolio of a Product Designer and Developer, showcasing projects in design and development.',
+            }),
+          }}
+        />
+      </head>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
