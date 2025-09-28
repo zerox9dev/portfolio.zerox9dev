@@ -35,3 +35,26 @@ export interface TypeIntroFields {
 export type TypeIntro = Entry<TypeIntroSkeleton>;
 
 export type TypeIntroSkeleton = EntrySkeletonType<TypeIntroFields, 'intro'>;
+
+export interface TypeContactFields {
+  message: string;
+  buttonText: string;
+  buttonAriaLabel: string;
+  telegramUrl: string;
+}
+
+export type TypeContact = Entry<TypeContactSkeleton>;
+
+export type TypeContactSkeleton = EntrySkeletonType<TypeContactFields, 'contact'>;
+
+export interface TypePageHeadersFields {
+  aboutMeTitle: string;
+  projectsTitle: string;
+  contactTitle: string;
+  designCategory: string;
+  developmentCategory: string;
+}
+
+export type TypePageHeaders = Entry<TypePageHeadersSkeleton>;
+
+export type TypePageHeadersSkeleton = EntrySkeletonType<TypePageHeadersFields, 'pageHeaders'>;

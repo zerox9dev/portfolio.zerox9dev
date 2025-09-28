@@ -3,8 +3,13 @@
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import { Button } from './ui/button';
 import Image from 'next/image';
+import { TypeContactFields } from '@/types/contentful';
 
-export const ContactForm = () => {
+interface ContactFormProps {
+  contactData?: TypeContactFields;
+}
+
+export const ContactForm = ({ contactData }: ContactFormProps) => {
   return (
     <div className="bg-white p-4 dark:border-zinc-800 rounded-xl dark:bg-zinc-900">
       <div className="flex items-center gap-4">
@@ -31,17 +36,17 @@ export const ContactForm = () => {
         </div>
         <div className="flex-1">
           <p className="text-sm dark:text-zinc-400 font-medium">
-            Напишите в Telegram — отвечу в ближайшее время.
+            {contactData?.message}
           </p>
           <div className="mt-3 flex gap-2 flex-wrap">
             <Button
               variant="default"
-              aria-label="Написать"
-              onClick={() => window.open('https://t.me/zerox9dev', '_blank')}
+              aria-label={contactData?.buttonAriaLabel}
+              onClick={() => window.open(contactData?.telegramUrl, '_blank')}
               size="sm"
               className="bg-cyan-600 hover:bg-cyan-700 text-white hover:text-white"
             >
-              Написать
+              {contactData?.buttonText}
             </Button>
           </div>
         </div>

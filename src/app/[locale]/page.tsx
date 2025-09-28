@@ -1,5 +1,5 @@
 import { createContentfulClient } from '@/lib/contentful'
-import { TypeIntroSkeleton, TypeProjectSkeleton } from '@/types/contentful'
+import { TypeIntroSkeleton, TypeProjectSkeleton, TypeContactSkeleton, TypePageHeadersSkeleton } from '@/types/contentful'
 import HomePageContent from './HomePageContent'
 import { notFound } from 'next/navigation'
 
@@ -20,7 +20,7 @@ export default async function Home({ params }: HomeProps) {
   const contentfulClient = createContentfulClient(locale)
 
   // Fetch data in parallel
-  const [introEntry, projectEntries] = await Promise.all([
+  const [introEntry, projectEntries, contactEntry, pageHeadersEntry] = await Promise.all([
     contentfulClient.getEntries<TypeIntroSkeleton>({
       content_type: 'intro',
       limit: 1,
@@ -32,9 +32,21 @@ export default async function Home({ params }: HomeProps) {
       include: 2,
       locale,
     }),
+    contentfulClient.getEntries<TypeContactSkeleton>({
+      content_type: 'contact',
+      limit: 1,
+      locale,
+    }),
+    contentfulClient.getEntries<TypePageHeadersSkeleton>({
+      content_type: 'pageHeaders',
+      limit: 1,
+      locale,
+    }),
   ])
 
   const introData = introEntry.items[0]?.fields
+  const contactData = contactEntry.items[0]?.fields
+  const pageHeadersData = pageHeadersEntry.items[0]?.fields
 
   // If essential data is missing, render the 404 page
   if (!introData) {
@@ -46,6 +58,8 @@ export default async function Home({ params }: HomeProps) {
     <HomePageContent
       introData={introData}
       projectEntries={projectEntries.items}
+      contactData={contactData}
+      pageHeaders={pageHeadersData}
     />
   )
 }

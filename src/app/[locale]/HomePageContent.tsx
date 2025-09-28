@@ -12,22 +12,27 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs'
-import { TypeIntroFields, TypeProjectSkeleton, TypeProjectFields } from '@/types/contentful'
+import { TypeIntroFields, TypeProjectSkeleton, TypeProjectFields, TypeContactFields, TypePageHeadersFields } from '@/types/contentful'
 
 interface HomePageContentProps {
   introData: TypeIntroFields
   projectEntries: Entry<TypeProjectSkeleton>[]
+  contactData?: TypeContactFields
+  pageHeaders?: TypePageHeadersFields
 }
 
 export default function HomePageContent({
   introData,
   projectEntries,
+  contactData,
+  pageHeaders,
 }: HomePageContentProps) {
-  const [activeTab, setActiveTab] = React.useState('Дизайн')
+  const headers = pageHeaders
+  const [activeTab, setActiveTab] = React.useState(headers?.designCategory || 'Дизайн')
 
   if (!projectEntries.length || !introData) return null
 
-  const renderProjects = (category: 'Разработка' | 'Дизайн') => {
+  const renderProjects = (category: string) => {
     const filteredProjects = projectEntries.filter(
       (p) => p.fields && (p.fields as TypeProjectFields).category === category,
     )
@@ -48,26 +53,28 @@ export default function HomePageContent({
 
   return (
     <main className="mx-auto flex min-h-[100dvh] max-w-md flex-col gap-8 lg:px-4 lg:py-8 antialiased">
-      <SectionDivider title="КРАТКО ОБО МНЕ" />
+      {headers && headers.aboutMeTitle && <SectionDivider title={headers.aboutMeTitle} />}
       <Intro
         body={introData.body}
         avatar={introData.avatar}
       />
-      <SectionDivider title="ПОСЛЕДНИЕ ПРОЕКТЫ" />
-      <div className="bg-white dark:bg-black p-4 rounded-xl">
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-fit grid-cols-2 rounded-xl">
-            <TabsTrigger value="Дизайн" className="rounded-xl">Дизайн</TabsTrigger>
-            <TabsTrigger value="Разработка" className="rounded-xl">Разработка</TabsTrigger>
-          </TabsList>
-          <TabsContent value="Дизайн">{renderProjects('Дизайн')}</TabsContent>
-          <TabsContent value="Разработка">
-            {renderProjects('Разработка')}
-          </TabsContent>
-        </Tabs>
-      </div>
-      <SectionDivider title="ХОТИТЕ ОБСУДИТЬ ПРОЕКТ?" />
-      <ContactForm />
+      {headers && headers.projectsTitle && <SectionDivider title={headers.projectsTitle} />}
+      {headers && headers.designCategory && headers.developmentCategory && (
+        <div className="bg-white dark:bg-black p-4 rounded-xl">
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabsList className="grid w-fit grid-cols-2 rounded-xl">
+              <TabsTrigger value={headers.designCategory} className="rounded-xl">{headers.designCategory}</TabsTrigger>
+              <TabsTrigger value={headers.developmentCategory} className="rounded-xl">{headers.developmentCategory}</TabsTrigger>
+            </TabsList>
+            <TabsContent value={headers.designCategory}>{renderProjects(headers.designCategory)}</TabsContent>
+            <TabsContent value={headers.developmentCategory}>
+              {renderProjects(headers.developmentCategory)}
+            </TabsContent>
+          </Tabs>
+        </div>
+      )}
+      {headers && headers.contactTitle && <SectionDivider title={headers.contactTitle} />}
+      <ContactForm contactData={contactData} />
     </main>
   )
 }
