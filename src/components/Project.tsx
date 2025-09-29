@@ -113,11 +113,11 @@ export const Project: FC<ProjectProps> = ({
           </div>
           <hr className="m-4 md:mx-4" />
           <div className="flex flex-col gap-2">
-            <div className="flex snap-x gap-2 overflow-x-auto px-4 md:px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="flex flex-wrap gap-2 px-4 md:px-4">
               {techList?.map((t) => (
                 <Badge
                   key={t}
-                  className="pointer-events-none shrink-0 snap-center"
+                  className="pointer-events-none"
                   variant="outline"
                 >
                   {t}
@@ -164,11 +164,10 @@ export const Project: FC<ProjectProps> = ({
             <CarouselPrevious className="left-6 hidden bg-white transition-opacity disabled:opacity-0 md:flex" />
             <CarouselNext className="right-6 hidden bg-white transition-opacity disabled:opacity-0 md:flex" />
           </Carousel>
-          <div className="mt-4 max-w-prose px-4 pb-4 md:px-4">
-            <div className="prose prose-sm dark:prose-invert">
+
+            <div className="prose prose-sm dark:prose-invert w-fit p-4">
               {documentToReactComponents(body)}
             </div>
-          </div>
         </ScrollArea>
       </DrawerContent>
     </Drawer>
