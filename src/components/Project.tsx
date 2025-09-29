@@ -105,7 +105,7 @@ export const Project: FC<ProjectProps> = ({
               <DrawerDescription className="text-sm text-muted-foreground">
                 {strapline}
               </DrawerDescription>
-              <Button onClick={() => window.open(link, '_blank')} className="mt-4 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white hover:text-white w-fit" variant="default" size="sm">
+              <Button onClick={() => window.open(link, '_blank')} className="rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white hover:text-white w-fit" variant="default" size="sm">
                 {pageHeaders?.viewButtonText}
             </Button>
               
