@@ -27,6 +27,8 @@ export default function HomePageContent({
   const profile = searchParams.get('profile')
 
   // Determine active category based on URL parameter
+  // Default: designer (design category)
+  // ?profile=vibecoding: developer (development category)
   const activeCategory = profile === 'vibecoding' ? headers?.developmentCategory : headers?.designCategory
 
   if (!projectEntries.length || !introData) return null
