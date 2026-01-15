@@ -30,6 +30,7 @@ export type TypeHomeSkeleton = EntrySkeletonType<TypeHomeFields, 'home'>;
 export interface TypeIntroFields {
   body: Document;
   avatar: Asset;
+  alternativeBody?: Document;
 }
 
 export type TypeIntro = Entry<TypeIntroSkeleton>;

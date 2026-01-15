@@ -11,9 +11,10 @@ type IntroProps = {
   body: Document
   avatar: Asset
   contactData?: TypeContactFields
+  alternativeBody?: Document
 }
 
-export const Intro: FC<IntroProps> = ({ body, avatar, contactData }) => {
+export const Intro: FC<IntroProps> = ({ body, avatar, contactData, alternativeBody }) => {
   return (
     <div className="flex flex-col gap-4 bg-white dark:bg-black p-4 rounded-xl">
       <div className="flex justify-between items-start gap-4">
@@ -47,7 +48,7 @@ export const Intro: FC<IntroProps> = ({ body, avatar, contactData }) => {
         <ThemeToggle />
       </div>
       <div className="flex flex-col gap-2 dark:prose-invert text-lg font-normal leading-normal">
-        {documentToReactComponents(body)}
+        {documentToReactComponents(alternativeBody || body)}
       </div>
       {contactData?.buttonText && (
         <div className="flex justify-start">

@@ -58,6 +58,7 @@ export default function HomePageContent({
         body={introData.body}
         avatar={introData.avatar}
         contactData={contactData}
+        alternativeBody={profile === 'vibecoding' ? introData.alternativeBody : undefined}
       />
       {headers?.projectsTitle && <SectionDivider title={headers.projectsTitle} />}
       {activeCategory && (
