@@ -6,7 +6,6 @@ import { useSearchParams } from 'next/navigation'
 import { Intro } from '@/components/Intro'
 import { Project } from '@/components/Project'
 import { SectionDivider } from '@/components/SectionDivider'
-import { ContactForm } from '@/components/ContactForm'
 import { TypeIntroFields, TypeProjectSkeleton, TypeProjectFields, TypeContactFields, TypePageHeadersFields } from '@/types/contentful'
 
 interface HomePageContentProps {
@@ -58,6 +57,7 @@ export default function HomePageContent({
       <Intro
         body={introData.body}
         avatar={introData.avatar}
+        contactData={contactData}
       />
       {headers?.projectsTitle && <SectionDivider title={headers.projectsTitle} />}
       {activeCategory && (
@@ -65,8 +65,6 @@ export default function HomePageContent({
           {renderProjects(activeCategory)}
         </div>
       )}
-      {headers?.contactTitle && <SectionDivider title={headers.contactTitle} />}
-      <ContactForm contactData={contactData} />
     </main>
   )
 }
