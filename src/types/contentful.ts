@@ -42,6 +42,9 @@ export interface TypeContactFields {
   buttonText: string;
   buttonAriaLabel: string;
   telegramUrl: string;
+  bookCallButtonText: string;
+  bookCallUrl: string;
+  bookCallAriaLabel: string;
 }
 
 export type TypeContact = Entry<TypeContactSkeleton>;

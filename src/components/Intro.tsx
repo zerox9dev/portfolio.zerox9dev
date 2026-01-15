@@ -50,8 +50,15 @@ export const Intro: FC<IntroProps> = ({ body, avatar, contactData, alternativeBo
       <div className="flex flex-col gap-2 dark:prose-invert text-lg font-normal leading-normal">
         {documentToReactComponents(alternativeBody || body)}
       </div>
-      {contactData?.buttonText && (
-        <div className="flex justify-start">
+      {contactData && (
+        <div className="flex justify-start gap-3">
+          <button
+            onClick={() => window.open(contactData.bookCallUrl, '_blank')}
+            className="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-2"
+            aria-label={contactData.bookCallAriaLabel}
+          >
+            {contactData.bookCallButtonText}
+          </button>
           <button
             onClick={() => window.open(contactData.telegramUrl, '_blank')}
             className="relative inline-flex items-center justify-center rounded-full corner-superellipse/1.5 font-medium cursor-pointer transition-all whitespace-nowrap outline-offset-2 focus-visible:outline-2 focus-visible:outline-teal-400 active:scale-97 select-none disabled:pointer-events-none disabled:opacity-50 bg-neutral-200/50 text-neutral-600 hover:bg-neutral-200/80 backdrop-blur-md dark:border dark:bg-white/20 dark:text-white dark:hover:bg-white/30 dark:border-white/8 h-10 px-4 text-sm gap-1.5 pl-3"
