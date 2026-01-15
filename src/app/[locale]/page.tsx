@@ -2,6 +2,7 @@ import { createContentfulClient } from '@/lib/contentful'
 import { TypeIntroSkeleton, TypeProjectSkeleton, TypeContactSkeleton, TypePageHeadersSkeleton } from '@/types/contentful'
 import HomePageContent from './HomePageContent'
 import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
 
 // Tell Next.js which locales are supported
 export async function generateStaticParams() {
@@ -55,11 +56,13 @@ export default async function Home({ params }: HomeProps) {
 
   // Render the client component with the fetched data
   return (
-    <HomePageContent
-      introData={introData}
-      projectEntries={projectEntries.items}
-      contactData={contactData}
-      pageHeaders={pageHeadersData}
-    />
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomePageContent
+        introData={introData}
+        projectEntries={projectEntries.items}
+        contactData={contactData}
+        pageHeaders={pageHeadersData}
+      />
+    </Suspense>
   )
 }
