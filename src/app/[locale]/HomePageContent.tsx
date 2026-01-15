@@ -23,12 +23,12 @@ export default function HomePageContent({
 }: HomePageContentProps) {
   const headers = pageHeaders
   const searchParams = useSearchParams()
-  const profile = searchParams.get('profile')
+  const hasVibeCoding = searchParams.has('vibecoding')
 
   // Determine active category based on URL parameter
   // Default: designer (design category)
-  // ?profile=vibecoding: developer (development category)
-  const activeCategory = profile === 'vibecoding' ? headers?.developmentCategory : headers?.designCategory
+  // ?vibecoding: developer (development category)
+  const activeCategory = hasVibeCoding ? headers?.developmentCategory : headers?.designCategory
 
   if (!projectEntries.length || !introData) return null
 
@@ -58,7 +58,7 @@ export default function HomePageContent({
         body={introData.body}
         avatar={introData.avatar}
         contactData={contactData}
-        alternativeBody={profile === 'vibecoding' ? introData.alternativeBody : undefined}
+        alternativeBody={hasVibeCoding ? introData.alternativeBody : undefined}
       />
       {headers?.projectsTitle && <SectionDivider title={headers.projectsTitle} />}
       {activeCategory && (
