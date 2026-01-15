@@ -37,7 +37,7 @@ export default function HomePageContent({
       (p) => p.fields && (p.fields as TypeProjectFields).category === category,
     )
     return (
-      <div className="grid grid-cols-1 gap-x-12 gap-y-6 md:grid-cols-1 mt-4">
+      <div className="grid grid-cols-1 gap-x-12 gap-y-6 md:grid-cols-2 mt-4">
         {filteredProjects.map((project) => (
           <div
             className="group relative flex flex-col"
@@ -52,7 +52,7 @@ export default function HomePageContent({
   }
 
   return (
-    <main className="mx-auto flex min-h-[100dvh] max-w-md flex-col gap-8 px-4 py-8 md:px-0 md:py-4 antialiased">
+    <main className="mx-auto flex min-h-[100dvh] max-w-[896px] flex-col gap-8 px-4 py-8 md:px-0 md:py-4 antialiased">
       {headers?.aboutMeTitle && <SectionDivider title={headers.aboutMeTitle} />}
       <Intro
         body={introData.body}
