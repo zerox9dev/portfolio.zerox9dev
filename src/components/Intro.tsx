@@ -24,7 +24,7 @@ export const Intro: FC<IntroProps> = ({ body, avatar }) => {
         />
         <ThemeToggle />
       </div>
-      <div className="prose dark:prose-invert text-sm font-medium leading-normal">
+      <div className="flex flex-col gap-2 dark:prose-invert text-lg font-normal leading-normal">
         {documentToReactComponents(body)}
       </div>
     </div>
