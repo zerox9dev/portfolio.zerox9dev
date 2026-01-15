@@ -165,7 +165,7 @@ export const Project: FC<ProjectProps> = ({
             <CarouselNext className="right-6 hidden bg-white transition-opacity disabled:opacity-0 md:flex" />
           </Carousel>
 
-            <div className="prose prose-sm dark:prose-invert w-fit p-4">
+            <div className="flex flex-col gap-4 dark:prose-invert w-fit p-4">
               {documentToReactComponents(body)}
             </div>
         </ScrollArea>
