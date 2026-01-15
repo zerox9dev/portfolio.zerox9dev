@@ -54,9 +54,16 @@ export const Intro: FC<IntroProps> = ({ body, avatar, contactData, alternativeBo
         <div className="flex justify-start">
           <button
             onClick={() => window.open(contactData.telegramUrl, '_blank')}
-            className="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            className="relative inline-flex items-center justify-center rounded-full corner-superellipse/1.5 font-medium cursor-pointer transition-all whitespace-nowrap outline-offset-2 focus-visible:outline-2 focus-visible:outline-teal-400 active:scale-97 select-none disabled:pointer-events-none disabled:opacity-50 bg-neutral-200/50 text-neutral-600 hover:bg-neutral-200/80 backdrop-blur-md dark:border dark:bg-white/20 dark:text-white dark:hover:bg-white/30 dark:border-white/8 h-10 px-4 text-sm gap-1.5 pl-3"
             aria-label={contactData.buttonAriaLabel}
           >
+            <Image
+              src="/tglogo.svg"
+              alt="Telegram"
+              width={16}
+              height={16}
+              className="w-4 h-4"
+            />
             {contactData.buttonText}
           </button>
         </div>
