@@ -2,16 +2,11 @@
 
 import * as React from 'react';
 import { Entry } from 'contentful'
+import { useSearchParams } from 'next/navigation'
 import { Intro } from '@/components/Intro'
 import { Project } from '@/components/Project'
 import { SectionDivider } from '@/components/SectionDivider'
 import { ContactForm } from '@/components/ContactForm'
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/tabs'
 import { TypeIntroFields, TypeProjectSkeleton, TypeProjectFields, TypeContactFields, TypePageHeadersFields } from '@/types/contentful'
 
 interface HomePageContentProps {
@@ -28,7 +23,11 @@ export default function HomePageContent({
   pageHeaders,
 }: HomePageContentProps) {
   const headers = pageHeaders
-  const [activeTab, setActiveTab] = React.useState(headers?.designCategory)
+  const searchParams = useSearchParams()
+  const profile = searchParams.get('profile')
+
+  // Determine active category based on URL parameter
+  const activeCategory = profile === 'vibecoding' ? headers?.developmentCategory : headers?.designCategory
 
   if (!projectEntries.length || !introData) return null
 
@@ -59,18 +58,9 @@ export default function HomePageContent({
         avatar={introData.avatar}
       />
       {headers?.projectsTitle && <SectionDivider title={headers.projectsTitle} />}
-      {headers?.designCategory && headers?.developmentCategory && (
+      {activeCategory && (
         <div className="bg-white dark:bg-black p-4 rounded-xl">
-          <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-fit grid-cols-2 rounded-xl">
-              <TabsTrigger value={headers.designCategory} className="rounded-xl">{headers.designCategory}</TabsTrigger>
-              <TabsTrigger value={headers.developmentCategory} className="rounded-xl">{headers.developmentCategory}</TabsTrigger>
-            </TabsList>
-            <TabsContent value={headers.designCategory}>{renderProjects(headers.designCategory)}</TabsContent>
-            <TabsContent value={headers.developmentCategory}>
-              {renderProjects(headers.developmentCategory)}
-            </TabsContent>
-          </Tabs>
+          {renderProjects(activeCategory)}
         </div>
       )}
       {headers?.contactTitle && <SectionDivider title={headers.contactTitle} />}
