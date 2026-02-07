@@ -109,7 +109,6 @@ export default function HomePageContent({
             {filteredProjects.map((project) => (
               <div className="group relative flex flex-col" key={project._id}>
                 {project.fields && <Project {...project.fields} pageHeaders={pageHeaders} />}
-                <hr className="absolute -bottom-3 right-0 w-[calc(100%-3.5rem)] self-end group-last:hidden md:group-[:nth-last-child(2)]:hidden" />
               </div>
             ))}
           </div>
