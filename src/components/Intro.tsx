@@ -19,7 +19,7 @@ export const Intro: FC<IntroProps> = ({ body, availabilityText, contactData }) =
           {availabilityText}
         </p>
       )}
-      <div className="text-lg font-normal leading-normal [text-wrap:pretty] text-neutral-400 dark:text-neutral-500 [&_strong]:text-neutral-950 dark:[&_strong]:text-neutral-100 [&_strong]:font-semibold">
+      <div className="text-lg font-normal leading-normal [text-wrap:pretty] text-neutral-400 dark:text-neutral-500 [&_strong]:text-neutral-950 dark:[&_strong]:text-neutral-100 [&_strong]:font-normal">
         <div className="[&_p]:m-0 [&_p:not(:last-child)]:mb-2">
           <PortableTextRenderer value={body} />
         </div>
