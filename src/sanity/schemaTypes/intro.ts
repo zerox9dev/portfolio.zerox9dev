@@ -1,5 +1,47 @@
 import { defineField, defineType } from 'sanity'
 
+const localizedPortableTextField = (name: string, title: string) =>
+  defineField({
+    name,
+    title,
+    type: 'object',
+    description: 'Описания пишите обычным текстом (серый). Цифры, факты и конкретику выделяйте Bold (чёрный).',
+    fields: [
+      defineField({
+        name: 'en',
+        title: 'English',
+        type: 'array',
+        of: [{ type: 'block' }],
+        validation: (rule) => rule.required(),
+      }),
+      defineField({
+        name: 'ru',
+        title: 'Russian',
+        type: 'array',
+        of: [{ type: 'block' }],
+      }),
+      defineField({
+        name: 'ua',
+        title: 'Ukrainian',
+        type: 'array',
+        of: [{ type: 'block' }],
+      }),
+    ],
+    validation: (rule) => rule.required(),
+  })
+
+const localizedStringField = (name: string, title: string) =>
+  defineField({
+    name,
+    title,
+    type: 'object',
+    fields: [
+      defineField({ name: 'en', title: 'English', type: 'string' }),
+      defineField({ name: 'ru', title: 'Russian', type: 'string' }),
+      defineField({ name: 'ua', title: 'Ukrainian', type: 'string' }),
+    ],
+  })
+
 export const introType = defineType({
   name: 'intro',
   title: 'Intro',
@@ -9,10 +51,7 @@ export const introType = defineType({
       name: 'locale',
       title: 'Locale',
       type: 'string',
-      validation: (rule) =>
-        rule.required().custom((value) =>
-          ['en', 'ru', 'ua'].includes(String(value)) ? true : 'Use only en, ru, ua',
-        ),
+      description: 'Deprecated: intro теперь хранится в одном документе с локализованными полями.',
       options: {
         list: [
           { title: 'English', value: 'en' },
@@ -21,21 +60,14 @@ export const introType = defineType({
         ],
         layout: 'radio',
       },
-      initialValue: 'en',
+      hidden: true,
+      readOnly: true,
     }),
-    defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'array',
-      of: [{ type: 'block' }],
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: 'availabilityText',
-      title: 'Availability text',
-      type: 'string',
-      description: 'Например: Открыт к предложениям',
-    }),
+    localizedPortableTextField(
+      'body',
+      'Body',
+    ),
+    localizedStringField('availabilityText', 'Availability text'),
     defineField({
       name: 'avatar',
       title: 'Avatar',

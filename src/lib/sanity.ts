@@ -96,7 +96,7 @@ function ensureImage(value: unknown, localeCandidates: string[]): SanityImage {
 }
 
 const HOME_PAGE_QUERY = `{
-  "intro": *[_type == "intro"] | order(select(locale in $localeCandidates => 0, !defined(locale) => 1, 2), _createdAt desc)[0],
+  "intro": *[_type == "intro"] | order(_updatedAt desc)[0],
   "projects": *[_type == "project"] | order(_createdAt desc),
   "blogPosts": *[_type == "blogPost"] | order(publishedAt desc, _createdAt desc),
   "contact": *[_type == "contact"] | order(_createdAt desc)[0],
