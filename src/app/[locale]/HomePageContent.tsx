@@ -29,15 +29,13 @@ export default function HomePageContent({
 }: HomePageContentProps) {
   const headers = pageHeaders
 
-  const [activeCategory, setActiveCategory] = React.useState<'all' | 'Дизайн' | 'Разработка'>('all')
+  const [activeCategory, setActiveCategory] = React.useState<'Дизайн' | 'Разработка'>('Дизайн')
   const [gmtPlusOneTime, setGmtPlusOneTime] = React.useState('')
-  const allCategoryLabel = locale === 'ru' ? 'Все' : locale === 'ua' ? 'Усі' : 'All'
   const filledButtonClass =
     'bg-neutral-200/50 hover:bg-neutral-100 text-black px-4 py-2 rounded-xl text-sm font-medium transition-colors flex items-center gap-2'
   const outlineButtonClass =
     'border border-neutral-200 text-black px-4 py-2 rounded-xl text-sm font-medium transition-colors flex items-center gap-2 hover:bg-neutral-100'
   const categoryOptions = [
-    { value: 'all' as const, label: allCategoryLabel },
     { value: 'Дизайн' as const, label: headers?.designCategory || 'Design' },
     { value: 'Разработка' as const, label: headers?.developmentCategory || 'Development' },
   ]
@@ -59,10 +57,7 @@ export default function HomePageContent({
 
   if (!introData) return null
 
-  const filteredProjects =
-    activeCategory === 'all'
-      ? projectEntries
-      : projectEntries.filter((project) => project.fields?.category === activeCategory)
+  const filteredProjects = projectEntries.filter((project) => project.fields?.category === activeCategory)
   const avatarSrc = buildSanityImageUrl(introData.avatar, { width: 64, height: 64 }) || '/images/logo.ico'
   const avatarAlt = introData.avatar.description || introData.avatar.alt || 'Avatar'
 
