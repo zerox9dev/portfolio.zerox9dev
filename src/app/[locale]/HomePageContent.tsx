@@ -39,6 +39,15 @@ export default function HomePageContent({
     { value: 'Дизайн' as const, label: headers?.designCategory || 'Design' },
     { value: 'Разработка' as const, label: headers?.developmentCategory || 'Development' },
   ]
+  const dateFormatter = React.useMemo(
+    () =>
+      new Intl.DateTimeFormat(locale === 'ua' ? 'uk-UA' : locale === 'ru' ? 'ru-RU' : 'en-US', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      }),
+    [locale],
+  )
 
   React.useEffect(() => {
     const formatGmtPlusOne = () => {
@@ -122,12 +131,19 @@ export default function HomePageContent({
               <Link
                 key={post._id}
                 href={locale === 'en' ? `/blog/${post.fields.slug}` : `/${locale}/blog/${post.fields.slug}`}
-                className="rounded-xl border border-neutral-100 dark:border-neutral-800 p-3 transition hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                className="transition hover:text-neutral-950 dark:hover:text-neutral-100"
               >
-                <h3 className="text-sm font-semibold">{post.fields.title}</h3>
-                {post.fields.excerpt && (
-                  <p className="mt-1 text-sm text-neutral-400 dark:text-neutral-500">{post.fields.excerpt}</p>
-                )}
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="text-sm font-semibold">{post.fields.title}</h3>
+                  {post.fields.publishedAt && (
+                    <time
+                      dateTime={post.fields.publishedAt}
+                      className="shrink-0 text-xs text-neutral-400 dark:text-neutral-500"
+                    >
+                      {dateFormatter.format(new Date(post.fields.publishedAt))}
+                    </time>
+                  )}
+                </div>
               </Link>
             ))}
           </div>
