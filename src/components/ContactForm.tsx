@@ -3,7 +3,7 @@
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import { Button } from './ui/button';
 import Image from 'next/image';
-import { TypeContactFields } from '@/types/contentful';
+import { TypeContactFields } from '@/types/sanity';
 
 interface ContactFormProps {
   contactData?: TypeContactFields;

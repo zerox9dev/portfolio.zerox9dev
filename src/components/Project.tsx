@@ -1,7 +1,7 @@
 'use client'
 
-import { type TypeProjectFields, type TypePageHeadersFields } from '@/types/contentful'
-import { FC, useState } from 'react'
+import { type TypeProjectFields, type TypePageHeadersFields } from '@/types/sanity'
+import { FC } from 'react'
 import {
   Drawer,
   DrawerTrigger,
@@ -26,9 +26,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { ScrollArea } from './ui/scroll-area'
-import { ContentfulImage } from '@/components/ContentfulImage'
+import { SanityImage } from '@/components/SanityImage'
+import { buildSanityImageUrl } from '@/lib/sanity'
+import PortableTextRenderer from '@/components/PortableTextRenderer'
 
 import Image from 'next/image'
 
@@ -46,23 +47,28 @@ export const Project: FC<ProjectProps> = ({
   link,
   pageHeaders,
 }) => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const outlineButtonClass =
+    'border border-neutral-200 text-black px-4 py-2 rounded-xl text-sm font-medium transition-colors flex items-center gap-2 hover:bg-neutral-100'
+  const viewButtonClass =
+    'border border-neutral-200 text-black px-3 py-1.5 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5 hover:bg-neutral-100'
 
   const techList = Array.isArray(tech)
     ? tech
     : typeof tech === 'string'
     ? tech.split(',').map((t) => t.trim())
     : []
+  const logoSrc = buildSanityImageUrl(logo, { width: 128, height: 128 }) || '/images/logo.ico'
+  const logoAlt = logo.description || logo.alt || `${title} logo`
 
   return (
     <Drawer shouldScaleBackground={true}>
       <div className="group flex cursor-pointer gap-2 justify-between">
         <Image
-          alt={`${title} logo`}
-          src={`https:${logo.fields.file?.url as string}`}
+          alt={logoAlt}
+          src={logoSrc}
           width={48}
           height={48}
-          className="h-12 w-12 rounded-xl border "
+          className="h-12 w-12 rounded-xl"
         />
         <div className="mr-4 w-full">
           <h2 className="text-base font-medium font-bold">{title}</h2>
@@ -71,13 +77,12 @@ export const Project: FC<ProjectProps> = ({
           </span>
         </div>
         <DrawerTrigger asChild>
-          <Button
+          <button
             aria-label={`View ${title}`}
-            size="sm"
-            variant="outline"
+            className={`${viewButtonClass} self-center shrink-0`}
           >
             {pageHeaders?.viewButtonText}
-          </Button>
+          </button>
         </DrawerTrigger>
       </div>
       <DrawerContent>
@@ -92,8 +97,8 @@ export const Project: FC<ProjectProps> = ({
           </DrawerClose>
           <div className="flex items-center gap-4 px-4 pt-2 md:px-4">
             <Image
-              alt={`${title} logo`}
-              src={`https:${logo.fields.file?.url as string}`}
+              alt={logoAlt}
+              src={logoSrc}
               width={64}
               height={64}
               className="h-20 w-20 rounded-2xl border border-muted-foreground/20"
@@ -105,13 +110,17 @@ export const Project: FC<ProjectProps> = ({
               <DrawerDescription className="text-sm text-muted-foreground">
                 {strapline}
               </DrawerDescription>
-              <Button onClick={() => window.open(link, '_blank')} className="rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white hover:text-white w-fit" variant="default" size="sm">
-                {pageHeaders?.viewButtonText}
-            </Button>
+              {link && (
+                <button
+                  onClick={() => window.open(link, '_blank')}
+                  className={`${viewButtonClass} w-fit`}
+                >
+                  {pageHeaders?.viewButtonText}
+                </button>
+              )}
               
             </div>
           </div>
-          <hr className="m-4 md:mx-4" />
           <div className="flex flex-col gap-2">
             <div className="flex flex-wrap gap-2 px-4 md:px-4">
               {techList?.map((t) => (
@@ -138,7 +147,7 @@ export const Project: FC<ProjectProps> = ({
                     <Dialog>
                       <DialogTrigger asChild>
                         <div className="cursor-pointer">
-                          <ContentfulImage
+                          <SanityImage
                             asset={m}
                             data-vaul-no-drag
                             sizes="(min-width: 1024px) 793px, 83vw"
@@ -148,7 +157,7 @@ export const Project: FC<ProjectProps> = ({
                       </DialogTrigger>
                       <DialogContent className="max-w-4xl max-h-[90vh] p-0">
                         <div className="relative">
-                          <ContentfulImage
+                          <SanityImage
                             asset={m}
                             data-vaul-no-drag
                             sizes="(min-width: 1024px) 793px, 83vw"
@@ -166,7 +175,7 @@ export const Project: FC<ProjectProps> = ({
           </Carousel>
 
             <div className="flex flex-col gap-4 dark:prose-invert w-fit p-4">
-              {documentToReactComponents(body)}
+              <PortableTextRenderer value={body} />
             </div>
         </ScrollArea>
       </DrawerContent>

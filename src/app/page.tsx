@@ -1,20 +1,21 @@
-import { redirect } from 'next/navigation'
-import parser from 'accept-language-parser'
+import { Suspense } from 'react'
+import { fetchHomePageData } from '@/lib/sanity'
+import HomePageContent from './[locale]/HomePageContent'
 
-const locales = ['en-US', 'uk-UA']
-const defaultLocale = 'en-US'
+export default async function RootPage() {
+  const { introData, projectEntries, blogEntries, contactData, pageHeaders } = await fetchHomePageData('en')
+  const safeIntroData = introData ?? { body: [], avatar: {} }
 
-function getLocale(requestHeaders: Headers) {
-  const acceptLanguage = requestHeaders.get('accept-language')
-  return parser.pick(locales, acceptLanguage || '', { loose: true }) || defaultLocale
-}
-
-export default function RootPage() {
-  // Определяем локаль на основе заголовков запроса
-  const headers = new Headers()
-  // В Next.js 15+ мы можем получить headers через headers()
-  // Но для простоты используем redirect с параметром
-  const locale = defaultLocale // Fallback to default locale
-
-  redirect(`/${locale}`)
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomePageContent
+        locale="en"
+        introData={safeIntroData}
+        projectEntries={projectEntries}
+        blogEntries={blogEntries}
+        contactData={contactData}
+        pageHeaders={pageHeaders}
+      />
+    </Suspense>
+  )
 }
