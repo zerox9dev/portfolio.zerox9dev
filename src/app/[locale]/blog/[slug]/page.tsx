@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import BlogPostPage from '@/components/BlogPostPage'
-import { fetchBlogPostBySlug } from '@/lib/sanity'
+import { buildSanityImageUrl, fetchBlogPostBySlug, fetchHomePageData } from '@/lib/sanity'
 
 interface BlogPostRouteProps {
   params: Promise<{
@@ -17,11 +17,19 @@ export default async function LocalizedBlogPostRoute({ params }: BlogPostRoutePr
     notFound()
   }
 
-  const post = await fetchBlogPostBySlug(routeLocale, slug)
+  const [post, homePageData] = await Promise.all([
+    fetchBlogPostBySlug(routeLocale, slug),
+    fetchHomePageData(routeLocale),
+  ])
 
   if (!post) {
     notFound()
   }
 
-  return <BlogPostPage post={post} locale={routeLocale as 'ru' | 'ua'} />
+  const avatarSrc = homePageData.introData
+    ? buildSanityImageUrl(homePageData.introData.avatar, { width: 64, height: 64 }) || '/images/logo.ico'
+    : '/images/logo.ico'
+  const avatarAlt = homePageData.introData?.avatar?.description || homePageData.introData?.avatar?.alt || 'Avatar'
+
+  return <BlogPostPage post={post} locale={routeLocale as 'ru' | 'ua'} avatarSrc={avatarSrc} avatarAlt={avatarAlt} />
 }

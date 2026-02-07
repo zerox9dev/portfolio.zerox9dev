@@ -10,9 +10,11 @@ import { TypeBlogPost } from '@/types/sanity'
 interface BlogPostPageProps {
   post: TypeBlogPost
   locale: 'en' | 'ru' | 'ua'
+  avatarSrc?: string
+  avatarAlt?: string
 }
 
-export default function BlogPostPage({ post, locale }: BlogPostPageProps) {
+export default function BlogPostPage({ post, locale, avatarSrc = '/images/logo.ico', avatarAlt = 'zerox9dev' }: BlogPostPageProps) {
   const paragraphs = portableTextToParagraphs(post.fields.body)
   const backHref = locale === 'en' ? '/' : `/${locale}`
   const [gmtPlusOneTime, setGmtPlusOneTime] = React.useState('')
@@ -46,8 +48,8 @@ export default function BlogPostPage({ post, locale }: BlogPostPageProps) {
       <header className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Image
-            src="/images/logo.ico"
-            alt="zerox9dev"
+            src={avatarSrc}
+            alt={avatarAlt}
             width={40}
             height={40}
             className="h-10 w-10 rounded-full border border-neutral-200 object-cover"
