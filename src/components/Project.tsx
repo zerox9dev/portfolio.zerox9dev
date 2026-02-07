@@ -50,7 +50,7 @@ export const Project: FC<ProjectProps> = ({
   const outlineButtonClass =
     'border border-neutral-200 text-black px-4 py-2 rounded-xl text-sm font-medium transition-colors flex items-center gap-2 hover:bg-neutral-100'
   const viewButtonClass =
-    'border border-neutral-200 text-black px-3 py-1.5 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5 hover:bg-neutral-100'
+    'border border-neutral-100 dark:border-neutral-800 text-black px-3 py-1.5 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-800'
 
   const techList = Array.isArray(tech)
     ? tech
