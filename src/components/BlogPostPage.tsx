@@ -3,8 +3,8 @@
 import * as React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { portableTextToParagraphs } from '@/lib/portableText'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import PortableTextRenderer from '@/components/PortableTextRenderer'
 import { TypeBlogPost } from '@/types/sanity'
 
 interface BlogPostPageProps {
@@ -15,7 +15,6 @@ interface BlogPostPageProps {
 }
 
 export default function BlogPostPage({ post, locale, avatarSrc = '/images/logo.ico', avatarAlt = 'zerox9dev' }: BlogPostPageProps) {
-  const paragraphs = portableTextToParagraphs(post.fields.body)
   const backHref = locale === 'en' ? '/' : `/${locale}`
   const [gmtPlusOneTime, setGmtPlusOneTime] = React.useState('')
   const dateFormatter = React.useMemo(
@@ -75,9 +74,7 @@ export default function BlogPostPage({ post, locale, avatarSrc = '/images/logo.i
           )}
         </div>
         <div className="mt-6 flex flex-col gap-4">
-          {paragraphs.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-          ))}
+          <PortableTextRenderer value={post.fields.body} />
         </div>
       </article>
 
