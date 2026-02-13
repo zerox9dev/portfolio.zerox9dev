@@ -3,6 +3,8 @@ import HomePageContent from './HomePageContent'
 import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 
+export const revalidate = 60
+
 // Tell Next.js which locales are supported
 export async function generateStaticParams() {
   return [{ locale: 'ru' }, { locale: 'ua' }]

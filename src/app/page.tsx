@@ -2,6 +2,8 @@ import { Suspense } from 'react'
 import { fetchHomePageData } from '@/lib/sanity'
 import HomePageContent from './[locale]/HomePageContent'
 
+export const revalidate = 60
+
 export default async function RootPage() {
   const { introData, projectEntries, blogEntries, contactData, pageHeaders } = await fetchHomePageData('en')
   const safeIntroData = introData ?? { body: [], avatar: {} }
