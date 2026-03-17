@@ -1,4 +1,4 @@
-<img src="/public/opengraph-image.png" alt="Vadym Mirvald portfolio" width="100%" />
+<img src="/public/cover.png" alt="Vadym Mirvald — Design Engineer portfolio" width="100%" />
 
 Minimalist, high-performance personal portfolio built with **Next.js 15**, **React 19**, **Tailwind CSS**, and **Framer Motion**. Powered by **Sanity CMS** for dynamic content.
 
