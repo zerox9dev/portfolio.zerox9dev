@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<img src="/public/opengraph-image.png" alt="Vadym Mirvald portfolio" width="100%" />
+
+# Vadym Mirvald — Design Engineer
+
+Minimalist, high-performance personal portfolio built with **Next.js 15**, **React 19**, **Tailwind CSS**, and **Framer Motion**. Powered by **Sanity CMS** for dynamic content.
+
+Designed for clarity, aesthetics, and precision — inspired by the "Design Engineering" philosophy.
+
+Live demo: [https://portfolio.zerox9dev.ru](https://portfolio.zerox9dev.ru)
+
+## Key Features
+
+- ⚡️ **Next.js 15 & React 19** — Utilizing the latest React features and Server Components.
+- 🎨 **Tailwind CSS v4** — Future-proof styling with a minimalist aesthetic.
+- 🎭 **Framer Motion** — Delightful, smooth micro-interactions.
+- 📝 **Sanity CMS** — Headless content management for projects and blog posts.
+- 🌐 **Multi-language Support** — Built-in i18n support (EN, RU, UA).
+- 📱 **Mobile-First** — Optimized for a perfect viewing experience on all devices.
+- 🌑 **Dark Mode** — Integrated theme switching.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+git clone https://github.com/zerox9dev/portfolio.zerox9dev.git
+cd portfolio.zerox9dev
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Framework:** Next.js 15 (App Router)
+- **Styling:** Tailwind CSS v4
+- **Animations:** Framer Motion
+- **CMS:** Sanity.io
+- **Deployment:** Vercel
 
-## Learn More
+## About
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This portfolio is a reflection of my focus on engineering excellence and design precision. I build software where **function is beauty**, ensuring that every detail serves a purpose.
