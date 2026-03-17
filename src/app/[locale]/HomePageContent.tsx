@@ -87,12 +87,36 @@ export default function HomePageContent({
             <span className="text-sm text-neutral-400 dark:text-neutral-500">Design Engineer</span>
           </div>
         </div>
+        {contactData && (
+          <div className="flex gap-2">
+            <button
+              onClick={() => window.open(contactData.bookCallUrl, '_blank')}
+              className="bg-neutral-200/50 hover:bg-neutral-100 text-black px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1"
+              aria-label={contactData.bookCallAriaLabel}
+            >
+              {contactData.bookCallButtonText}
+            </button>
+            <button
+              onClick={() => window.open(contactData.telegramUrl, '_blank')}
+              className="border border-neutral-200 dark:border-neutral-800 text-black px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+              aria-label={contactData.buttonAriaLabel}
+            >
+              <Image
+                src="/tglogo.svg"
+                alt="Telegram"
+                width={12}
+                height={12}
+                className="w-3 h-3"
+              />
+              {contactData.buttonText}
+            </button>
+          </div>
+        )}
       </header>
       {headers?.aboutMeTitle && <SectionDivider title={headers.aboutMeTitle} />}
       <Intro
         body={introData.body}
         availabilityText={introData.availabilityText}
-        contactData={contactData}
       />
       {headers?.projectsTitle && projectEntries.length > 0 && <SectionDivider title={headers.projectsTitle} />}
       {projectEntries.length > 0 && (
