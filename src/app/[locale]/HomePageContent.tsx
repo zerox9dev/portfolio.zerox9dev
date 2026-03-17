@@ -160,8 +160,10 @@ export default function HomePageContent({
                 href={locale === 'en' ? `/blog/${post.fields.slug}` : `/${locale}/blog/${post.fields.slug}`}
                 className="transition hover:text-neutral-950 dark:hover:text-neutral-100"
               >
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="text-sm font-semibold">{post.fields.title}</h3>
+                <div className="flex items-center justify-between gap-3">
+                  <h3 className="text-sm font-normal line-clamp-1 hover:text-neutral-400 dark:hover:text-white-400">
+                    {post.fields.title}
+                  </h3>
                   {post.fields.publishedAt && (
                     <time
                       dateTime={post.fields.publishedAt}

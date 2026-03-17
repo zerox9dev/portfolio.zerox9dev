@@ -12,7 +12,7 @@ export default function PortableTextRenderer({ value }: PortableTextRendererProp
   const portableTextValue = value as unknown as Array<{ _type: string; [key: string]: unknown }>
 
   return (
-    <div className="prose prose-neutral dark:prose-invert max-w-none">
+    <div className="prose prose-neutral dark:prose-invert max-w-none text-neutral-400 dark:text-neutral-400">
       <SanityPortableText value={portableTextValue} />
     </div>
   )

@@ -72,7 +72,7 @@ export const Project: FC<ProjectProps> = ({
         />
         <div className="mr-4 w-full">
           <h2 className="text-base font-medium font-bold">{title}</h2>
-          <span className="block text-sm font-normal text-muted-foreground line-clamp-1">
+          <span className="block text-sm font-normal text-neutral-400 dark:text-neutral-400 line-clamp-1">
             {strapline}
           </span>
         </div>
