@@ -3,7 +3,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ThemeToggle } from '@/components/ThemeToggle'
+import { ThemeToggleText } from '@/components/ThemeToggleText'
 import PortableTextRenderer from '@/components/PortableTextRenderer'
 import { TypeBlogPost } from '@/types/sanity'
 
@@ -14,7 +14,7 @@ interface BlogPostPageProps {
   avatarAlt?: string
 }
 
-export default function BlogPostPage({ post, locale, avatarSrc = '/images/logo.ico', avatarAlt = 'zerox9dev' }: BlogPostPageProps) {
+export default function BlogPostPage({ post, locale, avatarSrc = '/images/logo.ico', avatarAlt = 'Vadym Mirvald' }: BlogPostPageProps) {
   const backHref = locale === 'en' ? '/' : `/${locale}`
   const [gmtPlusOneTime, setGmtPlusOneTime] = React.useState('')
   const dateFormatter = React.useMemo(
@@ -49,13 +49,16 @@ export default function BlogPostPage({ post, locale, avatarSrc = '/images/logo.i
           <Image
             src={avatarSrc}
             alt={avatarAlt}
-            width={40}
-            height={40}
-            className="h-10 w-10 rounded-full border border-neutral-200 object-cover"
+            width={52}
+            height={52}
+            priority
+            className="h-13 w-13 rounded-full border border-neutral-200 object-cover"
           />
-          <span className="text-base font-semibold tracking-tight">zerox9dev</span>
+          <div className="flex flex-col">
+            <span className="text-base font-semibold tracking-tight">zerox9dev</span>
+            <span className="text-sm text-neutral-400 dark:text-neutral-500">Design Engineer</span>
+          </div>
         </div>
-        <ThemeToggle />
       </header>
 
       <article className="bg-white dark:bg-black">
@@ -78,9 +81,12 @@ export default function BlogPostPage({ post, locale, avatarSrc = '/images/logo.i
         </div>
       </article>
 
-      <footer className="mt-auto flex items-center justify-between border-t border-neutral-100 pt-4 text-md dark:border-neutral-800">
-        <span className="text-md text-neutral-400 dark:text-neutral-500">© 2026 zerox9dev</span>
-        <span className="text-md text-neutral-400 dark:text-neutral-500">GMT+1 : {gmtPlusOneTime || '--:--'}</span>
+      <footer className="mt-auto flex items-center justify-between border-t border-neutral-100 pt-4 text-xs dark:border-neutral-800">
+        <span className="text-xs text-neutral-400 dark:text-neutral-500">© 2026 Vadym Mirvald</span>
+        <div className="flex items-center gap-4">
+          <ThemeToggleText />
+          <span className="text-xs text-neutral-400 dark:text-neutral-500">GMT+1 : {gmtPlusOneTime || '--:--'}</span>
+        </div>
       </footer>
     </main>
   )

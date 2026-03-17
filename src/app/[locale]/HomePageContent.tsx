@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Intro } from '@/components/Intro'
 import { Project } from '@/components/Project'
 import { SectionDivider } from '@/components/SectionDivider'
-import { ThemeToggle } from '@/components/ThemeToggle'
+import { ThemeToggleText } from '@/components/ThemeToggleText'
 import Image from 'next/image'
 import { buildSanityImageUrl } from '@/lib/sanity'
 import { TypeIntroFields, TypeProject, TypeBlogPost, TypeContactFields, TypePageHeadersFields } from '@/types/sanity'
@@ -67,7 +67,7 @@ export default function HomePageContent({
   if (!introData) return null
 
   const filteredProjects = projectEntries.filter((project) => project.fields?.category === activeCategory)
-  const avatarSrc = buildSanityImageUrl(introData.avatar, { width: 64, height: 64 }) || '/images/logo.ico'
+  const avatarSrc = buildSanityImageUrl(introData.avatar, { width: 104, height: 104 }) || '/images/logo.ico'
   const avatarAlt = introData.avatar.description || introData.avatar.alt || 'Avatar'
 
   return (
@@ -77,13 +77,16 @@ export default function HomePageContent({
           <Image
             src={avatarSrc}
             alt={avatarAlt}
-            width={40}
-            height={40}
-            className="h-10 w-10 rounded-full border border-neutral-200 object-cover"
+            width={52}
+            height={52}
+            priority
+            className="h-13 w-13 rounded-full border border-neutral-200 object-cover"
           />
-          <span className="text-base font-semibold tracking-tight">zerox9dev</span>
+          <div className="flex flex-col">
+            <span className="text-base font-semibold tracking-tight">Vadym Mirvald</span>
+            <span className="text-sm text-neutral-400 dark:text-neutral-500">Design Engineer</span>
+          </div>
         </div>
-        <ThemeToggle />
       </header>
       {headers?.aboutMeTitle && <SectionDivider title={headers.aboutMeTitle} />}
       <Intro
@@ -149,9 +152,12 @@ export default function HomePageContent({
           </div>
         </div>
       )}
-      <footer className="mt-auto flex items-center justify-between border-t border-neutral-100 pt-4 text-md  dark:border-neutral-800">
-        <span className="text-md text-neutral-400 dark:text-neutral-500">© 2026 zerox9dev</span>
-        <span className="text-md text-neutral-400 dark:text-neutral-500">GMT+1 : {gmtPlusOneTime || '--:--'}</span>
+      <footer className="mt-auto flex items-center justify-between border-t border-neutral-100 pt-4 text-xs dark:border-neutral-800">
+        <span className="text-xs text-neutral-400 dark:text-neutral-500">© 2026 Vadym Mirvald</span>
+        <div className="flex items-center gap-4">
+          <ThemeToggleText />
+          <span className="text-xs text-neutral-400 dark:text-neutral-500">GMT+1 : {gmtPlusOneTime || '--:--'}</span>
+        </div>
       </footer>
     </main>
   )
