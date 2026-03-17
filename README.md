@@ -1,12 +1,10 @@
 <img src="/public/opengraph-image.png" alt="Vadym Mirvald portfolio" width="100%" />
 
-# Vadym Mirvald — Design Engineer
-
 Minimalist, high-performance personal portfolio built with **Next.js 15**, **React 19**, **Tailwind CSS**, and **Framer Motion**. Powered by **Sanity CMS** for dynamic content.
 
 Designed for clarity, aesthetics, and precision — inspired by the "Design Engineering" philosophy.
 
-Live demo: [https://portfolio.zerox9dev.ru](https://portfolio.zerox9dev.ru)
+Live: [https://zerox9dev.com](https://zerox9dev.com)
 
 ## Key Features
 
