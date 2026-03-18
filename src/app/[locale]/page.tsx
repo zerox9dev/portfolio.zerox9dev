@@ -1,4 +1,11 @@
-import { fetchHomePageData } from '@/lib/sanity'
+import { getIntroContent } from '@/content/intro'
+import { getBlogEntries } from '@/lib/blog-content'
+import {
+  getArchivedProjectEntries,
+  getFeaturedProjectEntries,
+  getProjectEntries,
+} from '@/lib/project-content'
+import { getSiteDictionary } from '@/lib/site-copy'
 import HomePageContent from './HomePageContent'
 import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
@@ -29,19 +36,24 @@ export default async function Home({ params }: HomeProps) {
     notFound()
   }
 
-  const { introData, projectEntries, blogEntries, contactData, pageHeaders } = await fetchHomePageData(locale)
-  const safeIntroData = introData ?? { body: [], avatar: {} }
+  const [allProjectEntries, blogEntries] = await Promise.all([
+    getProjectEntries(routeLocale as 'ru' | 'ua'),
+    getBlogEntries(routeLocale as 'ru' | 'ua'),
+  ])
+  const projectEntries = getFeaturedProjectEntries(allProjectEntries)
+  const archivedProjectEntries = getArchivedProjectEntries(allProjectEntries)
+  const introData = getIntroContent(routeLocale as 'ru' | 'ua')
+  const dictionary = getSiteDictionary(routeLocale as 'ru' | 'ua')
 
   // Render the client component with the fetched data
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>{dictionary.messages.loading}</div>}>
       <HomePageContent
         locale={routeLocale as 'ru' | 'ua'}
-        introData={safeIntroData}
+        introData={introData}
         projectEntries={projectEntries}
+        archivedProjectEntries={archivedProjectEntries}
         blogEntries={blogEntries}
-        contactData={contactData}
-        pageHeaders={pageHeaders}
       />
     </Suspense>
   )

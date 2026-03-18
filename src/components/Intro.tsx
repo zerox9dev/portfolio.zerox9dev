@@ -1,28 +1,34 @@
+'use client'
 
+import { motion } from 'framer-motion'
 import { FC } from 'react'
-import Image from 'next/image'
-import { PortableText } from '@/types/sanity'
-import PortableTextRenderer from '@/components/PortableTextRenderer'
+import { RichText } from '@/types/content'
+import RichTextRenderer from '@/components/RichTextRenderer'
 
 type IntroProps = {
-  body: PortableText
-  availabilityText?: string
+  body: RichText
 }
 
-export const Intro: FC<IntroProps> = ({ body, availabilityText }) => {
+export const Intro: FC<IntroProps> = ({ body }) => {
   return (
-    <div className="flex flex-col gap-2 bg-white dark:bg-black rounded-xl">
-      {availabilityText && (
-        <p className="text-sm text-green-600 dark:text-green-400 font-medium inline-flex items-center gap-2">
-          <span className="w-2 h-2 bg-green-500 border-2 border-green-200 rounded-full animate-pulse" aria-hidden="true" />
-          {availabilityText}
-        </p>
-      )}
-      <div className="text-lg font-normal leading-normal [text-wrap:pretty] text-neutral-500 dark:text-neutral-400">
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ duration: 0.45, ease: 'easeOut' }}
+      className="rounded-xl bg-white dark:bg-black"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ delay: 0.08, duration: 0.4, ease: 'easeOut' }}
+        className="text-lg font-normal leading-normal [text-wrap:pretty] text-neutral-500 dark:text-neutral-400"
+      >
         <div className="[&_p]:m-0 [&_p:not(:last-child)]:mb-1">
-          <PortableTextRenderer value={body} />
+          <RichTextRenderer value={body} />
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   )
 }

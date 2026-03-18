@@ -1,0 +1,40 @@
+---
+title: BuyCrypt News
+slug: buycrypt-news
+strapline: News content automation with parsing and publishing
+category: Разработка
+tech:
+  - Python
+  - Claude AI
+  - Redis
+  - MongoDB
+logo:
+  asset:
+    url: /images/logo.ico
+  description: BuyCrypt News logo
+media:
+  - asset:
+      url: /cover.png
+    description: BuyCrypt News moderation and publishing workflow
+  - asset:
+      url: /cover.png
+    description: BuyCrypt News parsing and content generation pipeline
+---
+
+## Task
+
+I was approached by the owner of the BuyCrypt channel. He said: "I spend 6 hours every day searching for news, rewriting it, creating images, and publishing everything." The goal was to automate the entire workflow while preserving content quality. The system also had to work in two languages, Russian and English, with moderation before publication.
+
+## Solution
+
+I built a full news automation pipeline. I created an RSS parser for 50+ crypto news sources with smart duplicate detection and quality filters. Claude AI was integrated for content rewriting, so the system can analyze the original article and generate a unique version while preserving the facts.
+
+I added automatic image generation through GPT-Image with prompts tailored to each story. I also built a Redis-based queue system to process a large flow of news without losing items.
+
+For moderation, I created a Telegram bot where a human can approve or reject an article in about 10 seconds before publication. The system then automatically publishes to Telegram channels with adaptation for each language.
+
+The entire architecture is asynchronous in Python, with MongoDB used for fast access to data and publication history.
+
+## Result
+
+The system now generates unique articles every day instead of relying on a fully manual workflow. Content management time dropped from 6 hours to around 30 minutes of moderation. The channels started growing faster thanks to consistent, high-quality content, and the owner can now focus on strategy instead of routine work.

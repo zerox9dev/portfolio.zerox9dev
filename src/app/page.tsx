@@ -1,22 +1,34 @@
 import { Suspense } from 'react'
-import { fetchHomePageData } from '@/lib/sanity'
+import { getIntroContent } from '@/content/intro'
+import { getBlogEntries } from '@/lib/blog-content'
+import {
+  getArchivedProjectEntries,
+  getFeaturedProjectEntries,
+  getProjectEntries,
+} from '@/lib/project-content'
+import { getSiteDictionary } from '@/lib/site-copy'
 import HomePageContent from './[locale]/HomePageContent'
 
 export const revalidate = 60
 
 export default async function RootPage() {
-  const { introData, projectEntries, blogEntries, contactData, pageHeaders } = await fetchHomePageData('en')
-  const safeIntroData = introData ?? { body: [], avatar: {} }
+  const [allProjectEntries, blogEntries] = await Promise.all([
+    getProjectEntries('en'),
+    getBlogEntries('en'),
+  ])
+  const projectEntries = getFeaturedProjectEntries(allProjectEntries)
+  const archivedProjectEntries = getArchivedProjectEntries(allProjectEntries)
+  const introData = getIntroContent('en')
+  const dictionary = getSiteDictionary('en')
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>{dictionary.messages.loading}</div>}>
       <HomePageContent
         locale="en"
-        introData={safeIntroData}
+        introData={introData}
         projectEntries={projectEntries}
+        archivedProjectEntries={archivedProjectEntries}
         blogEntries={blogEntries}
-        contactData={contactData}
-        pageHeaders={pageHeaders}
       />
     </Suspense>
   )

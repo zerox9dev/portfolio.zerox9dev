@@ -4,7 +4,19 @@ import * as React from 'react'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 
-export const ThemeToggleText = () => {
+type ThemeToggleTextProps = {
+  labels?: Record<'light' | 'dark' | 'system', string>
+  ariaLabel?: string
+}
+
+export const ThemeToggleText = ({
+  labels = {
+    light: 'light',
+    dark: 'dark',
+    system: 'system',
+  },
+  ariaLabel = 'Toggle theme',
+}: ThemeToggleTextProps) => {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -24,9 +36,9 @@ export const ThemeToggleText = () => {
     <button
       onClick={() => setTheme(nextTheme)}
       className="text-md text-neutral-400 dark:text-neutral-500 hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors cursor-pointer capitalize"
-      aria-label="Toggle theme"
+      aria-label={ariaLabel}
     >
-      {theme || 'system'}
+      {labels[(theme as 'light' | 'dark' | 'system') || 'system']}
     </button>
   )
 }

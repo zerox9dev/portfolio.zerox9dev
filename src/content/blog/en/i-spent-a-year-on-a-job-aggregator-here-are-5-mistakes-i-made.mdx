@@ -1,0 +1,94 @@
+---
+title: I spent a year on a job aggregator. Here are 5 mistakes I made
+slug: i-spent-a-year-on-a-job-aggregator-here-are-5-mistakes-i-made
+excerpt: A year of building a job aggregator taught me that better tech and cleaner UI do not automatically create demand.
+publishedAt: 2026-02-13
+---
+
+About a year ago, I started building a job aggregator.
+
+The idea came from a personal pain point: freelance -> full-time -> freelance again. Each time, job search meant dozens of tabs — DOU, Djinni, LinkedIn, Work.ua, and others.
+
+I decided to collect everything in one place.
+
+## Early Results
+
+At the beginning, I:
+
+- connected several job sources;
+- implemented basic data normalization;
+- set up analytics (Amplitude, Google Search Console);
+- optimized pages for SEO.
+
+Without ads, the site was getting 5–6 new users per day.
+Around 500 visitors and 2,000+ page views in the first month.
+
+Reasonable for a side project.
+
+## Tech Stack
+
+- Frontend — Next.js.
+- Database — Supabase.
+- Hosting — Vercel.
+- Parsing — n8n automations + custom scripts.
+
+The architecture worked but wasn’t stable for growth.
+
+## Domain Issue and SEO Drop
+
+At some point, a domain verification issue led to temporary suspension.
+
+Consequences:
+
+- pages dropped from index;
+- organic traffic declined;
+- growth stopped.
+
+If your growth depends entirely on SEO, it’s fragile.
+
+## Infrastructure Limits
+
+Later I faced:
+
+- Vercel limits;
+- bot traffic consuming resources;
+- unstable parsing from some sources.
+
+I was optimizing code instead of validating demand.
+
+## Architecture Rewrite
+
+After a pause, I rebuilt the system:
+
+- separated backend into a standalone API;
+- cron-based ingestion modules;
+- Redis caching;
+- removed unnecessary admin tools;
+- kept 4 stable sources.
+
+Technically improved.
+User growth didn’t change.
+
+## The Core Mistake
+
+I tried to build a better version of DOU and Djinni.
+
+Better filters. Cleaner structure.
+
+But users don’t switch platforms because of cleaner UI.
+They stay because of trust and network effects.
+
+## What I Learned
+
+- Technology is not the main barrier anymore.
+- Rewriting code doesn’t fix lack of demand.
+- Single-channel traffic is risky.
+- Marketing can’t be postponed.
+- Without distribution, it’s just a side project.
+
+## What’s Next
+
+Now the focus is not new features, but validating demand and building audience.
+
+Building is easier than ever.
+Being needed is not.

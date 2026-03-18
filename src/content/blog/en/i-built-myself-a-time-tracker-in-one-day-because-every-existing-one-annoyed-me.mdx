@@ -1,0 +1,42 @@
+---
+title: I built myself a time tracker in one day because every existing one annoyed me
+slug: i-built-myself-a-time-tracker-in-one-day-because-every-existing-one-annoyed-me
+excerpt: After trying every popular tracker, I built my own keyboard-first time tracker in a day because all the existing tools felt overpriced or overcomplicated.
+publishedAt: 2026-02-23
+---
+
+I'm a freelancer. I track time every day. Over the past year I've tried Toggl, Clockify, Harvest and a couple of Notion spreadsheets. Same story every time: either expensive for basic features, or free but the UI feels like a nuclear power plant control panel.
+
+Toggl wants $13/mo for decent filters. Clockify is free, but getting to the timer takes five clicks. Harvest — $11 for a timer. Just a timer.
+
+All I need is simple: hit Space — working. Hit it again — stopped. End of month — invoice. That's it.
+
+## Vibe-coded in a day
+
+I'm a designer and I code my own projects. At some point I thought — why am I paying for something I can build myself in an evening? Well, it took a day, not an evening, but still.
+
+Pretty standard stack: Next.js 16, React 19, Supabase for auth and database, Vercel for deployment. Made the database as simple as possible — one table `user_app_state` with JSONB for clients and sessions. Not normalized, yeah. For an MVP — perfect. Fewer migrations, less headache.
+
+Morning: sketched out the structure. Afternoon: built the tracker. Keyboard-first — Space to start/stop, Enter to add a client, Escape to close. No modals where you can avoid them. Evening: hooked up Google Auth via Supabase, built the landing page, deployed. Night: polished invoice export and CSV.
+
+## Current state
+
+It's not perfect. I bump into bugs now and then. But I already track all my time exclusively through it — and every time something breaks, I fix it right away. Real-time dogfooding.
+
+## What it does
+
+- Space key timer
+- Clients -> Projects -> Tasks
+- Statuses: PENDING -> ACTIVE -> DONE
+- Manual session entry (because sometimes you forget to hit start)
+- PDF invoice in one click
+- CSV export
+- Google auth + cloud sync
+- localStorage fallback — works offline
+- Dark/Light theme
+
+## What's next
+
+No plans to monetize yet. The project is completely free and open-source (Apache 2.0). If it's useful to you — go ahead and use it. Found a bug — open an issue. Want a feature — PR welcome.
+
+[logr-nine.vercel.app](https://logr-nine.vercel.app) · [github.com/zerox9dev/logr](https://github.com/zerox9dev/logr)

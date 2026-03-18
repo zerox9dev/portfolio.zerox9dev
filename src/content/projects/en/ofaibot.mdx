@@ -1,0 +1,38 @@
+---
+title: Ofaibot
+slug: ofaibot
+strapline: AI-powered communication automation through a Telegram userbot
+category: Разработка
+tech:
+  - Python
+  - Telethon
+  - Supabase
+  - Redis
+logo:
+  asset:
+    url: /images/logo.ico
+  description: Ofaibot logo
+media:
+  - asset:
+      url: /cover.png
+    description: Ofaibot admin panel and account management
+  - asset:
+      url: /cover.png
+    description: Ofaibot AI communication flow and moderation handoff
+---
+
+## Task
+
+I was approached by a model manager who said: "I manage 15+ accounts and need to reply to hundreds of messages every day. I physically can't keep up, and clients wait hours for a response." The goal was to automate Telegram communication while keeping the ability to control conversations manually when needed.
+
+## Solution
+
+I built an automation system around a Telegram userbot with smart routing logic. I created an admin panel through a Telegram bot where it is possible to manage an unlimited number of userbot accounts from one place.
+
+I integrated Claude AI for natural conversation flow, since it showed the best results in emotional intelligence and contextual understanding. I added a stop-word system: when a client asks for photos or special content, the admin instantly receives a notification so the dialogue can be handed over manually.
+
+I also implemented message batching to avoid flooding and smart delays between replies to simulate human communication. Supabase handles the database, Redis handles queues and fast access, and the entire architecture is fully asynchronous in Python with Telethon managing userbot sessions.
+
+## Result
+
+The system processes hundreds of conversations at the same time while preserving a natural tone of communication. Response time dropped from hours to minutes. The manager can now focus only on high-value dialogues where human intervention is necessary. Automation covered 70% of routine conversations while keeping control over critical moments.

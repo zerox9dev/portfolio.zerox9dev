@@ -1,6 +1,6 @@
-import { PortableText } from '@/types/sanity';
+import { RichText } from '@/types/content';
 
-export function portableTextToParagraphs(value?: PortableText): string[] {
+export function portableTextToParagraphs(value?: RichText): string[] {
   if (!Array.isArray(value)) return [];
 
   return value
@@ -14,6 +14,6 @@ export function portableTextToParagraphs(value?: PortableText): string[] {
     .filter(Boolean);
 }
 
-export function portableTextToText(value?: PortableText): string {
+export function portableTextToText(value?: RichText): string {
   return portableTextToParagraphs(value).join('\n\n');
 }

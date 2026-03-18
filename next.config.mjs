@@ -4,13 +4,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn.sanity.io',
+        hostname: 'framerusercontent.com',
         port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: 'framerusercontent.com',
+        hostname: 'api.dicebear.com',
         port: '',
         pathname: '/**',
       },

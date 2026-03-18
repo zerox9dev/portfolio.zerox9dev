@@ -1,47 +1,43 @@
 'use client'
 
-import * as React from 'react';
+import * as React from 'react'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Intro } from '@/components/Intro'
+import { LocaleToggleText } from '@/components/LocaleToggleText'
 import { Project } from '@/components/Project'
+import RoleTooltip from '@/components/RoleTooltip'
 import { SectionDivider } from '@/components/SectionDivider'
 import { ThemeToggleText } from '@/components/ThemeToggleText'
 import Image from 'next/image'
-import { buildSanityImageUrl } from '@/lib/sanity'
-import { TypeIntroFields, TypeProject, TypeBlogPost, TypeContactFields, TypePageHeadersFields } from '@/types/sanity'
+import { type IntroContent } from '@/content/intro'
+import { getContactLinks, getLocaleTag, getSiteDictionary, type SiteLocale } from '@/lib/site-copy'
+import { BlogPostEntry, ProjectPageData } from '@/types/content'
 
 interface HomePageContentProps {
-  locale: 'en' | 'ru' | 'ua'
-  introData: TypeIntroFields
-  projectEntries: TypeProject[]
-  blogEntries: TypeBlogPost[]
-  contactData?: TypeContactFields
-  pageHeaders?: TypePageHeadersFields
+  locale: SiteLocale
+  introData: IntroContent
+  projectEntries: ProjectPageData[]
+  archivedProjectEntries: ProjectPageData[]
+  blogEntries: BlogPostEntry[]
 }
 
 export default function HomePageContent({
   locale,
   introData,
   projectEntries,
+  archivedProjectEntries,
   blogEntries,
-  contactData,
-  pageHeaders,
 }: HomePageContentProps) {
-  const headers = pageHeaders
-
-  const [activeCategory, setActiveCategory] = React.useState<'Дизайн' | 'Разработка'>('Дизайн')
+  const dictionary = getSiteDictionary(locale)
+  const contactLinks = getContactLinks()
+  const pathname = usePathname()
   const [gmtPlusOneTime, setGmtPlusOneTime] = React.useState('')
-  const filledButtonClass =
-    'bg-neutral-200/50 hover:bg-neutral-100 text-black px-4 py-2 rounded-xl text-sm font-medium transition-colors flex items-center gap-2'
-  const outlineButtonClass =
-    'border border-neutral-200 text-black px-4 py-2 rounded-xl text-sm font-medium transition-colors flex items-center gap-2 hover:bg-neutral-100'
-  const categoryOptions = [
-    { value: 'Дизайн' as const, label: headers?.designCategory || 'Design' },
-    { value: 'Разработка' as const, label: headers?.developmentCategory || 'Development' },
-  ]
+  const [showArchivedProjects, setShowArchivedProjects] = React.useState(false)
   const dateFormatter = React.useMemo(
     () =>
-      new Intl.DateTimeFormat(locale === 'ua' ? 'uk-UA' : locale === 'ru' ? 'ru-RU' : 'en-US', {
+      new Intl.DateTimeFormat(getLocaleTag(locale), {
         day: '2-digit',
         month: 'short',
         year: 'numeric',
@@ -64,95 +60,141 @@ export default function HomePageContent({
     return () => clearInterval(timer)
   }, [])
 
-  if (!introData) return null
+  const localeLinks = React.useMemo(() => {
+    const path = pathname || '/'
 
-  const filteredProjects = projectEntries.filter((project) => project.fields?.category === activeCategory)
-  const avatarSrc = buildSanityImageUrl(introData.avatar, { width: 104, height: 104 }) || '/images/logo.ico'
-  const avatarAlt = introData.avatar.description || introData.avatar.alt || 'Avatar'
+    const stripLocalePrefix = (value: string) => {
+      if (value === '/ru' || value === '/ua') return '/'
+      if (value.startsWith('/ru/')) return value.slice(3)
+      if (value.startsWith('/ua/')) return value.slice(3)
+      return value
+    }
+
+    const basePath = stripLocalePrefix(path)
+
+    return {
+      en: basePath,
+      ru: basePath === '/' ? '/ru' : `/ru${basePath}`,
+      ua: basePath === '/' ? '/ua' : `/ua${basePath}`,
+    }
+  }, [pathname])
 
   return (
     <main className="mx-auto flex min-h-[100dvh] max-w-[496px] flex-col gap-8 px-4 py-8 md:px-0 md:py-4 antialiased">
       <header className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Image
-            src={avatarSrc}
-            alt={avatarAlt}
+            src={introData.avatarSrc}
+            alt={introData.avatarAlt}
             width={52}
             height={52}
             priority
             className="h-13 w-13 rounded-full border border-neutral-200 object-cover"
           />
           <div className="flex flex-col">
-            <span className="text-base font-semibold tracking-tight">Vadym Mirvald</span>
-            <span className="text-sm text-neutral-400 dark:text-neutral-500">Design Engineer</span>
+            <span className="text-base font-semibold tracking-tight">{dictionary.profileName}</span>
+            <RoleTooltip
+              role={dictionary.role}
+              text={dictionary.roleTooltip}
+            />
           </div>
         </div>
-        {contactData && (
+        <div className="flex items-center gap-2">
+          {introData.availabilityText && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.05, duration: 0.35, ease: 'easeOut' }}
+              className="hidden sm:flex"
+            >
+              <span className="inline-flex items-center gap-2 rounded-full bg-green-50 px-3 py-1 text-xs font-medium text-green-700 dark:bg-green-500/10 dark:text-green-300">
+                <span className="relative flex h-2.5 w-2.5" aria-hidden="true">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400/50" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
+                </span>
+                {introData.availabilityText}
+              </span>
+            </motion.div>
+          )}
+        {(contactLinks.bookCallUrl || contactLinks.telegramUrl) && (
           <div className="flex gap-2">
-            <button
-              onClick={() => window.open(contactData.bookCallUrl, '_blank')}
-              className="bg-neutral-200/50 hover:bg-neutral-100 text-black px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1"
-              aria-label={contactData.bookCallAriaLabel}
-            >
-              {contactData.bookCallButtonText}
-            </button>
-            <button
-              onClick={() => window.open(contactData.telegramUrl, '_blank')}
-              className="border border-neutral-200 dark:border-neutral-800 text-black px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 hover:bg-neutral-100 dark:hover:bg-neutral-800"
-              aria-label={contactData.buttonAriaLabel}
-            >
-              <Image
-                src="/tglogo.svg"
-                alt="Telegram"
-                width={12}
-                height={12}
-                className="w-3 h-3"
-              />
-              {contactData.buttonText}
-            </button>
+            {contactLinks.bookCallUrl && (
+              <button
+                onClick={() => window.open(contactLinks.bookCallUrl, '_blank', 'noopener,noreferrer')}
+                className="bg-neutral-200/50 hover:bg-neutral-100 text-black px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1"
+                aria-label={dictionary.actions.bookCallAriaLabel}
+              >
+                {dictionary.actions.bookCall}
+              </button>
+            )}
+            {contactLinks.telegramUrl && (
+              <button
+                onClick={() => window.open(contactLinks.telegramUrl, '_blank', 'noopener,noreferrer')}
+                className="border border-neutral-200 dark:border-neutral-800 text-black px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                aria-label={dictionary.actions.telegramAriaLabel}
+              >
+                <Image
+                  src="/tglogo.svg"
+                  alt="Telegram"
+                  width={12}
+                  height={12}
+                  className="w-3 h-3"
+                />
+                {dictionary.actions.telegram}
+              </button>
+            )}
           </div>
         )}
+        </div>
       </header>
-      {headers?.aboutMeTitle && <SectionDivider title={headers.aboutMeTitle} />}
-      <Intro
-        body={introData.body}
-        availabilityText={introData.availabilityText}
-      />
-      {headers?.projectsTitle && projectEntries.length > 0 && <SectionDivider title={headers.projectsTitle} />}
+      <SectionDivider title={dictionary.sections.about} />
+      <Intro body={introData.body} />
+      <SectionDivider title={dictionary.sections.projects} />
       {projectEntries.length > 0 && (
-        <div className="bg-white dark:bg-black rounded-xl">
-          <div className="mb-4 flex gap-2">
-            {categoryOptions.map((category) => (
-              <button
-                key={category.value}
-                onClick={() => setActiveCategory(category.value)}
-                className={`whitespace-nowrap ${
-                  activeCategory === category.value
-                    ? filledButtonClass
-                    : outlineButtonClass
-                }`}
-              >
-                {category.label}
-              </button>
-            ))}
-          </div>
-          <div className="grid grid-cols-1 gap-x-12 gap-y-6 md:grid-cols-1 mt-4">
-            {filteredProjects.map((project) => (
+        <div className="flex flex-col bg-white dark:bg-black  gap-4">
+          <div className="grid grid-cols-1 gap-x-12 gap-y-6 md:grid-cols-1">
+            {projectEntries.map((project) => (
               <div className="group relative flex flex-col" key={project._id}>
-                {project.fields && <Project {...project.fields} pageHeaders={pageHeaders} />}
+                {project.fields && (
+                  <Project {...project.fields}>
+                    {project.content}
+                  </Project>
+                )}
               </div>
             ))}
+            {showArchivedProjects &&
+              archivedProjectEntries.map((project) => (
+                <div className="group relative flex flex-col" key={project._id}>
+                  {project.fields && (
+                    <Project {...project.fields}>
+                      {project.content}
+                    </Project>
+                  )}
+                </div>
+              ))}
           </div>
+          {archivedProjectEntries.length > 0 && !showArchivedProjects && (
+            <div className="flex justify-center">
+              <button
+                type="button"
+                onClick={() => setShowArchivedProjects((value) => !value)}
+                className="text-sm text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+              >
+                {`${dictionary.actions.moreProjects} (${archivedProjectEntries.length})`}
+              </button>
+            </div>
+          )}
         </div>
       )}
       {projectEntries.length === 0 && (
         <div className="rounded-xl border border-dashed border-muted-foreground/30 p-4 text-sm text-muted-foreground">
-          No published projects found in Sanity for this locale yet.
+          {dictionary.messages.noProjects}
         </div>
       )}
-      {headers?.blogTitle && blogEntries.length > 0 && <SectionDivider title={headers.blogTitle} />}
+      <SectionDivider title={dictionary.sections.blog} />
       {blogEntries.length > 0 && (
-        <div className="bg-white dark:bg-black rounded-xl">
+        <div className="bg-white dark:bg-black">
           <div className="flex flex-col gap-3">
             {blogEntries.map((post) => (
               <Link
@@ -178,11 +220,22 @@ export default function HomePageContent({
           </div>
         </div>
       )}
+      {blogEntries.length === 0 && (
+        <div className="rounded-xl border border-dashed border-muted-foreground/30 p-4 text-sm text-muted-foreground">
+          {dictionary.messages.noBlogPosts}
+        </div>
+      )}
       <footer className="mt-auto flex items-center justify-between border-t border-neutral-100 pt-4 text-xs dark:border-neutral-800">
-        <span className="text-xs text-neutral-400 dark:text-neutral-500">© 2026 Vadym Mirvald</span>
+        <span className="text-xs text-neutral-400 dark:text-neutral-500">© 2026</span>
         <div className="flex items-center gap-4">
-          <ThemeToggleText />
-          <span className="text-xs text-neutral-400 dark:text-neutral-500">GMT+1 : {gmtPlusOneTime || '--:--'}</span>
+          <LocaleToggleText locale={locale} hrefs={localeLinks} />
+          <ThemeToggleText
+            labels={dictionary.theme.names}
+            ariaLabel={dictionary.theme.label}
+          />
+          <span className="text-xs text-neutral-400 dark:text-neutral-500">
+            {dictionary.messages.timezone} : {gmtPlusOneTime || '--:--'}
+          </span>
         </div>
       </footer>
     </main>

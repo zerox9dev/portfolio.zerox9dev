@@ -1,0 +1,42 @@
+---
+title: Zadarma Audio Extractor
+slug: zadarma-audio-extractor
+strapline: Custom n8n node for telephony integration and call recording extraction
+category: Разработка
+tech:
+  - n8n
+  - Node.js
+  - Python
+  - API Integration
+logo:
+  asset:
+    url: /images/logo.ico
+  description: Zadarma Audio Extractor logo
+media:
+  - asset:
+      url: /cover.png
+    description: Zadarma Audio Extractor workflow and API integration
+  - asset:
+      url: /cover.png
+    description: Zadarma Audio Extractor configuration and automation flow
+---
+
+## Task
+
+A client came to me with the need to automate work with Zadarma telephony. Every day they had to manually log into the panel, search for call recordings from the last 24 hours, and export audio files for further processing. It took a lot of time and was prone to mistakes.
+
+The goal was to build an n8n workflow that would automatically connect to the Zadarma API, extract audio files for the last 24 hours, and pass them into the next processing step. The final result needed to be a ready-to-use workflow that could be copied into any n8n instance with support for custom API credentials.
+
+## Solution
+
+I created a full custom n8n node from scratch for integration with the Zadarma API. I implemented reliable authentication based on a working Python implementation, which ensured stable connection to the API. Then I built a workflow that logs in with user-provided API credentials, fetches call history from Zadarma, filters recordings for the last 24 hours, and outputs audio files one by one for further processing.
+
+I added a retry mechanism for failed downloads, download statistics, and a configurable file naming format. I also created a flexible configuration system through environment variables, including API keys, sandbox mode, number of days to search, and the folder for saving files.
+
+Special attention went into documentation and ease of use. I wrote a detailed README with usage examples, API notes, and a step-by-step setup guide.
+
+## Result
+
+The result was a fully functional n8n node published to npm as `n8n-nodes-zadarma`. The client received a ready workflow that can be easily integrated into any n8n installation. Audio processing time dropped from hours of manual work to an automated background process.
+
+The project includes both a Python script for local usage and a full n8n node for workflow integration. I also added GitHub Packages support for easier distribution and updates.

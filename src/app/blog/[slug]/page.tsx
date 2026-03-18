@@ -1,6 +1,7 @@
+import { getIntroContent } from '@/content/intro'
 import { notFound } from 'next/navigation'
 import BlogPostPage from '@/components/BlogPostPage'
-import { buildSanityImageUrl, fetchBlogPostBySlug, fetchHomePageData } from '@/lib/sanity'
+import { getBlogPostBySlug, getBlogStaticSlugs } from '@/lib/blog-content'
 
 interface BlogPostRouteProps {
   params: Promise<{
@@ -8,21 +9,27 @@ interface BlogPostRouteProps {
   }>
 }
 
+export async function generateStaticParams() {
+  const slugs = await getBlogStaticSlugs('en')
+  return slugs.map((slug) => ({ slug }))
+}
+
 export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
   const { slug } = await params
-  const [post, homePageData] = await Promise.all([
-    fetchBlogPostBySlug('en', slug),
-    fetchHomePageData('en'),
-  ])
+  const post = await getBlogPostBySlug('en', slug)
 
   if (!post) {
     notFound()
   }
 
-  const avatarSrc = homePageData.introData
-    ? buildSanityImageUrl(homePageData.introData.avatar, { width: 64, height: 64 }) || '/images/logo.ico'
-    : '/images/logo.ico'
-  const avatarAlt = homePageData.introData?.avatar?.description || homePageData.introData?.avatar?.alt || 'Avatar'
+  const introData = getIntroContent('en')
 
-  return <BlogPostPage post={post} locale="en" avatarSrc={avatarSrc} avatarAlt={avatarAlt} />
+  return (
+    <BlogPostPage
+      post={post}
+      locale="en"
+      avatarSrc={introData.avatarSrc}
+      avatarAlt={introData.avatarAlt}
+    />
+  )
 }
