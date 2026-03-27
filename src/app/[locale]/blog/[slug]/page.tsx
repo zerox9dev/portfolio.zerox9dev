@@ -11,12 +11,14 @@ interface BlogPostRouteProps {
 }
 
 export async function generateStaticParams() {
-  const [ruSlugs, uaSlugs] = await Promise.all([
+  const [enSlugs, ruSlugs, uaSlugs] = await Promise.all([
+    getBlogStaticSlugs('en'),
     getBlogStaticSlugs('ru'),
     getBlogStaticSlugs('ua'),
   ])
 
   return [
+    ...enSlugs.map((slug) => ({ locale: 'en', slug })),
     ...ruSlugs.map((slug) => ({ locale: 'ru', slug })),
     ...uaSlugs.map((slug) => ({ locale: 'ua', slug })),
   ]
@@ -26,22 +28,22 @@ export default async function LocalizedBlogPostRoute({ params }: BlogPostRoutePr
   const { locale, slug } = await params
   const routeLocale = locale.toLowerCase()
 
-  if (routeLocale !== 'ru' && routeLocale !== 'ua') {
+  if (routeLocale !== 'en' && routeLocale !== 'ru' && routeLocale !== 'ua') {
     notFound()
   }
 
-  const post = await getBlogPostBySlug(routeLocale as 'ru' | 'ua', slug)
+  const post = await getBlogPostBySlug(routeLocale as 'en' | 'ru' | 'ua', slug)
 
   if (!post) {
     notFound()
   }
 
-  const introData = getIntroContent(routeLocale as 'ru' | 'ua')
+  const introData = getIntroContent(routeLocale as 'en' | 'ru' | 'ua')
 
   return (
     <BlogPostPage
       post={post}
-      locale={routeLocale as 'ru' | 'ua'}
+      locale={routeLocale as 'en' | 'ru' | 'ua'}
       avatarSrc={introData.avatarSrc}
       avatarAlt={introData.avatarAlt}
     />

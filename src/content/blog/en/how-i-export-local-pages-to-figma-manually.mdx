@@ -1,0 +1,144 @@
+---
+title: How I export local pages to Figma manually
+slug: how-i-export-local-pages-to-figma-manually
+excerpt: The exact workflow I use to send a localhost page into Figma without rebuilding the screen by hand.
+publishedAt: 2026-03-27
+---
+
+Sometimes I already have the screen working locally and I do not want to recreate it in Figma from scratch.
+
+In those cases, I use a simple manual capture flow. It lets me take a real page from localhost and push it into a Figma file.
+
+This is the exact process I use.
+
+## Why I do it this way
+
+If the UI is already built, redrawing it in Figma is wasted time.
+
+I mostly use this when:
+
+- I need to quickly move a real screen into Figma
+- I want to document a flow for design or product
+- I want to capture the current implementation, not an approximation
+- I need to recapture the same route after UI changes
+
+## What Figma actually needs
+
+The whole thing works only if two parts are in place:
+
+- the page loads the Figma capture script
+- the page is opened with a special URL that contains a one-time `captureId` and an `endpoint`
+
+That is it.
+
+Once the page opens with those parameters, the script reads the DOM and sends the rendered result to Figma.
+
+## The workflow I use
+
+### 1. I make sure the page works locally
+
+First I run the project and open the route I want to capture.
+
+For example:
+
+```bash
+npm run dev
+```
+
+Then:
+
+```text
+http://localhost:5173/nfc
+```
+
+This part matters more than it looks. If the page is broken locally, Figma will capture the broken version too.
+
+### 2. I add the Figma capture script
+
+Then I add this script to the main HTML entry point:
+
+```html
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+```
+
+I usually place it near the end of `<body>`, before the main app script.
+
+If I know I will be capturing several screens, I just leave it there during development.
+
+### 3. I request a fresh captureId
+
+Every capture needs a new `captureId`.
+
+This is important:
+
+- one `captureId` works only once
+- one `captureId` captures one page
+- if I want to capture another route, I need another `captureId`
+- if I want to capture the same route again later, I still need another `captureId`
+
+Along with that, I also get an `endpoint`.
+
+### 4. I open the page with the capture parameters
+
+Instead of opening the route normally, I open it with a special hash:
+
+```text
+http://localhost:5173/nfc#figmacapture=<captureId>&figmaendpoint=<urlencoded-endpoint>&figmadelay=1000
+```
+
+This tells the page three things:
+
+- which capture to use
+- where to send the result
+- how long to wait before starting the capture
+
+I usually keep `figmadelay=1000`. If the page is heavy or needs time to load data, I increase it.
+
+On macOS I usually open it like this:
+
+```bash
+open -a "Google Chrome" "http://localhost:5173/nfc#figmacapture=<captureId>&figmaendpoint=<urlencoded-endpoint>&figmadelay=1000"
+```
+
+### 5. I wait for Figma to process it
+
+After the page opens, the script captures the DOM and sends it to Figma.
+
+Then I wait until the capture status becomes `completed`.
+
+### 6. I check the result in Figma
+
+Finally, I open the Figma file and verify that the imported frame looks right.
+
+I usually check:
+
+- whether the frame was added
+- whether the layout is complete
+- whether the page had fully loaded before capture
+- whether anything looks visually broken
+
+If the result is incomplete, I do not try to reuse the same capture. I generate a new `captureId` and repeat the flow.
+
+## What usually goes wrong
+
+Most failures are very boring.
+
+- Nothing shows up in Figma: the script was not loaded, the URL was opened without the full hash, or the `captureId` was already used.
+- The result is partial: the page had not finished rendering yet.
+- The styles look wrong: the browser page already looked wrong before capture.
+
+If the route needs more time, I just increase the delay:
+
+```text
+figmadelay=2000
+```
+
+## Final note
+
+I do not think of this as “exporting localhost to Figma”.
+
+I think of it as letting the page capture itself.
+
+The app renders locally, the Figma script reads it, and the page submits the result into the target file.
+
+That is the whole workflow.
