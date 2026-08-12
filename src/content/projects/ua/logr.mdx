@@ -1,0 +1,39 @@
+---
+title: logr
+slug: logr
+strapline: Open-source тайм-трекер для фрилансерів
+category: Разработка
+link: https://logr.work
+tech:
+  - Product Design
+  - Next.js
+  - React
+  - Supabase
+  - Vercel
+logo:
+  asset:
+    url: /projects/Logr/logo.png
+  description: Логотип logr
+media:
+  - asset:
+      url: /projects/Logr/cover.png
+    description: logr — рахуй кожну годину, виставляй рахунок за кожну хвилину
+---
+
+## Завдання
+
+Я фрилансер і щодня рахую час. Пробував Toggl, Clockify і Harvest — щоразу одна й та сама історія: або дорого за базові фічі, або безкоштовно, але інтерфейс як пульт атомної станції. Мені потрібне було просте: натиснув Space — пішов відлік, натиснув ще раз — стоп, наприкінці місяця — рахунок. Тому я вирішив зібрати трекер сам.
+
+## Рішення
+
+Я зробив повний продуктовий цикл сам — від дизайну до розробки. logr — це keyboard-first тайм-трекер: Space — старт/стоп, Enter — додати клієнта, Escape — закрити. Жодних модалок там, де без них можна обійтися.
+
+Стек навмисно легкий — Next.js, React, Supabase для авторизації та бази, Vercel для деплою. Для MVP схему залишив максимально простою: одна таблиця `user_app_state` з JSONB для клієнтів і сесій. Клієнти → Проєкти → Задачі зі статусами PENDING → ACTIVE → DONE, ручне введення сесій, PDF-рахунок в один клік та експорт у CSV, Google-авторизація з хмарною синхронізацією, fallback на localStorage для офлайну і темна/світла теми.
+
+<ProjectShot src="/projects/Logr/dashboard.png" caption="Дашборд logr з таймером, таймлайном та оплачуваними годинами" />
+
+## Результат
+
+logr запущено і він повністю open-source під Apache 2.0 — я веду весь свій тайм-трекінг виключно через нього і лагоджу баги в міру того, як на них натрапляю. Справжній dogfooding. Користуватися може будь-хто безкоштовно: знайшов баг — відкрий issue, потрібна фіча — welcome з PR.
+
+[logr.work](https://logr.work) · [github.com/zerox9dev/logr](https://github.com/zerox9dev/logr)

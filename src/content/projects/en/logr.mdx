@@ -1,0 +1,39 @@
+---
+title: logr
+slug: logr
+strapline: Open-source time tracker for freelancers
+category: Разработка
+link: https://logr.work
+tech:
+  - Product Design
+  - Next.js
+  - React
+  - Supabase
+  - Vercel
+logo:
+  asset:
+    url: /projects/Logr/logo.png
+  description: logr logo
+media:
+  - asset:
+      url: /projects/Logr/cover.png
+    description: logr — track every hour, bill every minute
+---
+
+## Task
+
+I'm a freelancer and I track time every day. I'd tried Toggl, Clockify and Harvest — every time it was the same story: either expensive for basic features, or free but with a UI like a nuclear plant control panel. All I needed was simple: hit Space to start, hit it again to stop, and get an invoice at the end of the month. So I decided to build it myself.
+
+## Solution
+
+I did the full product cycle on my own — from design to development. logr is a keyboard-first time tracker: Space to start/stop, Enter to add a client, Escape to close. No modals where they can be avoided.
+
+The stack is deliberately lean — Next.js, React, Supabase for auth and database, Vercel for deployment. For the MVP I kept the schema as simple as possible: a single `user_app_state` table with JSONB for clients and sessions. Clients → Projects → Tasks with PENDING → ACTIVE → DONE statuses, manual session entry, one-click PDF invoices and CSV export, Google auth with cloud sync, a localStorage fallback for offline work, and dark/light themes.
+
+<ProjectShot src="/projects/Logr/dashboard.png" caption="logr dashboard with timer, timeline and billable hours" />
+
+## Result
+
+logr is live and fully open-source under Apache 2.0 — I track all my own time exclusively through it, fixing bugs as I hit them. Real-time dogfooding. It's free for anyone to use: found a bug — open an issue, want a feature — PRs welcome.
+
+[logr.work](https://logr.work) · [github.com/zerox9dev/logr](https://github.com/zerox9dev/logr)

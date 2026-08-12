@@ -17,16 +17,16 @@ export default function BlogPostPage({
   post,
   locale,
   avatarSrc = '/images/logo.ico',
-  avatarAlt = 'Vadym Mirvald',
+  avatarAlt = 'Vadym',
 }: BlogPostPageProps) {
   const dictionary = getSiteDictionary(locale)
   const backHref = locale === 'en' ? '/' : `/${locale}`
   const formattedDate = post.fields.publishedAt
     ? new Intl.DateTimeFormat(getLocaleTag(locale), {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-      }).format(new Date(post.fields.publishedAt))
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    }).format(new Date(post.fields.publishedAt))
     : null
 
   return (

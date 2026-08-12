@@ -1,8 +1,8 @@
-<img src="/public/cover.png" alt="Vadym Mirvald — Design Engineer portfolio" width="100%" />
+<img src="/public/cover.png" alt="Vadym — Design AI Engineer portfolio" width="100%" />
 
 Minimalist, high-performance personal portfolio built with **Next.js 15**, **React 19**, **Tailwind CSS**, and **Framer Motion**. Powered by **Sanity CMS** for dynamic content.
 
-Designed for clarity, aesthetics, and precision — inspired by the "Design Engineering" philosophy.
+Designed for clarity, aesthetics, and precision — inspired by the "Design AI Engineering" philosophy.
 
 Live: [https://zerox9dev.com](https://zerox9dev.com)
 

@@ -5,10 +5,12 @@ import matter from 'gray-matter'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import remarkGfm from 'remark-gfm'
 
+import { ProjectShot } from '@/components/ProjectShot'
+import { ProjectShotRow } from '@/components/ProjectShotRow'
 import { type SiteLocale } from '@/lib/site-copy'
 import { type ContentImage, type ProjectEntry, type ProjectPageData } from '@/types/content'
 
-export const FEATURED_PROJECT_SLUGS = ['oceangroup', 'holyheld', 'turbo-work'] as const
+export const FEATURED_PROJECT_SLUGS = ['logr', 'oceangroup', 'holyheld', 'turbo-work'] as const
 
 type ProjectFrontmatter = {
   title: string
@@ -57,39 +59,66 @@ function toProjectEntry(filePath: string, frontmatter: ProjectFrontmatter): Proj
   }
 }
 
-export async function getProjectEntries(locale: SiteLocale): Promise<ProjectPageData[]> {
+export async function getProjectEntries(locale: SiteLocale): Promise<ProjectEntry[]> {
   const filePaths = await readMdxFiles(locale)
 
   return Promise.all(
     filePaths.map(async (filePath) => {
       const source = await fs.readFile(filePath, 'utf8')
-      const { content, frontmatter } = await compileMDX<ProjectFrontmatter>({
-        source,
-        options: {
-          parseFrontmatter: true,
-          mdxOptions: {
-            remarkPlugins: [remarkGfm],
-          },
-        },
-      })
-
-      return {
-        ...toProjectEntry(filePath, frontmatter),
-        content,
-      }
+      const { data } = matter(source)
+      return toProjectEntry(filePath, data as ProjectFrontmatter)
     }),
   )
 }
 
-export function getFeaturedProjectEntries(entries: ProjectPageData[]): ProjectPageData[] {
+export async function getProjectBySlug(
+  locale: SiteLocale,
+  slug: string,
+): Promise<ProjectPageData | null> {
+  const filePaths = await readMdxFiles(locale)
+
+  for (const filePath of filePaths) {
+    const source = await fs.readFile(filePath, 'utf8')
+    const { data } = matter(source)
+
+    if ((data as ProjectFrontmatter).slug !== slug) {
+      continue
+    }
+
+    const { content, frontmatter } = await compileMDX<ProjectFrontmatter>({
+      source,
+      components: { ProjectShot, ProjectShotRow },
+      options: {
+        parseFrontmatter: true,
+        mdxOptions: {
+          remarkPlugins: [remarkGfm],
+        },
+      },
+    })
+
+    return {
+      ...toProjectEntry(filePath, frontmatter),
+      content,
+    }
+  }
+
+  return null
+}
+
+export async function getProjectStaticSlugs(locale: SiteLocale): Promise<string[]> {
+  const entries = await getProjectEntries(locale)
+  return entries.map((entry) => entry.fields.slug)
+}
+
+export function getFeaturedProjectEntries<T extends ProjectEntry>(entries: T[]): T[] {
   const bySlug = new Map(entries.map((entry) => [entry.fields.slug, entry]))
 
   return FEATURED_PROJECT_SLUGS.map((slug) => bySlug.get(slug)).filter(
-    (entry): entry is ProjectPageData => Boolean(entry),
+    (entry): entry is T => Boolean(entry),
   )
 }
 
-export function getArchivedProjectEntries(entries: ProjectPageData[]): ProjectPageData[] {
-  const featuredSlugs = new Set(FEATURED_PROJECT_SLUGS)
-  return entries.filter((entry) => !featuredSlugs.has(entry.fields.slug as (typeof FEATURED_PROJECT_SLUGS)[number]))
+export function getArchivedProjectEntries<T extends ProjectEntry>(entries: T[]): T[] {
+  const featuredSlugs = new Set<string>(FEATURED_PROJECT_SLUGS)
+  return entries.filter((entry) => !featuredSlugs.has(entry.fields.slug))
 }

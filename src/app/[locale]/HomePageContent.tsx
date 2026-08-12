@@ -13,13 +13,13 @@ import { ThemeToggleText } from '@/components/ThemeToggleText'
 import Image from 'next/image'
 import { type IntroContent } from '@/content/intro'
 import { getContactLinks, getLocaleTag, getSiteDictionary, type SiteLocale } from '@/lib/site-copy'
-import { BlogPostEntry, ProjectPageData } from '@/types/content'
+import { BlogPostEntry, ProjectEntry } from '@/types/content'
 
 interface HomePageContentProps {
   locale: SiteLocale
   introData: IntroContent
-  projectEntries: ProjectPageData[]
-  archivedProjectEntries: ProjectPageData[]
+  projectEntries: ProjectEntry[]
+  archivedProjectEntries: ProjectEntry[]
   blogEntries: BlogPostEntry[]
 }
 
@@ -32,6 +32,10 @@ export default function HomePageContent({
 }: HomePageContentProps) {
   const dictionary = getSiteDictionary(locale)
   const contactLinks = getContactLinks()
+  const getProjectHref = React.useCallback(
+    (slug: string) => (locale === 'en' ? `/projects/${slug}` : `/${locale}/projects/${slug}`),
+    [locale],
+  )
   const pathname = usePathname()
   const [gmtPlusOneTime, setGmtPlusOneTime] = React.useState('')
   const [showArchivedProjects, setShowArchivedProjects] = React.useState(false)
@@ -86,10 +90,10 @@ export default function HomePageContent({
           <Image
             src={introData.avatarSrc}
             alt={introData.avatarAlt}
-            width={52}
-            height={52}
+            width={60}
+            height={60}
             priority
-            className="h-13 w-13 rounded-full border border-neutral-200 object-cover"
+            className="h-16 w-16 rounded-full border border-neutral-200 object-cover"
           />
           <div className="flex flex-col">
             <span className="text-base font-semibold tracking-tight">{dictionary.profileName}</span>
@@ -117,35 +121,35 @@ export default function HomePageContent({
               </span>
             </motion.div>
           )}
-        {(contactLinks.bookCallUrl || contactLinks.telegramUrl) && (
-          <div className="flex gap-2">
-            {contactLinks.bookCallUrl && (
-              <button
-                onClick={() => window.open(contactLinks.bookCallUrl, '_blank', 'noopener,noreferrer')}
-                className="bg-neutral-200/50 hover:bg-neutral-100 text-black px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1"
-                aria-label={dictionary.actions.bookCallAriaLabel}
-              >
-                {dictionary.actions.bookCall}
-              </button>
-            )}
-            {contactLinks.telegramUrl && (
-              <button
-                onClick={() => window.open(contactLinks.telegramUrl, '_blank', 'noopener,noreferrer')}
-                className="border border-neutral-200 dark:border-neutral-800 text-black px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                aria-label={dictionary.actions.telegramAriaLabel}
-              >
-                <Image
-                  src="/tglogo.svg"
-                  alt="Telegram"
-                  width={12}
-                  height={12}
-                  className="w-3 h-3"
-                />
-                {dictionary.actions.telegram}
-              </button>
-            )}
-          </div>
-        )}
+          {(contactLinks.bookCallUrl || contactLinks.telegramUrl) && (
+            <div className="flex gap-2">
+              {contactLinks.bookCallUrl && (
+                <button
+                  onClick={() => window.open(contactLinks.bookCallUrl, '_blank', 'noopener,noreferrer')}
+                  className="bg-neutral-200/50 hover:bg-neutral-100 text-black px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1"
+                  aria-label={dictionary.actions.bookCallAriaLabel}
+                >
+                  {dictionary.actions.bookCall}
+                </button>
+              )}
+              {contactLinks.telegramUrl && (
+                <button
+                  onClick={() => window.open(contactLinks.telegramUrl, '_blank', 'noopener,noreferrer')}
+                  className="border border-neutral-200 dark:border-neutral-800 text-black px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                  aria-label={dictionary.actions.telegramAriaLabel}
+                >
+                  <Image
+                    src="/tglogo.svg"
+                    alt="Telegram"
+                    width={12}
+                    height={12}
+                    className="w-3 h-3"
+                  />
+                  {dictionary.actions.telegram}
+                </button>
+              )}
+            </div>
+          )}
         </div>
       </header>
       <SectionDivider title={dictionary.sections.about} />
@@ -155,21 +159,17 @@ export default function HomePageContent({
         <div className="flex flex-col bg-white dark:bg-black  gap-4">
           <div className="grid grid-cols-1 gap-x-12 gap-y-6 md:grid-cols-1">
             {projectEntries.map((project) => (
-              <div className="group relative flex flex-col" key={project._id}>
+              <div className="relative flex flex-col" key={project._id}>
                 {project.fields && (
-                  <Project {...project.fields}>
-                    {project.content}
-                  </Project>
+                  <Project {...project.fields} href={getProjectHref(project.fields.slug)} />
                 )}
               </div>
             ))}
             {showArchivedProjects &&
               archivedProjectEntries.map((project) => (
-                <div className="group relative flex flex-col" key={project._id}>
+                <div className="relative flex flex-col" key={project._id}>
                   {project.fields && (
-                    <Project {...project.fields}>
-                      {project.content}
-                    </Project>
+                    <Project {...project.fields} href={getProjectHref(project.fields.slug)} />
                   )}
                 </div>
               ))}
