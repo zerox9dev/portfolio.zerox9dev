@@ -8,8 +8,9 @@ story:
   title: "Собрал свой трекер времени за день и открыл код"
   result: "Таймер с клавиатуры, живой таймлайн и счёт в один клик. Apache 2.0 — и все свои оплачиваемые часы я считаю в нём"
   images:
-    - /projects/Logr/landing.png
+    - /projects/Logr/landing-pair.png
     - /projects/Logr/dashboard-pair.png
+    - /projects/Logr/ui-kit.png
 link: https://logr.work
 tech:
   - Product Design
@@ -23,8 +24,8 @@ logo:
   description: Логотип logr
 media:
   - asset:
-      url: /projects/Logr/landing.png
-    description: "Лендинг logr: таймер, живой таймлайн и счёт в один клик"
+      url: /projects/Logr/landing-pair.png
+    description: "Лендинг logr в вебе и на мобильном"
 ---
 
 ## Задача
@@ -38,6 +39,16 @@ media:
 Стек намеренно лёгкий — Next.js, React, Supabase для авторизации и базы, Vercel для деплоя. Для MVP схему оставил максимально простой: одна таблица `user_app_state` с JSONB для клиентов и сессий. Клиенты → Проекты → Задачи со статусами PENDING → ACTIVE → DONE, ручной ввод сессий, PDF-счёт в один клик и экспорт в CSV, Google-авторизация с облачной синхронизацией, fallback на localStorage для офлайна и тёмная/светлая темы.
 
 <ProjectShot src="/projects/Logr/dashboard-pair.png" caption="Дашборд в вебе и на мобильном: таймер, таймлайн, проекты, оплачиваемые часы и AI-сводка дня" />
+
+Под экранами лежит небольшая дизайн-система: каждый блок — топбар, таймер, таймлайн, проекты и задачи, оплачиваемые часы, цели, активность, сводка дня, футер — это компонент с вариантами под десктоп и мобильный и с двумя состояниями, заполненным и пустым. Поэтому пустой аккаунт не выглядит сломанным.
+
+<ProjectShot src="/projects/Logr/ui-kit.png" caption="UI-кит: компоненты с вариантами под десктоп и мобильный, заполненные и пустые состояния" />
+
+Всё, что требует решения, живёт в модалках, и они спроектированы под оба разрешения: ручная запись времени, выбор и создание проекта, новый клиент, счёт, настройки, приглашение в команду, экспорт отчёта, удаления.
+
+<ProjectShot src="/projects/Logr/modal-invoice-pair.png" caption="Модалка нового счёта в вебе и на мобильном" />
+
+<ProjectShot src="/projects/Logr/modal-settings-pair.png" caption="Модалка настроек в вебе и на мобильном" />
 
 ## Результат
 

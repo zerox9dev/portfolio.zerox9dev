@@ -8,8 +8,9 @@ story:
   title: "Built my own time tracker in a day and open-sourced it"
   result: "Keyboard-first timer, live timeline and one-click invoices. Apache 2.0, and I track every billable hour of mine in it"
   images:
-    - /projects/Logr/landing.png
+    - /projects/Logr/landing-pair.png
     - /projects/Logr/dashboard-pair.png
+    - /projects/Logr/ui-kit.png
 link: https://logr.work
 tech:
   - Product Design
@@ -23,8 +24,8 @@ logo:
   description: logr logo
 media:
   - asset:
-      url: /projects/Logr/landing.png
-    description: "logr landing page: timer, live timeline and one-click invoicing"
+      url: /projects/Logr/landing-pair.png
+    description: "logr landing page on web and mobile"
 ---
 
 ## Task
@@ -38,6 +39,16 @@ I did the full product cycle on my own — from design to development. logr is a
 The stack is deliberately lean — Next.js, React, Supabase for auth and database, Vercel for deployment. For the MVP I kept the schema as simple as possible: a single `user_app_state` table with JSONB for clients and sessions. Clients → Projects → Tasks with PENDING → ACTIVE → DONE statuses, manual session entry, one-click PDF invoices and CSV export, Google auth with cloud sync, a localStorage fallback for offline work, and dark/light themes.
 
 <ProjectShot src="/projects/Logr/dashboard-pair.png" caption="Dashboard on web and mobile: timer, timeline, projects, billable hours and a daily AI recap" />
+
+Under the screens sits a small design system: every block — top bar, timer, timeline, projects and tasks, billable hours, goals, activity, daily summary, footer — is a component with desktop and mobile variants and both a filled and an empty state. That is why an empty account does not look like a broken one.
+
+<ProjectShot src="/projects/Logr/ui-kit.png" caption="UI kit: components with desktop and mobile variants, filled and empty states" />
+
+Everything that needs a decision lives in a modal, designed for both breakpoints: manual entry, choosing or creating a project, new client, invoice, settings, inviting a teammate, exporting a report, deletions.
+
+<ProjectShot src="/projects/Logr/modal-invoice-pair.png" caption="New invoice modal on web and mobile" />
+
+<ProjectShot src="/projects/Logr/modal-settings-pair.png" caption="Settings modal on web and mobile" />
 
 ## Result
 
