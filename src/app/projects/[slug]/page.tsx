@@ -16,7 +16,9 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }))
 }
 
-export async function generateMetadata({ params }: ProjectRouteProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: ProjectRouteProps): Promise<Metadata> {
   const { slug } = await params
   const project = await getProjectBySlug('en', slug)
 
@@ -54,12 +56,5 @@ export default async function ProjectRoute({ params }: ProjectRouteProps) {
 
   const introData = getIntroContent('en')
 
-  return (
-    <ProjectPage
-      project={project}
-      locale="en"
-      avatarSrc={introData.avatarSrc}
-      avatarAlt={introData.avatarAlt}
-    />
-  )
+  return <ProjectPage project={project} locale="en" />
 }

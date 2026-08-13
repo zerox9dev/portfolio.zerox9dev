@@ -1,4 +1,4 @@
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -13,19 +13,12 @@ import { type ProjectPageData } from '@/types/content'
 interface ProjectPageProps {
   project: ProjectPageData
   locale: SiteLocale
-  avatarSrc?: string
-  avatarAlt?: string
 }
 
 const tagClass =
-  'inline-flex items-center rounded-full border border-neutral-200 px-2.5 py-0.5 text-xs font-semibold text-neutral-700 dark:border-neutral-800 dark:text-neutral-300'
+  'inline-flex items-center border border-neutral-200 px-2.5 py-0.5 text-xs font-semibold text-neutral-700 dark:border-neutral-800 dark:text-neutral-300'
 
-export default function ProjectPage({
-  project,
-  locale,
-  avatarSrc = '/images/logo.ico',
-  avatarAlt = 'Vadym',
-}: ProjectPageProps) {
+export default function ProjectPage({ project, locale }: ProjectPageProps) {
   const dictionary = getSiteDictionary(locale)
   const backHref = locale === 'en' ? '/' : `/${locale}`
   const { title, strapline, logo, category, tech, media, link } = project.fields
@@ -42,49 +35,57 @@ export default function ProjectPage({
 
   return (
     <main className="mx-auto flex min-h-[100dvh] max-w-[496px] flex-col gap-8 px-4 py-8 antialiased md:px-0 md:py-4">
-      <header className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Image
-            src={avatarSrc}
-            alt={avatarAlt}
-            width={52}
-            height={52}
-            priority
-            className="h-13 w-13 rounded-full border border-neutral-200 object-cover"
-          />
-          <div className="flex flex-col">
-            <span className="text-base font-semibold tracking-tight">
+      <nav
+        aria-label="Breadcrumb"
+        className="flex items-center justify-between gap-4 text-sm"
+      >
+        <ol className="flex min-w-0 items-center gap-1.5 text-neutral-400 dark:text-neutral-500">
+          <li className="shrink-0">
+            <Link
+              href={backHref}
+              className="hover:text-neutral-900 dark:hover:text-neutral-100"
+            >
               {dictionary.profileName}
-            </span>
-            <span className="text-sm text-neutral-400 dark:text-neutral-500">
-              {dictionary.role}
-            </span>
-          </div>
-        </div>
-      </header>
-
-      <article className="bg-white dark:bg-black">
+            </Link>
+          </li>
+          <li aria-hidden="true" className="shrink-0">
+            /
+          </li>
+          <li className="shrink-0">{dictionary.sections.projects}</li>
+          <li aria-hidden="true" className="shrink-0">
+            /
+          </li>
+          <li
+            aria-current="page"
+            className="truncate text-neutral-900 dark:text-neutral-100"
+          >
+            {title}
+          </li>
+        </ol>
         <Link
           href={backHref}
-          className="mb-4 inline-block text-sm text-muted-foreground hover:underline"
+          className="inline-flex shrink-0 items-center gap-1 border border-neutral-200 px-3 py-1.5 text-xs font-medium transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-800"
         >
-          ← {dictionary.actions.back}
+          <ArrowLeft className="h-3.5 w-3.5" />
+          {dictionary.actions.back}
         </Link>
+      </nav>
 
+      <article className="bg-white dark:bg-black">
         <div className="flex items-center gap-4">
           <Image
             alt={logoAlt}
             src={logoSrc}
             width={64}
             height={64}
-            className="h-16 w-16 shrink-0 rounded-2xl border border-muted-foreground/20"
+            className="border-muted-foreground/20 h-16 w-16 shrink-0 border"
           />
           <div className="flex min-w-0 flex-col gap-1">
             <div className="flex items-center gap-2">
               <h1 className="text-2xl font-bold">{title}</h1>
               {badge && (
                 <span
-                  className={`inline-flex shrink-0 rounded-full px-1.5 py-px text-[9px] font-medium uppercase tracking-[0.08em] ${getProjectBadgeClass(
+                  className={`inline-flex shrink-0 px-1.5 py-px text-[9px] font-medium tracking-[0.08em] uppercase ${getProjectBadgeClass(
                     badge,
                   )}`}
                 >
@@ -92,7 +93,7 @@ export default function ProjectPage({
                 </span>
               )}
             </div>
-            <p className="text-sm text-muted-foreground">{strapline}</p>
+            <p className="text-muted-foreground text-sm">{strapline}</p>
             {link && (
               <a
                 href={link}
@@ -119,7 +120,7 @@ export default function ProjectPage({
 
         {hero && <ProjectMediaFigure asset={hero} priority className="mt-6" />}
 
-        <div className="prose prose-neutral mt-6 max-w-none text-neutral-600 dark:prose-invert dark:text-neutral-400">
+        <div className="prose prose-neutral dark:prose-invert mt-6 max-w-none text-neutral-600 dark:text-neutral-400">
           {project.content}
         </div>
 

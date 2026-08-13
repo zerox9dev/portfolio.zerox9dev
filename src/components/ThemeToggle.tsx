@@ -23,10 +23,10 @@ export const ThemeToggle = () => {
       <DropdownMenu.Trigger asChild>
         <button
           type="button"
-          className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-black transition-colors hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-800 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-900 dark:focus:ring-neutral-700"
+          className="relative inline-flex h-10 w-10 items-center justify-center border border-neutral-200 bg-white text-black transition-colors hover:bg-neutral-100 focus:ring-2 focus:ring-neutral-300 focus:outline-none dark:border-neutral-800 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-900 dark:focus:ring-neutral-700"
         >
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
           <span className="sr-only">Toggle theme</span>
         </button>
       </DropdownMenu.Trigger>
@@ -34,28 +34,28 @@ export const ThemeToggle = () => {
         <DropdownMenu.Content
           align="start"
           sideOffset={8}
-          className="z-50 min-w-36 rounded-2xl border border-neutral-200 bg-white p-1.5 shadow-lg outline-none dark:border-neutral-800 dark:bg-neutral-950"
+          className="z-50 min-w-36 border border-neutral-200 bg-white p-1.5 shadow-lg outline-none dark:border-neutral-800 dark:bg-neutral-950"
         >
           <DropdownMenu.Item
             onClick={() => setTheme('light')}
-            className="flex cursor-pointer items-center rounded-xl px-3 py-2 text-sm text-black outline-none transition-colors hover:bg-neutral-100 focus:bg-neutral-100 dark:text-white dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
+            className="flex cursor-pointer items-center px-3 py-2 text-sm text-black transition-colors outline-none hover:bg-neutral-100 focus:bg-neutral-100 dark:text-white dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
           >
-          Light
-          {theme === 'light' && <CheckIcon className="ml-auto h-4 w-4" />}
+            Light
+            {theme === 'light' && <CheckIcon className="ml-auto h-4 w-4" />}
           </DropdownMenu.Item>
           <DropdownMenu.Item
             onClick={() => setTheme('dark')}
-            className="flex cursor-pointer items-center rounded-xl px-3 py-2 text-sm text-black outline-none transition-colors hover:bg-neutral-100 focus:bg-neutral-100 dark:text-white dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
+            className="flex cursor-pointer items-center px-3 py-2 text-sm text-black transition-colors outline-none hover:bg-neutral-100 focus:bg-neutral-100 dark:text-white dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
           >
-          Dark
-          {theme === 'dark' && <CheckIcon className="ml-auto h-4 w-4" />}
+            Dark
+            {theme === 'dark' && <CheckIcon className="ml-auto h-4 w-4" />}
           </DropdownMenu.Item>
           <DropdownMenu.Item
             onClick={() => setTheme('system')}
-            className="flex cursor-pointer items-center rounded-xl px-3 py-2 text-sm text-black outline-none transition-colors hover:bg-neutral-100 focus:bg-neutral-100 dark:text-white dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
+            className="flex cursor-pointer items-center px-3 py-2 text-sm text-black transition-colors outline-none hover:bg-neutral-100 focus:bg-neutral-100 dark:text-white dark:hover:bg-neutral-900 dark:focus:bg-neutral-900"
           >
-          System
-          {theme === 'system' && <CheckIcon className="ml-auto h-4 w-4" />}
+            System
+            {theme === 'system' && <CheckIcon className="ml-auto h-4 w-4" />}
           </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Portal>

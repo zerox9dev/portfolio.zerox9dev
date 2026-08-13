@@ -32,7 +32,9 @@ export async function generateStaticParams() {
   ]
 }
 
-export async function generateMetadata({ params }: ProjectRouteProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: ProjectRouteProps): Promise<Metadata> {
   const { locale, slug } = await params
   const siteLocale = toSiteLocale(locale)
 
@@ -46,7 +48,10 @@ export async function generateMetadata({ params }: ProjectRouteProps): Promise<M
     return {}
   }
 
-  const canonical = siteLocale === 'en' ? `/projects/${slug}` : `/${siteLocale}/projects/${slug}`
+  const canonical =
+    siteLocale === 'en'
+      ? `/projects/${slug}`
+      : `/${siteLocale}/projects/${slug}`
 
   return {
     title: `${project.fields.title} — Vadym Mirvald`,
@@ -68,7 +73,9 @@ export async function generateMetadata({ params }: ProjectRouteProps): Promise<M
   }
 }
 
-export default async function LocalizedProjectRoute({ params }: ProjectRouteProps) {
+export default async function LocalizedProjectRoute({
+  params,
+}: ProjectRouteProps) {
   const { locale, slug } = await params
   const siteLocale = toSiteLocale(locale)
 
@@ -84,12 +91,5 @@ export default async function LocalizedProjectRoute({ params }: ProjectRouteProp
 
   const introData = getIntroContent(siteLocale)
 
-  return (
-    <ProjectPage
-      project={project}
-      locale={siteLocale}
-      avatarSrc={introData.avatarSrc}
-      avatarAlt={introData.avatarAlt}
-    />
-  )
+  return <ProjectPage project={project} locale={siteLocale} />
 }

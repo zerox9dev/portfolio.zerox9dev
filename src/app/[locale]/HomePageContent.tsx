@@ -102,42 +102,42 @@ export default function HomePageContent({
                   width={60}
                   height={60}
                   priority
-                  className="h-16 w-16 rounded-full border border-neutral-200 object-cover"
+                  className="h-16 w-16 border border-neutral-200 object-cover"
                 />
                 <div className="flex flex-col">
-                  <span className="text-base font-semibold tracking-tight">
-                    {dictionary.profileName}
-                  </span>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-base font-semibold tracking-tight">
+                      {dictionary.profileName}
+                    </span>
+                    {introData.availabilityText && (
+                      <motion.span
+                        initial={{ opacity: 0, y: 6 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          delay: 0.05,
+                          duration: 0.35,
+                          ease: 'easeOut',
+                        }}
+                        className="inline-flex items-center gap-1.5 bg-green-50 px-2 py-0.5 text-[11px] font-medium text-green-700 dark:bg-green-500/10 dark:text-green-300"
+                      >
+                        <span
+                          className="relative flex h-2 w-2"
+                          aria-hidden="true"
+                        >
+                          <span className="absolute inline-flex h-full w-full animate-ping bg-green-400/50" />
+                          <span className="relative inline-flex h-2 w-2 bg-green-500" />
+                        </span>
+                        {introData.availabilityText}
+                      </motion.span>
+                    )}
+                  </div>
                   <span className="text-sm text-neutral-400 dark:text-neutral-500">
                     {dictionary.role}
                   </span>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                {introData.availabilityText && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 6 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      delay: 0.05,
-                      duration: 0.35,
-                      ease: 'easeOut',
-                    }}
-                    className="hidden sm:flex"
-                  >
-                    <span className="inline-flex items-center gap-2 rounded-full bg-green-50 px-3 py-1 text-xs font-medium text-green-700 dark:bg-green-500/10 dark:text-green-300">
-                      <span
-                        className="relative flex h-2.5 w-2.5"
-                        aria-hidden="true"
-                      >
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400/50" />
-                        <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
-                      </span>
-                      {introData.availabilityText}
-                    </span>
-                  </motion.div>
-                )}
                 {(contactLinks.bookCallUrl || contactLinks.telegramUrl) && (
                   <div className="flex gap-2">
                     {contactLinks.bookCallUrl && (
@@ -149,7 +149,7 @@ export default function HomePageContent({
                             'noopener,noreferrer',
                           )
                         }
-                        className="flex items-center gap-1 rounded-lg bg-neutral-200/50 px-3 py-1.5 text-xs font-medium text-black transition-colors hover:bg-neutral-100"
+                        className="flex items-center gap-1 bg-neutral-200/50 px-3 py-1.5 text-xs font-medium text-black transition-colors hover:bg-neutral-100"
                         aria-label={dictionary.actions.bookCallAriaLabel}
                       >
                         {dictionary.actions.bookCall}
@@ -164,7 +164,7 @@ export default function HomePageContent({
                             'noopener,noreferrer',
                           )
                         }
-                        className="flex items-center gap-1 rounded-lg border border-neutral-200 px-3 py-1.5 text-xs font-medium text-black transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-800"
+                        className="flex items-center gap-1 border border-neutral-200 px-3 py-1.5 text-xs font-medium text-black transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-800"
                         aria-label={dictionary.actions.telegramAriaLabel}
                       >
                         <Image
@@ -221,7 +221,7 @@ export default function HomePageContent({
               </div>
             )}
             {blogEntries.length === 0 && (
-              <div className="border-muted-foreground/30 text-muted-foreground rounded-xl border border-dashed p-4 text-sm">
+              <div className="border-muted-foreground/30 text-muted-foreground border border-dashed p-4 text-sm">
                 {dictionary.messages.noBlogPosts}
               </div>
             )}
@@ -269,7 +269,7 @@ export default function HomePageContent({
             </div>
           )}
           {projectEntries.length === 0 && (
-            <div className="border-muted-foreground/30 text-muted-foreground rounded-xl border border-dashed p-4 text-sm">
+            <div className="border-muted-foreground/30 text-muted-foreground border border-dashed p-4 text-sm">
               {dictionary.messages.noProjects}
             </div>
           )}

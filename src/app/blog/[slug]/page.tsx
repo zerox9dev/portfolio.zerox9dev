@@ -24,12 +24,5 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
 
   const introData = getIntroContent('en')
 
-  return (
-    <BlogPostPage
-      post={post}
-      locale="en"
-      avatarSrc={introData.avatarSrc}
-      avatarAlt={introData.avatarAlt}
-    />
-  )
+  return <BlogPostPage post={post} locale="en" />
 }

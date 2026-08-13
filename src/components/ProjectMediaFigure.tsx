@@ -7,7 +7,7 @@ import { ContentImage } from '@/components/ContentImage'
 import { type ContentImage as ContentImageType } from '@/types/content'
 
 const closeButtonClass =
-  'inline-flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-background/90 text-black backdrop-blur transition-colors hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-900 dark:focus:ring-neutral-700'
+  'inline-flex h-9 w-9 items-center justify-center border border-neutral-200 bg-background/90 text-black backdrop-blur transition-colors hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-900 dark:focus:ring-neutral-700'
 
 type ProjectMediaFigureProps = {
   asset: ContentImageType
@@ -33,24 +33,29 @@ export const ProjectMediaFigure = ({
               asset={asset}
               sizes="(min-width: 768px) 496px, 92vw"
               priority={priority}
-              className="block h-auto w-full rounded-xl border border-muted-foreground/20"
+              className="border-muted-foreground/20 block h-auto w-full border"
             />
           </button>
         </Dialog.Trigger>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-50 bg-black/80" />
-          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 max-h-[90vh] w-[min(90vw,64rem)] -translate-x-1/2 -translate-y-1/2 rounded-3xl border border-white/10 bg-background p-3 shadow-2xl outline-none">
-            <Dialog.Title className="sr-only">{text || 'Project image preview'}</Dialog.Title>
+          <Dialog.Content className="bg-background fixed top-1/2 left-1/2 z-50 max-h-[90vh] w-[min(90vw,64rem)] -translate-x-1/2 -translate-y-1/2 border border-white/10 p-3 shadow-2xl outline-none">
+            <Dialog.Title className="sr-only">
+              {text || 'Project image preview'}
+            </Dialog.Title>
             <Dialog.Description className="sr-only">
               Expanded preview of the selected project image.
             </Dialog.Description>
             <ContentImage
               asset={asset}
               sizes="(min-width: 1024px) 1024px, 90vw"
-              className="h-auto max-h-[80vh] w-full rounded-2xl object-contain"
+              className="h-auto max-h-[80vh] w-full object-contain"
             />
             <Dialog.Close asChild>
-              <button type="button" className={`${closeButtonClass} absolute right-4 top-4`}>
+              <button
+                type="button"
+                className={`${closeButtonClass} absolute top-4 right-4`}
+              >
                 <X className="h-4 w-4" />
                 <span className="sr-only">Close image preview</span>
               </button>

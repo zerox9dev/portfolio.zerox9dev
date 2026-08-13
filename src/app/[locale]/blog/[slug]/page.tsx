@@ -24,7 +24,9 @@ export async function generateStaticParams() {
   ]
 }
 
-export default async function LocalizedBlogPostRoute({ params }: BlogPostRouteProps) {
+export default async function LocalizedBlogPostRoute({
+  params,
+}: BlogPostRouteProps) {
   const { locale, slug } = await params
   const routeLocale = locale.toLowerCase()
 
@@ -40,12 +42,5 @@ export default async function LocalizedBlogPostRoute({ params }: BlogPostRoutePr
 
   const introData = getIntroContent(routeLocale as 'en' | 'ru' | 'ua')
 
-  return (
-    <BlogPostPage
-      post={post}
-      locale={routeLocale as 'en' | 'ru' | 'ua'}
-      avatarSrc={introData.avatarSrc}
-      avatarAlt={introData.avatarAlt}
-    />
-  )
+  return <BlogPostPage post={post} locale={routeLocale as 'en' | 'ru' | 'ua'} />
 }

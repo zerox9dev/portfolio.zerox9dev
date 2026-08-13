@@ -34,7 +34,7 @@ function renderChildren(block: NonNullable<RichText>[number]) {
 
       if (mark === 'code') {
         return (
-          <code key={`${key}-${mark}`} className="rounded bg-neutral-100 px-1 py-0.5 dark:bg-neutral-900">
+          <code key={`${key}-${mark}`} className="bg-neutral-100 px-1 py-0.5 dark:bg-neutral-900">
             {content}
           </code>
         )
