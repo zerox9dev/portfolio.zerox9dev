@@ -3,7 +3,6 @@ export type SiteLocale = 'en' | 'ru' | 'ua'
 type SiteDictionary = {
   profileName: string
   role: string
-  roleTooltip: string
   sections: {
     about: string
     projects: string
@@ -34,7 +33,6 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
   en: {
     profileName: 'Vadym Mirvald',
     role: 'Product Designer + AI Engineer',
-    roleTooltip: 'Design in Figma, build in React. From interface to production — no handoff.',
     sections: {
       about: 'About',
       projects: 'Projects',
@@ -67,7 +65,6 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
   ru: {
     profileName: 'Vadym Mirvald',
     role: 'Product Designer + AI Engineer',
-    roleTooltip: 'Дизайн в Figma, разработка в React. От интерфейса до продакшена — без handoff.',
     sections: {
       about: 'Обо мне',
       projects: 'Проекты',
@@ -100,7 +97,6 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
   ua: {
     profileName: 'Vadym Mirvald',
     role: 'Product Designer + AI Engineer',
-    roleTooltip: 'Дизайн у Figma, розробка в React. Від інтерфейсу до продакшену — без handoff.',
     sections: {
       about: 'Про мене',
       projects: 'Проєкти',

@@ -48,7 +48,7 @@ const introContent: Record<SiteLocale, IntroContent> = {
   en: {
     body: [
       ...paragraphsToPortableText([
-        'Designing and shipping products - from concept to production code.',
+        'Design in Figma, build in React. From interface to production — no handoff.',
         'I build tools and interfaces that solve real problems.',
       ]),
       createBlock(
@@ -74,7 +74,7 @@ const introContent: Record<SiteLocale, IntroContent> = {
   ru: {
     body: [
       ...paragraphsToPortableText([
-        'Проектирую и довожу продукты до релиза - от концепции до production code.',
+        'Дизайн в Figma, разработка в React. От интерфейса до продакшена — без handoff.',
         'Я создаю инструменты и интерфейсы, которые решают реальные проблемы.',
       ]),
       createBlock(
@@ -100,7 +100,7 @@ const introContent: Record<SiteLocale, IntroContent> = {
   ua: {
     body: [
       ...paragraphsToPortableText([
-        'Проєктую і запускаю продукти - від концепції до production code.',
+        'Дизайн у Figma, розробка в React. Від інтерфейсу до продакшену — без handoff.',
         'Cтворюю інструменти та інтерфейси, які вирішують реальні проблеми.',
       ]),
       createBlock(
