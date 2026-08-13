@@ -27,7 +27,7 @@ export const ProjectMediaFigure = ({
           : ''
       } ${className ?? ''}`}
     >
-      <div className="flex w-full items-center justify-center border border-neutral-200 bg-neutral-100 p-4 dark:border-neutral-800 dark:bg-neutral-900">
+      <div className="w-full border border-neutral-200 bg-neutral-100 p-4 dark:border-neutral-800 dark:bg-neutral-900">
         <ContentImage
           asset={asset}
           alt={text}
@@ -37,7 +37,7 @@ export const ProjectMediaFigure = ({
               : '(min-width: 768px) 496px, 92vw'
           }
           priority={priority}
-          className="h-auto max-h-[640px] w-auto max-w-full object-contain"
+          className="h-auto w-full"
         />
       </div>
       {text && (

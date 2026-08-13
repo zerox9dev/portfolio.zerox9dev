@@ -9,8 +9,7 @@ story:
   result: "Keyboard-first timer, live timeline and one-click invoices. Apache 2.0, and I track every billable hour of mine in it"
   images:
     - /projects/Logr/landing.png
-    - /projects/Logr/dashboard.png
-    - /projects/Logr/mobile.png
+    - /projects/Logr/dashboard-pair.png
 link: https://logr.work
 tech:
   - Product Design
@@ -38,9 +37,7 @@ I did the full product cycle on my own — from design to development. logr is a
 
 The stack is deliberately lean — Next.js, React, Supabase for auth and database, Vercel for deployment. For the MVP I kept the schema as simple as possible: a single `user_app_state` table with JSONB for clients and sessions. Clients → Projects → Tasks with PENDING → ACTIVE → DONE statuses, manual session entry, one-click PDF invoices and CSV export, Google auth with cloud sync, a localStorage fallback for offline work, and dark/light themes.
 
-<ProjectShot src="/projects/Logr/dashboard.png" caption="Dashboard: timer, timeline, projects, billable hours and a daily AI recap" />
-
-<ProjectShot src="/projects/Logr/mobile.png" caption="Mobile layout — the same day, one column" />
+<ProjectShot src="/projects/Logr/dashboard-pair.png" caption="Dashboard on web and mobile: timer, timeline, projects, billable hours and a daily AI recap" />
 
 ## Result
 
