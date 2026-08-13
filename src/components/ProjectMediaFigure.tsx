@@ -17,6 +17,7 @@ export const ProjectMediaFigure = ({
   className,
   wide = true,
 }: ProjectMediaFigureProps) => {
+  // the caption text now only lives in alt — no visible captions
   const text = caption ?? asset.description ?? asset.alt ?? ''
 
   return (
@@ -40,11 +41,6 @@ export const ProjectMediaFigure = ({
           className="h-auto w-full"
         />
       </div>
-      {text && (
-        <figcaption className="mt-2 text-xs text-neutral-400 dark:text-neutral-500">
-          {text}
-        </figcaption>
-      )}
     </figure>
   )
 }
