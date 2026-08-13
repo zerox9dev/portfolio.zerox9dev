@@ -17,8 +17,8 @@ logo:
   description: logr logo
 media:
   - asset:
-      url: /projects/Logr/cover.png
-    description: logr — track every hour, bill every minute
+      url: /projects/Logr/landing.png
+    description: "logr landing page: timer, live timeline and one-click invoicing"
 ---
 
 ## Task
@@ -31,7 +31,9 @@ I did the full product cycle on my own — from design to development. logr is a
 
 The stack is deliberately lean — Next.js, React, Supabase for auth and database, Vercel for deployment. For the MVP I kept the schema as simple as possible: a single `user_app_state` table with JSONB for clients and sessions. Clients → Projects → Tasks with PENDING → ACTIVE → DONE statuses, manual session entry, one-click PDF invoices and CSV export, Google auth with cloud sync, a localStorage fallback for offline work, and dark/light themes.
 
-<ProjectShot src="/projects/Logr/dashboard.png" caption="logr dashboard with timer, timeline and billable hours" />
+<ProjectShot src="/projects/Logr/dashboard.png" caption="Dashboard: timer, timeline, projects, billable hours and a daily AI recap" />
+
+<ProjectShot src="/projects/Logr/mobile.png" caption="Mobile layout — the same day, one column" />
 
 ## Result
 

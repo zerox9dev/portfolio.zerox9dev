@@ -17,8 +17,8 @@ logo:
   description: Логотип logr
 media:
   - asset:
-      url: /projects/Logr/cover.png
-    description: logr — считай каждый час, выставляй счёт за каждую минуту
+      url: /projects/Logr/landing.png
+    description: "Лендинг logr: таймер, живой таймлайн и счёт в один клик"
 ---
 
 ## Задача
@@ -31,7 +31,9 @@ media:
 
 Стек намеренно лёгкий — Next.js, React, Supabase для авторизации и базы, Vercel для деплоя. Для MVP схему оставил максимально простой: одна таблица `user_app_state` с JSONB для клиентов и сессий. Клиенты → Проекты → Задачи со статусами PENDING → ACTIVE → DONE, ручной ввод сессий, PDF-счёт в один клик и экспорт в CSV, Google-авторизация с облачной синхронизацией, fallback на localStorage для офлайна и тёмная/светлая темы.
 
-<ProjectShot src="/projects/Logr/dashboard.png" caption="Дашборд logr с таймером, таймлайном и оплачиваемыми часами" />
+<ProjectShot src="/projects/Logr/dashboard.png" caption="Дашборд: таймер, таймлайн, проекты, оплачиваемые часы и AI-сводка дня" />
+
+<ProjectShot src="/projects/Logr/mobile.png" caption="Мобильная версия — тот же день в одну колонку" />
 
 ## Результат
 
