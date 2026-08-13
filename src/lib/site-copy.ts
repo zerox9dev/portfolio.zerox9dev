@@ -40,7 +40,7 @@ type SiteDictionary = {
 const dictionaries: Record<SiteLocale, SiteDictionary> = {
   en: {
     profileName: 'Vadym Mirvald',
-    role: 'Product Designer + AI Engineer',
+    role: 'Product Designer & Design Engineer',
     tabs: {
       own: 'My products',
       client: 'Commercial',
@@ -80,7 +80,7 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
   },
   ru: {
     profileName: 'Vadym Mirvald',
-    role: 'Product Designer + AI Engineer',
+    role: 'Product Designer & Design Engineer',
     tabs: {
       own: 'Мои продукты',
       client: 'Коммерческие',
@@ -120,7 +120,7 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
   },
   ua: {
     profileName: 'Vadym Mirvald',
-    role: 'Product Designer + AI Engineer',
+    role: 'Product Designer & Design Engineer',
     tabs: {
       own: 'Мої продукти',
       client: 'Комерційні',

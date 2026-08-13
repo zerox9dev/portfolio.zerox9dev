@@ -13,9 +13,9 @@ const interTight = Inter_Tight({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL || 'http://localhost:3001'),
-  title: 'Portfolio | Product Designer & Developer',
+  title: 'Vadym Mirvald — Product Designer & Design Engineer',
   description:
-    'Portfolio of a Product Designer and Developer, showcasing projects in design and development.',
+    'Product designer and design engineer: I design products in Figma and ship them in React, with AI built into the product itself.',
 }
 
 export default function RootLayout({
@@ -33,9 +33,10 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Person',
-              name: 'Product Designer & Developer',
+              name: 'Vadym Mirvald',
+              jobTitle: 'Product Designer & Design Engineer',
               description:
-                'Portfolio of a Product Designer and Developer, showcasing projects in design and development.',
+                'Product designer and design engineer: I design products in Figma and ship them in React, with AI built into the product itself.',
             }),
           }}
         />
