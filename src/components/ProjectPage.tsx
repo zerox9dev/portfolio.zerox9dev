@@ -133,7 +133,7 @@ export default function ProjectPage({
 
         {hero && <ProjectMediaFigure asset={hero} priority className="mt-6" />}
 
-        <div className="prose prose-neutral dark:prose-invert mt-6 max-w-none text-neutral-600 dark:text-neutral-400 [&_h2]:mt-10 [&_h2]:flex [&_h2]:items-center [&_h2]:gap-4 [&_h2]:text-base [&_h2]:font-normal [&_h2]:tracking-tight [&_h2]:after:h-px [&_h2]:after:flex-grow [&_h2]:after:bg-neutral-200 [&_h2]:after:content-[''] dark:[&_h2]:after:bg-neutral-800">
+        <div className="prose prose-neutral dark:prose-invert mt-6 max-w-none text-neutral-600 dark:text-neutral-400 [&_h2]:mt-10 [&_h2]:flex [&_h2]:items-center [&_h2]:gap-4 [&_h2]:text-base [&_h2]:font-normal [&_h2]:tracking-tight [&_h2]:text-neutral-400 [&_h2]:after:h-px [&_h2]:after:flex-grow [&_h2]:after:bg-neutral-200 [&_h2]:after:content-[''] dark:[&_h2]:text-neutral-500 dark:[&_h2]:after:bg-neutral-800">
           {project.content}
         </div>
 
