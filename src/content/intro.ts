@@ -52,6 +52,21 @@ const introContent: Record<SiteLocale, IntroContent> = {
         'I build tools and interfaces that solve real problems.',
       ]),
       createBlock(
+        'intro-topnetics-en',
+        [
+          { text: 'Right now I work at ' },
+          { text: 'Topnetics', marks: ['topnetics-link'] },
+          { text: '.' },
+        ],
+        [
+          {
+            _key: 'topnetics-link',
+            _type: 'link',
+            href: 'https://topnetics.com',
+          },
+        ],
+      ),
+      createBlock(
         'intro-community-en',
         [
           { text: 'I run a ' },
@@ -78,6 +93,21 @@ const introContent: Record<SiteLocale, IntroContent> = {
         'Я создаю инструменты и интерфейсы, которые решают реальные проблемы.',
       ]),
       createBlock(
+        'intro-topnetics-ru',
+        [
+          { text: 'Сейчас работаю в ' },
+          { text: 'Topnetics', marks: ['topnetics-link'] },
+          { text: '.' },
+        ],
+        [
+          {
+            _key: 'topnetics-link',
+            _type: 'link',
+            href: 'https://topnetics.com',
+          },
+        ],
+      ),
+      createBlock(
         'intro-community-ru',
         [
           { text: 'Я веду ' },
@@ -103,6 +133,21 @@ const introContent: Record<SiteLocale, IntroContent> = {
         'Дизайн у Figma, розробка в React. Від інтерфейсу до продакшену — без handoff.',
         'Cтворюю інструменти та інтерфейси, які вирішують реальні проблеми.',
       ]),
+      createBlock(
+        'intro-topnetics-ua',
+        [
+          { text: 'Зараз працюю в ' },
+          { text: 'Topnetics', marks: ['topnetics-link'] },
+          { text: '.' },
+        ],
+        [
+          {
+            _key: 'topnetics-link',
+            _type: 'link',
+            href: 'https://topnetics.com',
+          },
+        ],
+      ),
       createBlock(
         'intro-community-ua',
         [
