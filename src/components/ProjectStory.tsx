@@ -29,10 +29,13 @@ export const ProjectStory = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="flex flex-col gap-3"
+      className="group/story flex flex-col gap-3 pl-5"
     >
-      <Link href={href} className="group flex flex-col gap-1">
-        <h3 className="text-base font-semibold tracking-tight group-hover:underline">
+      <Link
+        href={href}
+        className="group -ml-5 flex flex-col gap-1 border-l border-transparent pl-5 transition-colors group-hover/story:border-neutral-300 dark:group-hover/story:border-neutral-700"
+      >
+        <h3 className="text-base font-normal tracking-tight group-hover:underline">
           {story?.title ?? title}
         </h3>
         <p className="text-sm leading-relaxed [text-wrap:pretty] text-neutral-400 dark:text-neutral-500">

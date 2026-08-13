@@ -1,7 +1,6 @@
 import {
   faArrowLeft,
   faArrowUpRightFromSquare,
-  faTableCellsLarge,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
@@ -49,10 +48,14 @@ export default function ProjectPage({
 
   return (
     <main className="mx-auto flex min-h-[100dvh] max-w-[496px] flex-col gap-8 px-4 py-8 antialiased md:px-0 md:py-4">
-      <nav
-        aria-label="Breadcrumb"
-        className="flex items-center justify-between gap-4 text-sm"
-      >
+      <nav aria-label="Breadcrumb" className="flex items-center gap-4 text-sm">
+        <Link
+          href={backHref}
+          className="inline-flex shrink-0 items-center gap-1 border border-neutral-200 px-3 py-1.5 text-xs font-medium transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-800"
+        >
+          <FontAwesomeIcon icon={faArrowLeft} className="h-3 w-3" />
+          {dictionary.actions.back}
+        </Link>
         <ol className="flex min-w-0 items-center gap-1.5 text-neutral-400 dark:text-neutral-500">
           <li className="shrink-0">
             <Link
@@ -76,13 +79,6 @@ export default function ProjectPage({
             {title}
           </li>
         </ol>
-        <Link
-          href={backHref}
-          className="inline-flex shrink-0 items-center gap-1 border border-neutral-200 px-3 py-1.5 text-xs font-medium transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-800"
-        >
-          <FontAwesomeIcon icon={faArrowLeft} className="h-3 w-3" />
-          {dictionary.actions.back}
-        </Link>
       </nav>
 
       <article className="bg-white dark:bg-black">
@@ -137,7 +133,7 @@ export default function ProjectPage({
 
         {hero && <ProjectMediaFigure asset={hero} priority className="mt-6" />}
 
-        <div className="prose prose-neutral dark:prose-invert mt-6 max-w-none text-neutral-600 dark:text-neutral-400">
+        <div className="prose prose-neutral dark:prose-invert mt-6 max-w-none text-neutral-600 dark:text-neutral-400 [&_h2]:mt-10 [&_h2]:flex [&_h2]:items-center [&_h2]:gap-4 [&_h2]:text-base [&_h2]:font-normal [&_h2]:tracking-tight [&_h2]:after:h-px [&_h2]:after:flex-grow [&_h2]:after:bg-neutral-200 [&_h2]:after:content-[''] dark:[&_h2]:after:bg-neutral-800">
           {project.content}
         </div>
 
@@ -148,10 +144,7 @@ export default function ProjectPage({
 
       {otherProjects.length > 0 && (
         <section className="flex flex-col gap-6">
-          <SectionDivider
-            title={dictionary.sections.otherProjects}
-            icon={faTableCellsLarge}
-          />
+          <SectionDivider title={dictionary.sections.otherProjects} />
           <div className="flex flex-col gap-4">
             {otherProjects.map((entry) => (
               <Project

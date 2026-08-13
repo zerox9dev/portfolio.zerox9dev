@@ -2,12 +2,7 @@
 
 import * as React from 'react'
 import { motion } from 'framer-motion'
-import {
-  faCheck,
-  faCopy,
-  faPenNib,
-  faTableCellsLarge,
-} from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -214,48 +209,13 @@ export default function HomePageContent({
               </div>
             </div>
 
-            <Intro body={introData.body} />
+            <SectionDivider title={dictionary.sections.about} />
 
-            <div className="flex flex-col gap-1 text-xs text-neutral-400 dark:text-neutral-500">
-              <span>
-                {dictionary.messages.timezone} · {gmtPlusOneTime || '--:--'}
-              </span>
-              <div className="flex flex-wrap items-center gap-x-1.5">
-                {contactRows.map((row, index) => (
-                  <span key={row.label} className="flex items-center gap-1.5">
-                    {index > 0 && <span aria-hidden="true">·</span>}
-                    <a
-                      href={row.href}
-                      target={row.external ? '_blank' : undefined}
-                      rel={row.external ? 'noopener noreferrer' : undefined}
-                      className="hover:text-neutral-900 dark:hover:text-neutral-100"
-                    >
-                      {row.label}
-                    </a>
-                    {row.copyable && (
-                      <button
-                        type="button"
-                        onClick={() => copyEmail(row.label)}
-                        aria-label={dictionary.actions.copyEmail}
-                        className="hover:text-neutral-900 dark:hover:text-neutral-100"
-                      >
-                        <FontAwesomeIcon
-                          icon={emailCopied ? faCheck : faCopy}
-                          className="h-3 w-3"
-                        />
-                      </button>
-                    )}
-                  </span>
-                ))}
-              </div>
-              {emailCopied && (
-                <span role="status">{dictionary.actions.copiedEmail}</span>
-              )}
-            </div>
+            <Intro body={introData.body} />
           </div>
 
           <div className="order-3 flex flex-col gap-8 lg:order-none">
-            <SectionDivider title={dictionary.sections.blog} icon={faPenNib} />
+            <SectionDivider title={dictionary.sections.blog} />
             {blogEntries.length > 0 && (
               <div className="bg-white dark:bg-black">
                 <div className="flex flex-col gap-3">
@@ -298,10 +258,7 @@ export default function HomePageContent({
         </div>
 
         <div className="order-2 flex flex-col gap-8 lg:order-none">
-          <SectionDivider
-            title={dictionary.sections.projects}
-            icon={faTableCellsLarge}
-          />
+          <SectionDivider title={dictionary.sections.projects} />
           <div className="flex items-center gap-4 border-b border-neutral-100 text-sm dark:border-neutral-800">
             {projectTabs.map((tab) => (
               <button
@@ -345,12 +302,46 @@ export default function HomePageContent({
         <span className="text-xs text-neutral-400 dark:text-neutral-500">
           © 2026
         </span>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-neutral-400 dark:text-neutral-500">
+          <div className="flex flex-wrap items-center gap-x-1.5">
+            {contactRows.map((row, index) => (
+              <span key={row.label} className="flex items-center gap-1.5">
+                {index > 0 && <span aria-hidden="true">·</span>}
+                <a
+                  href={row.href}
+                  target={row.external ? '_blank' : undefined}
+                  rel={row.external ? 'noopener noreferrer' : undefined}
+                  className="hover:text-neutral-900 dark:hover:text-neutral-100"
+                >
+                  {row.label}
+                </a>
+                {row.copyable && (
+                  <button
+                    type="button"
+                    onClick={() => copyEmail(row.label)}
+                    aria-label={dictionary.actions.copyEmail}
+                    className="hover:text-neutral-900 dark:hover:text-neutral-100"
+                  >
+                    <FontAwesomeIcon
+                      icon={emailCopied ? faCheck : faCopy}
+                      className="h-3 w-3"
+                    />
+                  </button>
+                )}
+              </span>
+            ))}
+          </div>
+          {emailCopied && (
+            <span role="status">{dictionary.actions.copiedEmail}</span>
+          )}
           <LocaleToggleText locale={locale} hrefs={localeLinks} />
           <ThemeToggleText
             labels={dictionary.theme.names}
             ariaLabel={dictionary.theme.label}
           />
+          <span>
+            {dictionary.messages.timezone} · {gmtPlusOneTime || '--:--'}
+          </span>
         </div>
       </footer>
     </main>
