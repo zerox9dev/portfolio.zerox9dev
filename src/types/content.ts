@@ -13,6 +13,10 @@ export type RichTextMarkDef = {
   _key?: string
   _type?: string
   href?: string
+  /** company marks render an inline favicon plus a hover card */
+  name?: string
+  description?: string
+  favicon?: string
 }
 
 export type RichTextBlock = {
@@ -46,6 +50,7 @@ export interface ProjectFields {
   tech: string[] | string
   media: ContentImage[]
   category: 'Дизайн' | 'Разработка' | string
+  ownership: 'own' | 'client'
 }
 
 export interface ProjectEntry {

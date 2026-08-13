@@ -23,9 +23,9 @@ export const Intro: FC<IntroProps> = ({ body }) => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ delay: 0.08, duration: 0.4, ease: 'easeOut' }}
-        className="text-lg leading-normal font-normal [text-wrap:pretty] text-neutral-500 dark:text-neutral-400"
+        className="text-[15px] leading-relaxed font-normal [text-wrap:pretty] text-black dark:text-white"
       >
-        <div className="[&_p]:m-0 [&_p:not(:last-child)]:mb-1">
+        <div className="[&_p]:m-0 [&_p:not(:last-child)]:mb-3">
           <RichTextRenderer value={body} />
         </div>
       </motion.div>

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { CompanyMention } from '@/components/CompanyMention'
+
 import { type RichText } from '@/types/content'
 
 type RichTextRendererProps = {
@@ -34,9 +36,31 @@ function renderChildren(block: NonNullable<RichText>[number]) {
 
       if (mark === 'code') {
         return (
-          <code key={`${key}-${mark}`} className="bg-neutral-100 px-1 py-0.5 dark:bg-neutral-900">
+          <code
+            key={`${key}-${mark}`}
+            className="bg-neutral-100 px-1 py-0.5 dark:bg-neutral-900"
+          >
             {content}
           </code>
+        )
+      }
+
+      if (
+        markDef?._type === 'company' &&
+        markDef.href &&
+        markDef.name &&
+        markDef.favicon
+      ) {
+        return (
+          <CompanyMention
+            key={`${key}-${mark}`}
+            href={markDef.href}
+            name={markDef.name}
+            favicon={markDef.favicon}
+            description={markDef.description}
+          >
+            {content}
+          </CompanyMention>
         )
       }
 
@@ -63,7 +87,7 @@ export default function RichTextRenderer({ value }: RichTextRendererProps) {
   if (!Array.isArray(value) || value.length === 0) return null
 
   return (
-    <div className="prose prose-neutral max-w-none text-neutral-600 dark:prose-invert dark:text-neutral-400">
+    <div className="prose prose-neutral dark:prose-invert max-w-none text-neutral-600 dark:text-neutral-400">
       {value.map((block, index) => {
         if (block?._type !== 'block') return null
 

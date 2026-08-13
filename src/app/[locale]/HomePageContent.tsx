@@ -3,10 +3,12 @@
 import * as React from 'react'
 import { motion } from 'framer-motion'
 import {
+  faCheck,
+  faCopy,
   faPenNib,
   faTableCellsLarge,
-  faUser,
 } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Intro } from '@/components/Intro'
@@ -48,7 +50,6 @@ export default function HomePageContent({
   )
   const pathname = usePathname()
   const [gmtPlusOneTime, setGmtPlusOneTime] = React.useState('')
-  const [showArchivedProjects, setShowArchivedProjects] = React.useState(false)
   const dateFormatter = React.useMemo(
     () =>
       new Intl.DateTimeFormat(getLocaleTag(locale), {
@@ -74,6 +75,77 @@ export default function HomePageContent({
     return () => clearInterval(timer)
   }, [])
 
+  const [projectTab, setProjectTab] = React.useState<'own' | 'client'>('client')
+  const [emailCopied, setEmailCopied] = React.useState(false)
+
+  const contactRows = React.useMemo(() => {
+    const rows: Array<{
+      label: string
+      href: string
+      external?: boolean
+      copyable?: boolean
+    }> = []
+
+    if (contactLinks.telegramUrl) {
+      rows.push({
+        label: dictionary.actions.telegram,
+        href: contactLinks.telegramUrl,
+        external: true,
+      })
+    }
+    if (contactLinks.githubUrl) {
+      rows.push({
+        label: 'GitHub',
+        href: contactLinks.githubUrl,
+        external: true,
+      })
+    }
+    if (contactLinks.bookCallUrl) {
+      rows.push({
+        label: dictionary.actions.bookCall,
+        href: contactLinks.bookCallUrl,
+        external: true,
+      })
+    }
+    if (contactLinks.email) {
+      rows.push({
+        label: contactLinks.email,
+        href: `mailto:${contactLinks.email}`,
+        copyable: true,
+      })
+    }
+
+    return rows
+  }, [contactLinks, dictionary.actions.bookCall, dictionary.actions.telegram])
+
+  const copyEmail = React.useCallback(async (email: string) => {
+    try {
+      await navigator.clipboard.writeText(email)
+      setEmailCopied(true)
+      setTimeout(() => setEmailCopied(false), 2000)
+    } catch {
+      setEmailCopied(false)
+    }
+  }, [])
+
+  const allProjects = React.useMemo(
+    () => [...projectEntries, ...archivedProjectEntries],
+    [archivedProjectEntries, projectEntries],
+  )
+  const projectsByTab = React.useMemo(
+    () => allProjects.filter((p) => p.fields.ownership === projectTab),
+    [allProjects, projectTab],
+  )
+  const projectTabs = React.useMemo(
+    () =>
+      (['client', 'own'] as const).map((value) => ({
+        value,
+        label: dictionary.tabs[value],
+        count: allProjects.filter((p) => p.fields.ownership === value).length,
+      })),
+    [allProjects, dictionary.tabs],
+  )
+
   const localeLinks = React.useMemo(() => {
     const path = pathname || '/'
 
@@ -98,96 +170,88 @@ export default function HomePageContent({
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] lg:gap-14">
         {/* contents on mobile so the blog can be ordered below projects; a sticky column on lg */}
         <div className="contents lg:sticky lg:top-8 lg:flex lg:flex-col lg:gap-8 lg:self-start">
-          <div className="order-1 flex flex-col gap-8 lg:order-none">
-            <header className="flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-2">
-                <Image
-                  src={introData.avatarSrc}
-                  alt={introData.avatarAlt}
-                  width={60}
-                  height={60}
-                  priority
-                  className="h-16 w-16 border border-neutral-200 object-cover"
-                />
-                <div className="flex flex-col">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-base font-semibold tracking-tight">
-                      {dictionary.profileName}
-                    </span>
-                    {introData.availabilityText && (
-                      <motion.span
-                        initial={{ opacity: 0, y: 6 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          delay: 0.05,
-                          duration: 0.35,
-                          ease: 'easeOut',
-                        }}
-                        className="inline-flex items-center gap-1.5 bg-green-50 px-2 py-0.5 text-[11px] font-medium text-green-700 dark:bg-green-500/10 dark:text-green-300"
-                      >
-                        <span
-                          className="relative flex h-2 w-2"
-                          aria-hidden="true"
-                        >
-                          <span className="absolute inline-flex h-full w-full animate-ping bg-green-400/50" />
-                          <span className="relative inline-flex h-2 w-2 bg-green-500" />
-                        </span>
-                        {introData.availabilityText}
-                      </motion.span>
-                    )}
-                  </div>
-                  <span className="text-sm text-neutral-400 dark:text-neutral-500">
-                    {dictionary.role}
+          <div className="order-1 flex flex-col gap-5 lg:order-none">
+            <div className="flex items-stretch gap-2">
+              <Image
+                src={introData.avatarSrc}
+                alt={introData.avatarAlt}
+                width={60}
+                height={60}
+                priority
+                className="h-auto w-11 self-stretch border border-neutral-200 object-cover dark:border-neutral-800"
+              />
+              <div className="flex flex-col gap-0.5">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-base font-semibold tracking-tight">
+                    {dictionary.profileName}
                   </span>
+                  {introData.availabilityText && (
+                    <motion.span
+                      initial={{ opacity: 0, y: 6 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        delay: 0.05,
+                        duration: 0.35,
+                        ease: 'easeOut',
+                      }}
+                      className="inline-flex items-center gap-1.5 bg-green-50 px-2 py-0.5 text-[11px] font-medium text-green-700 dark:bg-green-500/10 dark:text-green-300"
+                    >
+                      <span
+                        className="relative flex h-2 w-2"
+                        aria-hidden="true"
+                      >
+                        <span className="absolute inline-flex h-full w-full animate-ping bg-green-400/50" />
+                        <span className="relative inline-flex h-2 w-2 bg-green-500" />
+                      </span>
+                      {introData.availabilityText}
+                    </motion.span>
+                  )}
                 </div>
+                <span className="text-sm text-neutral-400 dark:text-neutral-500">
+                  {dictionary.role}
+                </span>
               </div>
-              <div className="flex items-center gap-2">
-                {(contactLinks.bookCallUrl || contactLinks.telegramUrl) && (
-                  <div className="flex gap-2">
-                    {contactLinks.bookCallUrl && (
+            </div>
+
+            <Intro body={introData.body} />
+
+            <div className="flex flex-col gap-1 text-xs text-neutral-400 dark:text-neutral-500">
+              <span>
+                {dictionary.messages.timezone} · {gmtPlusOneTime || '--:--'}
+              </span>
+              <div className="flex flex-wrap items-center gap-x-1.5">
+                {contactRows.map((row, index) => (
+                  <span key={row.label} className="flex items-center gap-1.5">
+                    {index > 0 && <span aria-hidden="true">·</span>}
+                    <a
+                      href={row.href}
+                      target={row.external ? '_blank' : undefined}
+                      rel={row.external ? 'noopener noreferrer' : undefined}
+                      className="hover:text-neutral-900 dark:hover:text-neutral-100"
+                    >
+                      {row.label}
+                    </a>
+                    {row.copyable && (
                       <button
-                        onClick={() =>
-                          window.open(
-                            contactLinks.bookCallUrl,
-                            '_blank',
-                            'noopener,noreferrer',
-                          )
-                        }
-                        className="flex items-center gap-1 bg-neutral-200/50 px-3 py-1.5 text-xs font-medium text-black transition-colors hover:bg-neutral-100"
-                        aria-label={dictionary.actions.bookCallAriaLabel}
+                        type="button"
+                        onClick={() => copyEmail(row.label)}
+                        aria-label={dictionary.actions.copyEmail}
+                        className="hover:text-neutral-900 dark:hover:text-neutral-100"
                       >
-                        {dictionary.actions.bookCall}
-                      </button>
-                    )}
-                    {contactLinks.telegramUrl && (
-                      <button
-                        onClick={() =>
-                          window.open(
-                            contactLinks.telegramUrl,
-                            '_blank',
-                            'noopener,noreferrer',
-                          )
-                        }
-                        className="flex items-center gap-1 border border-neutral-200 px-3 py-1.5 text-xs font-medium text-black transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-800"
-                        aria-label={dictionary.actions.telegramAriaLabel}
-                      >
-                        <Image
-                          src="/tglogo.svg"
-                          alt="Telegram"
-                          width={12}
-                          height={12}
+                        <FontAwesomeIcon
+                          icon={emailCopied ? faCheck : faCopy}
                           className="h-3 w-3"
                         />
-                        {dictionary.actions.telegram}
                       </button>
                     )}
-                  </div>
-                )}
+                  </span>
+                ))}
               </div>
-            </header>
-            <SectionDivider title={dictionary.sections.about} icon={faUser} />
-            <Intro body={introData.body} />
+              {emailCopied && (
+                <span role="status">{dictionary.actions.copiedEmail}</span>
+              )}
+            </div>
           </div>
 
           <div className="order-3 flex flex-col gap-8 lg:order-none">
@@ -241,10 +305,30 @@ export default function HomePageContent({
           <p className="text-sm leading-relaxed [text-wrap:pretty] text-black dark:text-white">
             {dictionary.messages.projectsIntro}
           </p>
-          {projectEntries.length > 0 && (
+          <div className="flex items-center gap-4 border-b border-neutral-100 text-sm dark:border-neutral-800">
+            {projectTabs.map((tab) => (
+              <button
+                key={tab.value}
+                type="button"
+                onClick={() => setProjectTab(tab.value)}
+                aria-pressed={projectTab === tab.value}
+                className={`-mb-px border-b-2 pb-2 transition-colors ${
+                  projectTab === tab.value
+                    ? 'border-black text-black dark:border-white dark:text-white'
+                    : 'border-transparent text-neutral-400 hover:text-neutral-700 dark:text-neutral-500 dark:hover:text-neutral-300'
+                }`}
+              >
+                {tab.label}
+                <span className="ml-1.5 text-xs text-neutral-400 dark:text-neutral-500">
+                  {tab.count}
+                </span>
+              </button>
+            ))}
+          </div>
+          {projectsByTab.length > 0 && (
             <div className="flex flex-col gap-4 bg-white dark:bg-black">
               <div className="grid grid-cols-1 gap-x-12 gap-y-6 md:grid-cols-1">
-                {projectEntries.map((project) => (
+                {projectsByTab.map((project) => (
                   <div className="relative flex flex-col" key={project._id}>
                     {project.fields && (
                       <Project
@@ -254,32 +338,10 @@ export default function HomePageContent({
                     )}
                   </div>
                 ))}
-                {showArchivedProjects &&
-                  archivedProjectEntries.map((project) => (
-                    <div className="relative flex flex-col" key={project._id}>
-                      {project.fields && (
-                        <Project
-                          {...project.fields}
-                          href={getProjectHref(project.fields.slug)}
-                        />
-                      )}
-                    </div>
-                  ))}
               </div>
-              {archivedProjectEntries.length > 0 && !showArchivedProjects && (
-                <div className="flex justify-center">
-                  <button
-                    type="button"
-                    onClick={() => setShowArchivedProjects((value) => !value)}
-                    className="text-sm text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
-                  >
-                    {`${dictionary.actions.moreProjects} (${archivedProjectEntries.length})`}
-                  </button>
-                </div>
-              )}
             </div>
           )}
-          {projectEntries.length === 0 && (
+          {projectsByTab.length === 0 && (
             <div className="border-muted-foreground/30 text-muted-foreground border border-dashed p-4 text-sm">
               {dictionary.messages.noProjects}
             </div>
@@ -297,9 +359,6 @@ export default function HomePageContent({
             labels={dictionary.theme.names}
             ariaLabel={dictionary.theme.label}
           />
-          <span className="text-xs text-neutral-400 dark:text-neutral-500">
-            {dictionary.messages.timezone} : {gmtPlusOneTime || '--:--'}
-          </span>
         </div>
       </footer>
     </main>

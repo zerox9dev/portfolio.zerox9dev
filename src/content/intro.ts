@@ -1,5 +1,5 @@
 import { type SiteLocale } from '@/lib/site-copy'
-import { type RichText } from '@/types/content'
+import { type RichText, type RichTextMarkDef } from '@/types/content'
 
 export type IntroContent = {
   body: RichText
@@ -28,7 +28,7 @@ function paragraphsToPortableText(paragraphs: string[]): RichText {
 function createBlock(
   key: string,
   children: Array<{ text: string; marks?: string[] }>,
-  markDefs: Array<{ _key: string; _type: 'link'; href: string }> = [],
+  markDefs: RichTextMarkDef[] = [],
 ): RichText[number] {
   return {
     _key: key,
@@ -54,30 +54,19 @@ const introContent: Record<SiteLocale, IntroContent> = {
       createBlock(
         'intro-topnetics-en',
         [
-          { text: 'Right now I work at ' },
+          { text: "Right now I'm a product designer at " },
           { text: 'Topnetics', marks: ['topnetics-link'] },
-          { text: '.' },
+          { text: ', where I design interfaces and build AI into products.' },
         ],
         [
           {
             _key: 'topnetics-link',
-            _type: 'link',
+            _type: 'company',
             href: 'https://topnetics.com',
-          },
-        ],
-      ),
-      createBlock(
-        'intro-community-en',
-        [
-          { text: 'I run a ' },
-          { text: 'community', marks: ['community-link'] },
-          { text: ' for vibe-coders who ship their own products.' },
-        ],
-        [
-          {
-            _key: 'community-link',
-            _type: 'link',
-            href: 'https://t.me/+rDmRBLt6_PliN2I0',
+            name: 'Topnetics',
+            favicon: 'https://topnetics.com/favicon-v2.png',
+            description:
+              'Technical co-founding team for AI, blockchain and fintech startups in the UAE and GCC: CTO as a Service, R&D sprints, venture building.',
           },
         ],
       ),
@@ -95,30 +84,19 @@ const introContent: Record<SiteLocale, IntroContent> = {
       createBlock(
         'intro-topnetics-ru',
         [
-          { text: 'Сейчас работаю в ' },
+          { text: 'Сейчас продуктовый дизайнер в ' },
           { text: 'Topnetics', marks: ['topnetics-link'] },
-          { text: '.' },
+          { text: ', где проектирую интерфейсы и внедряю ИИ в продукты.' },
         ],
         [
           {
             _key: 'topnetics-link',
-            _type: 'link',
+            _type: 'company',
             href: 'https://topnetics.com',
-          },
-        ],
-      ),
-      createBlock(
-        'intro-community-ru',
-        [
-          { text: 'Я веду ' },
-          { text: 'сообщество', marks: ['community-link'] },
-          { text: ' для vibe-coders, которые запускают собственные продукты.' },
-        ],
-        [
-          {
-            _key: 'community-link',
-            _type: 'link',
-            href: 'https://t.me/+rDmRBLt6_PliN2I0',
+            name: 'Topnetics',
+            favicon: 'https://topnetics.com/favicon-v2.png',
+            description:
+              'Техническая команда-соосновать для AI-, блокчейн- и fintech-стартапов в ОАЭ и странах Персидского залива: CTO as a Service, R&D-спринты, venture building.',
           },
         ],
       ),
@@ -136,30 +114,19 @@ const introContent: Record<SiteLocale, IntroContent> = {
       createBlock(
         'intro-topnetics-ua',
         [
-          { text: 'Зараз працюю в ' },
+          { text: 'Зараз продуктовий дизайнер у ' },
           { text: 'Topnetics', marks: ['topnetics-link'] },
-          { text: '.' },
+          { text: ', де проєктую інтерфейси та впроваджую ШІ у продукти.' },
         ],
         [
           {
             _key: 'topnetics-link',
-            _type: 'link',
+            _type: 'company',
             href: 'https://topnetics.com',
-          },
-        ],
-      ),
-      createBlock(
-        'intro-community-ua',
-        [
-          { text: 'Створив ' },
-          { text: 'спільноту', marks: ['community-link'] },
-          { text: ' для vibe-coders, які запускають власні продукти.' },
-        ],
-        [
-          {
-            _key: 'community-link',
-            _type: 'link',
-            href: 'https://t.me/+rDmRBLt6_PliN2I0',
+            name: 'Topnetics',
+            favicon: 'https://topnetics.com/favicon-v2.png',
+            description:
+              'Технічна команда-співзасновник для AI-, блокчейн- та fintech-стартапів в ОАЕ і країнах Перської затоки: CTO as a Service, R&D-спринти, venture building.',
           },
         ],
       ),

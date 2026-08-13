@@ -3,6 +3,10 @@ export type SiteLocale = 'en' | 'ru' | 'ua'
 type SiteDictionary = {
   profileName: string
   role: string
+  tabs: {
+    own: string
+    client: string
+  }
   sections: {
     about: string
     projects: string
@@ -16,6 +20,8 @@ type SiteDictionary = {
     bookCall: string
     bookCallAriaLabel: string
     back: string
+    copyEmail: string
+    copiedEmail: string
   }
   messages: {
     projectsIntro: string
@@ -34,6 +40,10 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
   en: {
     profileName: 'Vadym Mirvald',
     role: 'Product Designer + AI Engineer',
+    tabs: {
+      own: 'My products',
+      client: 'Commercial',
+    },
     sections: {
       about: 'About',
       projects: 'Projects',
@@ -47,6 +57,8 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
       bookCall: 'Book a call',
       bookCallAriaLabel: 'Book a call',
       back: 'Back',
+      copyEmail: 'Copy email',
+      copiedEmail: 'Copied',
     },
     messages: {
       projectsIntro:
@@ -68,6 +80,10 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
   ru: {
     profileName: 'Vadym Mirvald',
     role: 'Product Designer + AI Engineer',
+    tabs: {
+      own: 'Мои продукты',
+      client: 'Коммерческие',
+    },
     sections: {
       about: 'Обо мне',
       projects: 'Проекты',
@@ -81,6 +97,8 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
       bookCall: 'Созвон',
       bookCallAriaLabel: 'Забронировать созвон',
       back: 'Назад',
+      copyEmail: 'Скопировать почту',
+      copiedEmail: 'Скопировано',
     },
     messages: {
       projectsIntro:
@@ -102,6 +120,10 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
   ua: {
     profileName: 'Vadym Mirvald',
     role: 'Product Designer + AI Engineer',
+    tabs: {
+      own: 'Мої продукти',
+      client: 'Комерційні',
+    },
     sections: {
       about: 'Про мене',
       projects: 'Проєкти',
@@ -115,6 +137,8 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
       bookCall: 'Дзвінок',
       bookCallAriaLabel: 'Забронювати дзвінок',
       back: 'Назад',
+      copyEmail: 'Скопіювати пошту',
+      copiedEmail: 'Скопійовано',
     },
     messages: {
       projectsIntro:
@@ -149,5 +173,8 @@ export function getContactLinks() {
   return {
     telegramUrl: process.env.NEXT_PUBLIC_TELEGRAM_URL ?? '',
     bookCallUrl: process.env.NEXT_PUBLIC_BOOK_CALL_URL ?? '',
+    githubUrl:
+      process.env.NEXT_PUBLIC_GITHUB_URL ?? 'https://github.com/zerox9dev',
+    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? '',
   }
 }

@@ -8,9 +8,18 @@ import remarkGfm from 'remark-gfm'
 import { ProjectShot } from '@/components/ProjectShot'
 import { ProjectShotRow } from '@/components/ProjectShotRow'
 import { type SiteLocale } from '@/lib/site-copy'
-import { type ContentImage, type ProjectEntry, type ProjectPageData } from '@/types/content'
+import {
+  type ContentImage,
+  type ProjectEntry,
+  type ProjectPageData,
+} from '@/types/content'
 
-export const FEATURED_PROJECT_SLUGS = ['logr', 'oceangroup', 'holyheld', 'turbo-work'] as const
+export const FEATURED_PROJECT_SLUGS = [
+  'logr',
+  'oceangroup',
+  'holyheld',
+  'turbo-work',
+] as const
 
 type ProjectFrontmatter = {
   title: string
@@ -21,6 +30,7 @@ type ProjectFrontmatter = {
   tech?: string[] | string
   logo: ContentImage
   media?: ContentImage[]
+  ownership?: 'own' | 'client'
 }
 
 function getProjectLocaleDirectory(locale: SiteLocale) {
@@ -41,7 +51,10 @@ async function readMdxFiles(locale: SiteLocale) {
   }
 }
 
-function toProjectEntry(filePath: string, frontmatter: ProjectFrontmatter): ProjectEntry {
+function toProjectEntry(
+  filePath: string,
+  frontmatter: ProjectFrontmatter,
+): ProjectEntry {
   const fileName = path.basename(filePath, '.mdx')
 
   return {
@@ -55,11 +68,14 @@ function toProjectEntry(filePath: string, frontmatter: ProjectFrontmatter): Proj
       tech: frontmatter.tech ?? [],
       media: frontmatter.media ?? [],
       category: frontmatter.category,
+      ownership: frontmatter.ownership ?? 'client',
     },
   }
 }
 
-export async function getProjectEntries(locale: SiteLocale): Promise<ProjectEntry[]> {
+export async function getProjectEntries(
+  locale: SiteLocale,
+): Promise<ProjectEntry[]> {
   const filePaths = await readMdxFiles(locale)
 
   return Promise.all(
@@ -105,12 +121,16 @@ export async function getProjectBySlug(
   return null
 }
 
-export async function getProjectStaticSlugs(locale: SiteLocale): Promise<string[]> {
+export async function getProjectStaticSlugs(
+  locale: SiteLocale,
+): Promise<string[]> {
   const entries = await getProjectEntries(locale)
   return entries.map((entry) => entry.fields.slug)
 }
 
-export function getFeaturedProjectEntries<T extends ProjectEntry>(entries: T[]): T[] {
+export function getFeaturedProjectEntries<T extends ProjectEntry>(
+  entries: T[],
+): T[] {
   const bySlug = new Map(entries.map((entry) => [entry.fields.slug, entry]))
 
   return FEATURED_PROJECT_SLUGS.map((slug) => bySlug.get(slug)).filter(
@@ -118,7 +138,9 @@ export function getFeaturedProjectEntries<T extends ProjectEntry>(entries: T[]):
   )
 }
 
-export function getArchivedProjectEntries<T extends ProjectEntry>(entries: T[]): T[] {
+export function getArchivedProjectEntries<T extends ProjectEntry>(
+  entries: T[],
+): T[] {
   const featuredSlugs = new Set<string>(FEATURED_PROJECT_SLUGS)
   return entries.filter((entry) => !featuredSlugs.has(entry.fields.slug))
 }
