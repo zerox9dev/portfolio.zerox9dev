@@ -1,0 +1,40 @@
+---
+title: I design the product and build the AI inside it
+slug: i-design-the-product-and-build-the-ai-inside-it
+excerpt: Why I stopped handing AI features over to someone else, and what changed in my work when the designer became the person who ships the model behaviour too.
+publishedAt: 2026-08-13
+---
+
+AI features break in a specific place: between the person who imagines them and the person who wires them up.
+
+The designer draws a chat with a magic answer. The engineer connects a model and gets a real answer — slower, longer, sometimes wrong. Nobody designed that state, so it ships as a spinner and a red toast. The feature technically works and feels broken.
+
+I got tired of that handoff and took the whole thing.
+
+## What my work looks like now
+
+I design in Figma and build in React. Same person, no handoff, no spec that says "AI suggests the best option here" and leaves the hard part to someone else.
+
+Claude Code sits in that loop as a second pair of hands. It writes the scaffolding, the glue code, the migration I would otherwise put off for a week. logr, my time tracker, went from idea to working product in a day for exactly that reason: I didn't have to choose between designing it and building it.
+
+What it does not do is make the decisions. It has no taste, no context about the person who will use this, and infinite confidence. The value is not "AI writes my product" — it's that the distance between a decision and a working screen collapsed to minutes, so I make more decisions per day and throw more of them away.
+
+## Taking the AI engineer role
+
+Then comes the part designers usually skip.
+
+A prompt is interface copy. It's the tone, the boundaries, the refusals, the questions the product asks back. Writing it is design work, and handing it to a backend engineer as a ticket is how products end up sounding like a compliance department.
+
+Failure is a design surface. A model is slow, sometimes wrong, sometimes empty. That means streaming, partial states, "I'm not sure" instead of a confident lie, an easy way to correct it. If you don't design these, you are shipping a spinner as your main state.
+
+Evals are the new usability test. You cannot eyeball a probabilistic feature twice and call it done. I keep a small set of real cases and run them after each change — the boring habit that separates a demo from a feature.
+
+Cost is a constraint like page weight. Every call has a price and a latency budget. That changes design decisions: what runs on every keystroke, what runs once, what doesn't need a model at all.
+
+## Why this works
+
+The old split assumed the interface was the surface and the model was the machinery. In AI products the model behaviour *is* the interface. Splitting them across two people means nobody owns the actual experience.
+
+One person can hold both now — not because designers got smarter, but because the tools got close enough that designing and shipping stopped being separate jobs.
+
+If you already design products and you can read code, this is the shortest path to being the person who decides how the product behaves, not the person who describes it.

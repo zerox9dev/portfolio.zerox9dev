@@ -41,6 +41,7 @@ export const ProjectShotRow = ({
           key={index}
           asset={{ asset: { url: item.src }, description: item.alt }}
           caption={item.caption}
+          wide={false}
           className="my-0"
         />
       ))}

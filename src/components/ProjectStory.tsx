@@ -11,7 +11,7 @@ interface ProjectStoryProps extends ProjectFields {
 }
 
 const panelClass =
-  'flex items-center justify-center bg-neutral-100 p-5 dark:bg-neutral-900'
+  'flex items-center justify-center border border-neutral-200 bg-neutral-100 p-5 dark:border-neutral-800 dark:bg-neutral-900'
 
 export const ProjectStory = ({
   title,
