@@ -31,6 +31,11 @@ type ProjectFrontmatter = {
   logo: ContentImage
   media?: ContentImage[]
   ownership?: 'own' | 'client'
+  story?: {
+    title: string
+    result: string
+    images?: string[]
+  }
 }
 
 function getProjectLocaleDirectory(locale: SiteLocale) {
@@ -69,6 +74,7 @@ function toProjectEntry(
       media: frontmatter.media ?? [],
       category: frontmatter.category,
       ownership: frontmatter.ownership ?? 'client',
+      story: frontmatter.story,
     },
   }
 }

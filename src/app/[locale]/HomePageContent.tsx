@@ -13,7 +13,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Intro } from '@/components/Intro'
 import { LocaleToggleText } from '@/components/LocaleToggleText'
-import { Project } from '@/components/Project'
+import { ProjectStory } from '@/components/ProjectStory'
 import { SectionDivider } from '@/components/SectionDivider'
 import { ThemeToggleText } from '@/components/ThemeToggleText'
 import Image from 'next/image'
@@ -302,9 +302,6 @@ export default function HomePageContent({
             title={dictionary.sections.projects}
             icon={faTableCellsLarge}
           />
-          <p className="text-sm leading-relaxed [text-wrap:pretty] text-black dark:text-white">
-            {dictionary.messages.projectsIntro}
-          </p>
           <div className="flex items-center gap-4 border-b border-neutral-100 text-sm dark:border-neutral-800">
             {projectTabs.map((tab) => (
               <button
@@ -326,19 +323,14 @@ export default function HomePageContent({
             ))}
           </div>
           {projectsByTab.length > 0 && (
-            <div className="flex flex-col gap-4 bg-white dark:bg-black">
-              <div className="grid grid-cols-1 gap-x-12 gap-y-6 md:grid-cols-1">
-                {projectsByTab.map((project) => (
-                  <div className="relative flex flex-col" key={project._id}>
-                    {project.fields && (
-                      <Project
-                        {...project.fields}
-                        href={getProjectHref(project.fields.slug)}
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
+            <div className="flex flex-col gap-20 lg:gap-40">
+              {projectsByTab.map((project) => (
+                <ProjectStory
+                  key={project._id}
+                  {...project.fields}
+                  href={getProjectHref(project.fields.slug)}
+                />
+              ))}
             </div>
           )}
           {projectsByTab.length === 0 && (

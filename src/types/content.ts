@@ -51,6 +51,12 @@ export interface ProjectFields {
   media: ContentImage[]
   category: 'Дизайн' | 'Разработка' | string
   ownership: 'own' | 'client'
+  /** achievement-framed teaser used by the story feed on the home page */
+  story?: {
+    title: string
+    result: string
+    images?: string[]
+  }
 }
 
 export interface ProjectEntry {

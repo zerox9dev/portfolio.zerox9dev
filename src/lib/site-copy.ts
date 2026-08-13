@@ -26,7 +26,6 @@ type SiteDictionary = {
     copiedEmail: string
   }
   messages: {
-    projectsIntro: string
     noProjects: string
     noBlogPosts: string
     loading: string
@@ -65,8 +64,6 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
       copiedEmail: 'Copied',
     },
     messages: {
-      projectsIntro:
-        "Products and projects — my own and the ones I've helped build, some of them still ongoing.",
       noProjects: 'No published projects yet.',
       noBlogPosts: 'No published blog posts yet.',
       loading: 'Loading...',
@@ -107,8 +104,6 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
       copiedEmail: 'Скопировано',
     },
     messages: {
-      projectsIntro:
-        'Продукты и проекты — мои собственные и те, в которых я участвовал и участвую.',
       noProjects: 'Пока нет опубликованных проектов.',
       noBlogPosts: 'Пока нет опубликованных постов.',
       loading: 'Загрузка...',
@@ -149,8 +144,6 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
       copiedEmail: 'Скопійовано',
     },
     messages: {
-      projectsIntro:
-        'Продукти та проєкти — мої власні й ті, у яких я брав і беру участь.',
       noProjects: 'Опублікованих проєктів поки немає.',
       noBlogPosts: 'Опублікованих постів поки немає.',
       loading: 'Завантаження...',
