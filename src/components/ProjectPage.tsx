@@ -1,4 +1,8 @@
-import { ArrowLeft, ArrowUpRight } from 'lucide-react'
+import {
+  faArrowLeft,
+  faArrowUpRightFromSquare,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -66,7 +70,7 @@ export default function ProjectPage({ project, locale }: ProjectPageProps) {
           href={backHref}
           className="inline-flex shrink-0 items-center gap-1 border border-neutral-200 px-3 py-1.5 text-xs font-medium transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-800"
         >
-          <ArrowLeft className="h-3.5 w-3.5" />
+          <FontAwesomeIcon icon={faArrowLeft} className="h-3 w-3" />
           {dictionary.actions.back}
         </Link>
       </nav>
@@ -102,7 +106,10 @@ export default function ProjectPage({ project, locale }: ProjectPageProps) {
                 className="inline-flex w-fit items-center gap-1 text-sm text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
               >
                 {link.replace(/^https?:\/\//, '')}
-                <ArrowUpRight className="h-3.5 w-3.5" />
+                <FontAwesomeIcon
+                  icon={faArrowUpRightFromSquare}
+                  className="h-3 w-3"
+                />
               </a>
             )}
           </div>

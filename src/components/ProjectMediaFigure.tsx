@@ -1,7 +1,8 @@
 'use client'
 
 import * as Dialog from '@radix-ui/react-dialog'
-import { X } from 'lucide-react'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { ContentImage } from '@/components/ContentImage'
 import { type ContentImage as ContentImageType } from '@/types/content'
@@ -56,7 +57,7 @@ export const ProjectMediaFigure = ({
                 type="button"
                 className={`${closeButtonClass} absolute top-4 right-4`}
               >
-                <X className="h-4 w-4" />
+                <FontAwesomeIcon icon={faXmark} className="h-4 w-4" />
                 <span className="sr-only">Close image preview</span>
               </button>
             </Dialog.Close>

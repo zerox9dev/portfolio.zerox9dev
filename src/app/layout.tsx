@@ -1,8 +1,13 @@
 import type { Metadata } from 'next'
 import { Inter_Tight } from 'next/font/google'
 import './globals.css'
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { Analytics } from '@vercel/analytics/next'
+
+// Next inlines the CSS above, so Font Awesome must not inject it again at runtime
+config.autoAddCss = false
 
 const interTight = Inter_Tight({ subsets: ['latin'] })
 
@@ -18,7 +23,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  console.log('[3] Root Layout: Rendering');
+  console.log('[3] Root Layout: Rendering')
   return (
     <html lang="en" suppressHydrationWarning>
       <head>

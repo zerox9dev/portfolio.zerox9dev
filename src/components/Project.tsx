@@ -1,7 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowUpRight } from 'lucide-react'
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
 import { type FC } from 'react'
@@ -71,7 +72,10 @@ export const Project: FC<ProjectProps> = ({
           className={`${viewButtonClass} shrink-0 self-center`}
           aria-hidden="true"
         >
-          <ArrowUpRight className="h-3.5 w-3.5" />
+          <FontAwesomeIcon
+            icon={faArrowUpRightFromSquare}
+            className="h-3.5 w-3.5"
+          />
         </span>
       </Link>
     </motion.div>

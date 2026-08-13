@@ -2,6 +2,11 @@
 
 import * as React from 'react'
 import { motion } from 'framer-motion'
+import {
+  faPenNib,
+  faTableCellsLarge,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Intro } from '@/components/Intro'
@@ -181,12 +186,12 @@ export default function HomePageContent({
                 )}
               </div>
             </header>
-            <SectionDivider title={dictionary.sections.about} />
+            <SectionDivider title={dictionary.sections.about} icon={faUser} />
             <Intro body={introData.body} />
           </div>
 
           <div className="order-3 flex flex-col gap-8 lg:order-none">
-            <SectionDivider title={dictionary.sections.blog} />
+            <SectionDivider title={dictionary.sections.blog} icon={faPenNib} />
             {blogEntries.length > 0 && (
               <div className="bg-white dark:bg-black">
                 <div className="flex flex-col gap-3">
@@ -229,7 +234,13 @@ export default function HomePageContent({
         </div>
 
         <div className="order-2 flex flex-col gap-8 lg:order-none">
-          <SectionDivider title={dictionary.sections.projects} />
+          <SectionDivider
+            title={dictionary.sections.projects}
+            icon={faTableCellsLarge}
+          />
+          <p className="text-sm leading-relaxed [text-wrap:pretty] text-black dark:text-white">
+            {dictionary.messages.projectsIntro}
+          </p>
           {projectEntries.length > 0 && (
             <div className="flex flex-col gap-4 bg-white dark:bg-black">
               <div className="grid grid-cols-1 gap-x-12 gap-y-6 md:grid-cols-1">

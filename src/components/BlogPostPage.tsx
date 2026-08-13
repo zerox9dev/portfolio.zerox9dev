@@ -1,4 +1,5 @@
-import { ArrowLeft } from 'lucide-react'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
 import LiveTimeText from '@/components/LiveTimeText'
@@ -59,7 +60,7 @@ export default function BlogPostPage({ post, locale }: BlogPostPageProps) {
           href={backHref}
           className="inline-flex shrink-0 items-center gap-1 border border-neutral-200 px-3 py-1.5 text-xs font-medium transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-800"
         >
-          <ArrowLeft className="h-3.5 w-3.5" />
+          <FontAwesomeIcon icon={faArrowLeft} className="h-3 w-3" />
           {dictionary.actions.back}
         </Link>
       </nav>
