@@ -1,0 +1,47 @@
+---
+title: HireClover
+slug: hireclover
+strapline: Job aggregator that keeps every opening in one searchable place
+category: Разработка
+ownership: own
+link: https://hireclover.com
+tech:
+  - Product Design
+  - Next.js
+  - Supabase
+  - n8n
+logo:
+  asset:
+    url: /projects/HireClover/logo.png
+  description: HireClover logo
+media:
+  - asset:
+      url: /projects/HireClover/cover.png
+    description: HireClover job feed with search, filters and live counter
+---
+
+## Task
+
+I ran into the problem myself: finding a job means digging through dozens of sites, newsletters and job boards, each with its own filters and its own noise. I was spending hours checking everything by hand. So I decided to build one place that pulls the openings together and makes them actually searchable.
+
+## Solution
+
+I did the whole product cycle on my own — from design to development. Collection runs on n8n workflows that parse job sources and write everything into Supabase; the frontend is Next.js.
+
+The feed has full-text search and filters by category, seniority and work format, sorting by date, and a switch between list and grid. The header shows how many jobs are live right now.
+
+Each opening gets its own page: description, company, location, seniority, similar roles — and an Apply button that links straight to the original posting. I deliberately did not lock anything behind the platform: HireClover helps you find the job, then gets out of the way.
+
+<ProjectShot src="/projects/HireClover/job.png" caption="Job page: details, similar roles and a link straight to the source" />
+
+Companies can also submit an opening themselves through a separate flow.
+
+<ProjectShot src="/projects/HireClover/post-job.png" caption="Posting a job for companies" />
+
+## Result
+
+The project started as Znaidy — a board for designers only. After the rebrand to HireClover it grew into a general aggregator: engineering, design, marketing and other roles, remote, hybrid and office, from companies worldwide. At the time of writing there are around 200 live openings in the feed.
+
+<ProjectShot src="/projects/HireClover/about.png" caption="About page — the story behind the product" />
+
+[hireclover.com](https://hireclover.com) — free to use

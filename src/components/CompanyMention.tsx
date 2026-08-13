@@ -25,7 +25,7 @@ export const CompanyMention = ({
 
   return (
     <span
-      className="not-prose relative inline-flex items-center gap-1 align-baseline"
+      className="not-prose relative inline"
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
@@ -35,22 +35,22 @@ export const CompanyMention = ({
         rel="noreferrer"
         onFocus={() => setOpen(true)}
         onBlur={() => setOpen(false)}
-        className="underline decoration-neutral-300 underline-offset-4 transition-colors hover:text-neutral-900 dark:decoration-neutral-700 dark:hover:text-neutral-100"
+        className="whitespace-nowrap underline decoration-neutral-300 underline-offset-4 transition-colors hover:text-neutral-900 dark:decoration-neutral-700 dark:hover:text-neutral-100"
       >
         {children}
+        {showFavicon && (
+          // eslint-disable-next-line @next/next/no-img-element -- tiny static icon, no optimisation needed
+          <img
+            src={favicon}
+            alt=""
+            aria-hidden="true"
+            width={16}
+            height={16}
+            onError={() => setFaviconBroken(true)}
+            className="m-0 ml-1 inline-block h-4 w-4 shrink-0 object-contain align-text-bottom"
+          />
+        )}
       </a>
-      {showFavicon && (
-        // eslint-disable-next-line @next/next/no-img-element -- tiny static icon, no optimisation needed
-        <img
-          src={favicon}
-          alt=""
-          aria-hidden="true"
-          width={18}
-          height={18}
-          onError={() => setFaviconBroken(true)}
-          className="m-0 inline-block h-[18px] w-[18px] shrink-0 object-contain"
-        />
-      )}
 
       <AnimatePresence>
         {open && (
