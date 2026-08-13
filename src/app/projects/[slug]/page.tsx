@@ -2,8 +2,12 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import ProjectPage from '@/components/ProjectPage'
-import { getIntroContent } from '@/content/intro'
-import { getProjectBySlug, getProjectStaticSlugs } from '@/lib/project-content'
+import {
+  getFeaturedProjectEntries,
+  getProjectBySlug,
+  getProjectEntries,
+  getProjectStaticSlugs,
+} from '@/lib/project-content'
 
 interface ProjectRouteProps {
   params: Promise<{
@@ -54,7 +58,20 @@ export default async function ProjectRoute({ params }: ProjectRouteProps) {
     notFound()
   }
 
-  const introData = getIntroContent('en')
+  const otherProjects = await getOtherProjects('en', slug)
 
-  return <ProjectPage project={project} locale="en" />
+  return (
+    <ProjectPage project={project} locale="en" otherProjects={otherProjects} />
+  )
+}
+
+async function getOtherProjects(locale: 'en' | 'ru' | 'ua', slug: string) {
+  const entries = await getProjectEntries(locale)
+  const featured = getFeaturedProjectEntries(entries)
+  const featuredSlugs = new Set(featured.map((entry) => entry.fields.slug))
+  const rest = entries.filter((entry) => !featuredSlugs.has(entry.fields.slug))
+
+  return [...featured, ...rest]
+    .filter((entry) => entry.fields.slug !== slug)
+    .slice(0, 4)
 }

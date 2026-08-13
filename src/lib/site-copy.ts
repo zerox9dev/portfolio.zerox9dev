@@ -11,6 +11,8 @@ type SiteDictionary = {
     about: string
     projects: string
     blog: string
+    otherProjects: string
+    otherPosts: string
   }
   actions: {
     moreProjects: string
@@ -48,6 +50,8 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
       about: 'About',
       projects: 'Projects',
       blog: 'Blog',
+      otherProjects: 'Other projects',
+      otherPosts: 'Other posts',
     },
     actions: {
       moreProjects: 'More projects',
@@ -88,6 +92,8 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
       about: 'Обо мне',
       projects: 'Проекты',
       blog: 'Блог',
+      otherProjects: 'Другие проекты',
+      otherPosts: 'Другие посты',
     },
     actions: {
       moreProjects: 'Еще проекты',
@@ -128,6 +134,8 @@ const dictionaries: Record<SiteLocale, SiteDictionary> = {
       about: 'Про мене',
       projects: 'Проєкти',
       blog: 'Блог',
+      otherProjects: 'Інші проєкти',
+      otherPosts: 'Інші пости',
     },
     actions: {
       moreProjects: 'Ще проєкти',

@@ -1,30 +1,40 @@
 import {
   faArrowLeft,
   faArrowUpRightFromSquare,
+  faTableCellsLarge,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import LiveTimeText from '@/components/LiveTimeText'
+import { Project } from '@/components/Project'
 import { ProjectMediaFigure } from '@/components/ProjectMediaFigure'
+import { SectionDivider } from '@/components/SectionDivider'
 import { ThemeToggleText } from '@/components/ThemeToggleText'
 import { getProjectLogoUrl } from '@/lib/content-images'
 import { getProjectBadge, getProjectBadgeClass } from '@/lib/project-badge'
 import { getSiteDictionary, type SiteLocale } from '@/lib/site-copy'
-import { type ProjectPageData } from '@/types/content'
+import { type ProjectEntry, type ProjectPageData } from '@/types/content'
 
 interface ProjectPageProps {
   project: ProjectPageData
   locale: SiteLocale
+  otherProjects?: ProjectEntry[]
 }
 
 const tagClass =
   'inline-flex items-center border border-neutral-200 px-2.5 py-0.5 text-xs font-semibold text-neutral-700 dark:border-neutral-800 dark:text-neutral-300'
 
-export default function ProjectPage({ project, locale }: ProjectPageProps) {
+export default function ProjectPage({
+  project,
+  locale,
+  otherProjects = [],
+}: ProjectPageProps) {
   const dictionary = getSiteDictionary(locale)
   const backHref = locale === 'en' ? '/' : `/${locale}`
+  const projectHref = (slug: string) =>
+    locale === 'en' ? `/projects/${slug}` : `/${locale}/projects/${slug}`
   const { title, strapline, logo, category, tech, media, link } = project.fields
   const badge = getProjectBadge(category)
   const techList = Array.isArray(tech)
@@ -135,6 +145,24 @@ export default function ProjectPage({ project, locale }: ProjectPageProps) {
           <ProjectMediaFigure key={index} asset={item} />
         ))}
       </article>
+
+      {otherProjects.length > 0 && (
+        <section className="flex flex-col gap-6">
+          <SectionDivider
+            title={dictionary.sections.otherProjects}
+            icon={faTableCellsLarge}
+          />
+          <div className="flex flex-col gap-4">
+            {otherProjects.map((entry) => (
+              <Project
+                key={entry._id}
+                {...entry.fields}
+                href={projectHref(entry.fields.slug)}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       <footer className="mt-auto flex items-center justify-between border-t border-neutral-100 pt-4 text-xs dark:border-neutral-800">
         <span className="text-xs text-neutral-400 dark:text-neutral-500">

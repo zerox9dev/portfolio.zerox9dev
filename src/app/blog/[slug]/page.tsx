@@ -1,7 +1,10 @@
-import { getIntroContent } from '@/content/intro'
 import { notFound } from 'next/navigation'
 import BlogPostPage from '@/components/BlogPostPage'
-import { getBlogPostBySlug, getBlogStaticSlugs } from '@/lib/blog-content'
+import {
+  getBlogEntries,
+  getBlogPostBySlug,
+  getBlogStaticSlugs,
+} from '@/lib/blog-content'
 
 interface BlogPostRouteProps {
   params: Promise<{
@@ -22,7 +25,12 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
     notFound()
   }
 
-  const introData = getIntroContent('en')
+  const otherPosts = await getOtherPosts('en', slug)
 
-  return <BlogPostPage post={post} locale="en" />
+  return <BlogPostPage post={post} locale="en" otherPosts={otherPosts} />
+}
+
+async function getOtherPosts(locale: 'en' | 'ru' | 'ua', slug: string) {
+  const entries = await getBlogEntries(locale)
+  return entries.filter((entry) => entry.fields.slug !== slug).slice(0, 4)
 }

@@ -1,24 +1,37 @@
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faPenNib } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
 import LiveTimeText from '@/components/LiveTimeText'
+import { SectionDivider } from '@/components/SectionDivider'
 import { ThemeToggleText } from '@/components/ThemeToggleText'
 import {
   getLocaleTag,
   getSiteDictionary,
   type SiteLocale,
 } from '@/lib/site-copy'
-import { type BlogPostPageData } from '@/types/content'
+import { type BlogPostEntry, type BlogPostPageData } from '@/types/content'
 
 interface BlogPostPageProps {
   post: BlogPostPageData
   locale: SiteLocale
+  otherPosts?: BlogPostEntry[]
 }
 
-export default function BlogPostPage({ post, locale }: BlogPostPageProps) {
+export default function BlogPostPage({
+  post,
+  locale,
+  otherPosts = [],
+}: BlogPostPageProps) {
   const dictionary = getSiteDictionary(locale)
   const backHref = locale === 'en' ? '/' : `/${locale}`
+  const postHref = (slug: string) =>
+    locale === 'en' ? `/blog/${slug}` : `/${locale}/blog/${slug}`
+  const dateFormatter = new Intl.DateTimeFormat(getLocaleTag(locale), {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  })
   const formattedDate = post.fields.publishedAt
     ? new Intl.DateTimeFormat(getLocaleTag(locale), {
         day: '2-digit',
@@ -81,6 +94,38 @@ export default function BlogPostPage({ post, locale }: BlogPostPageProps) {
           {post.content}
         </div>
       </article>
+
+      {otherPosts.length > 0 && (
+        <section className="flex flex-col gap-6">
+          <SectionDivider
+            title={dictionary.sections.otherPosts}
+            icon={faPenNib}
+          />
+          <div className="flex flex-col gap-3">
+            {otherPosts.map((entry) => (
+              <Link
+                key={entry._id}
+                href={postHref(entry.fields.slug)}
+                className="transition hover:text-neutral-950 dark:hover:text-neutral-100"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <h3 className="line-clamp-1 text-sm font-normal hover:text-neutral-400">
+                    {entry.fields.title}
+                  </h3>
+                  {entry.fields.publishedAt && (
+                    <time
+                      dateTime={entry.fields.publishedAt}
+                      className="shrink-0 text-xs text-neutral-400 dark:text-neutral-500"
+                    >
+                      {dateFormatter.format(new Date(entry.fields.publishedAt))}
+                    </time>
+                  )}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       <footer className="mt-auto flex items-center justify-between border-t border-neutral-100 pt-4 text-xs dark:border-neutral-800">
         <span className="text-xs text-neutral-400 dark:text-neutral-500">
