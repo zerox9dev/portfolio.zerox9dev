@@ -4,7 +4,6 @@ import './globals.css'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
-import { Analytics } from '@vercel/analytics/next'
 
 // Next inlines the CSS above, so Font Awesome must not inject it again at runtime
 config.autoAddCss = false
@@ -40,6 +39,11 @@ export default function RootLayout({
             }),
           }}
         />
+        <script
+          defer
+          src="https://umami.161.35.16.218.sslip.io/script.js"
+          data-website-id="fec691a5-f14e-4edb-bd60-edddcfa6a36d"
+        />
       </head>
       <body className={interTight.className}>
         <ThemeProvider
@@ -50,7 +54,6 @@ export default function RootLayout({
         >
           <div className="bg-background">{children}</div>
         </ThemeProvider>
-        <Analytics />
       </body>
     </html>
   )
