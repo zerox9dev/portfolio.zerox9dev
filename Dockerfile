@@ -16,6 +16,9 @@ ARG NEXT_PUBLIC_TELEGRAM_URL=
 ARG NEXT_PUBLIC_BOOK_CALL_URL=
 ARG NEXT_PUBLIC_GITHUB_URL=
 ARG NEXT_PUBLIC_CONTACT_EMAIL=
+# Read at build time by the sitemap and metadataBase, so it must be set here.
+ARG SITE_URL=
+ENV SITE_URL=$SITE_URL
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN pnpm build

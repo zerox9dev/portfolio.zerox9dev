@@ -45,6 +45,7 @@ jobs:
             NEXT_PUBLIC_BOOK_CALL_URL=${{ vars.NEXT_PUBLIC_BOOK_CALL_URL }}
             NEXT_PUBLIC_GITHUB_URL=${{ vars.NEXT_PUBLIC_GITHUB_URL }}
             NEXT_PUBLIC_CONTACT_EMAIL=${{ vars.NEXT_PUBLIC_CONTACT_EMAIL }}
+            SITE_URL=${{ vars.SITE_URL || 'https://zerox9dev.com' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
       # --prefer-index=false copies the manifest as it is instead of wrapping
