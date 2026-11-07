@@ -1,0 +1,10 @@
+# Runs the image that .github/workflows/images.yml pushes on every push to
+# main. Nothing is built on the server, so there is no build section.
+services:
+  web:
+    image: ghcr.io/zerox9dev/portfolio-zerox9dev:main
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      SITE_URL: ${SITE_URL:-https://zerox9dev.com}
