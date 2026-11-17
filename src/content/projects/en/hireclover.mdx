@@ -1,63 +1,68 @@
 ---
 title: HireClover
 slug: hireclover
-strapline: Job aggregator that keeps every opening in one searchable place
+strapline: AI job search agent for remote tech jobs, straight from company hiring systems
 category: Разработка
 ownership: own
 story:
-  title: "Grew a designer job board into a full job aggregator"
-  result: "Rebranded Znaidy into HireClover and opened it to engineering, design and marketing — around 200 live openings, each linking straight to the source"
+  title: "Turned a job board into an AI agent that searches 87,000+ remote tech jobs"
+  result: "Clover reads open roles from 3,000+ companies’ own hiring systems, checks which countries each one hires from and shows the jobs that fit — with a free plan, Seeker Pro and a Discord community"
   images:
+    - /projects/HireClover/clover-pair.png
     - /projects/HireClover/jobs-pair.png
     - /projects/HireClover/job-detail-pair.png
-    - /projects/HireClover/brandbook.png
 link: https://hireclover.com
 tech:
   - Product Design
   - Next.js
-  - Supabase
-  - n8n
+  - Python
+  - PostgreSQL
+  - Meilisearch
+  - AI Agents
 logo:
   asset:
     url: /projects/HireClover/logo.png
   description: HireClover logo
 media:
   - asset:
-      url: /projects/HireClover/jobs-pair.png
-    description: "HireClover job feed on web and mobile"
+      url: /projects/HireClover/clover-pair.png
+    description: "Clover, HireClover’s AI job search agent, on web and mobile"
 ---
 
 ## Task
 
-I ran into the problem myself: finding a job means digging through dozens of sites, newsletters and job boards, each with its own filters and its own noise. I was spending hours checking everything by hand. So I decided to build one place that pulls the openings together and makes them actually searchable.
+I ran into the problem myself: finding a remote job means digging through dozens of boards, each with its own filters and its own noise. Half of the “remote” roles turn out to be “US only” in the fine print, and the same opening is reposted on five sites. I wanted one place that reads jobs at the source and tells you honestly whether you can actually take them.
 
 ## Solution
 
-I did the whole product cycle on my own — from design to development. Collection runs on n8n workflows that parse job sources and write everything into Supabase; the frontend is Next.js.
+I did the whole product cycle on my own — from design to development. HireClover started as Znaidy, a board for designers, and grew into a full aggregator. The second version was rebuilt from scratch: jobs are now collected straight from company hiring systems — the public boards of Greenhouse, Lever, Ashby, Workable and others — then normalised, deduplicated and checked for where each company actually hires.
 
-The feed has full-text search and filters by category, seniority and work format, sorting by date, and a switch between list and grid. The header shows how many jobs are live right now.
+The way in is Clover, an AI job search agent. You describe what you want in one line — “Python senior from Spain, $5k+” — and Clover shows the open roles that fit. You can try it without an account, and it never applies on your behalf: you open the employer’s own page and apply there.
 
-Each opening gets its own page: description, company, location, seniority, similar roles — and an Apply button that links straight to the original posting. I deliberately did not lock anything behind the platform: HireClover helps you find the job, then gets out of the way.
+<ProjectShot src="/projects/HireClover/clover-pair.png" caption="Clover on web and mobile: one line in, matching jobs out" />
 
-<ProjectShot src="/projects/HireClover/job-detail-pair.png" caption="Job page on web and mobile: details, company and a link straight to the source" />
+The jobs list shows every open role with filters for the country you work from, workplace, profession, level, English and freshness. Each card says exactly which countries the company hires in.
 
-Companies can also submit an opening themselves through a separate flow.
+<ProjectShot src="/projects/HireClover/jobs-pair.png" caption="Jobs list on web and mobile with the filters" />
 
-<ProjectShot src="/projects/HireClover/post-job-pair.png" caption="Posting a job on web and mobile" />
+A job page puts the facts first: where it hires, workplace, pay, level, stack — each with a note on how it was determined — plus how the pay compares with similar roles and a plain Apply button to the original posting.
 
-Companies get their own pages too: a directory and a company profile with all of its open roles.
+<ProjectShot src="/projects/HireClover/job-detail-pair.png" caption="Job page on web and mobile: the facts, the pay comparison and similar jobs" />
 
-<ProjectShot src="/projects/HireClover/companies-pair.png" caption="Companies directory and a company page, web and mobile" />
+Companies get a sortable table — open and remote roles, where each hires, top stack, when they last posted — and a page of their own.
 
-All of it stands on a small design system: a brandbook with the logo, palette, typography, icons and principles, and a component sheet — buttons, badges, header and footer, job rows and cards for jobs, companies and blog posts, each with a desktop and a mobile variant.
+<ProjectShot src="/projects/HireClover/companies-pair.png" caption="Companies table on web and mobile" />
 
-<ProjectShot src="/projects/HireClover/components.png" caption="Component sheet: buttons, badges, navigation, footers, job rows and cards" />
+The product has a business model now: Free covers the basics, Seeker Pro adds the full AI model, every resume match, instant alerts by email and Telegram, and an MCP server for Claude, ChatGPT or Cursor.
 
-<ProjectShot src="/projects/HireClover/brandbook.png" caption="Brandbook: logo, palette, typography, icons and principles" />
+<ProjectShot src="/projects/HireClover/pricing-pair.png" caption="Pricing on web and mobile: Free and Seeker Pro" />
+
+Around it there is a free Discord community: job leads by country, referrals, salary talk and CV reviews, with a direct line to me as the founder.
+
+<ProjectShot src="/projects/HireClover/community-pair.png" caption="Community page on web and mobile" />
 
 ## Result
 
-The project started as Znaidy — a board for designers only. After the rebrand to HireClover it grew into a general aggregator: engineering, design, marketing and other roles, remote, hybrid and office, from companies worldwide. At the time of writing there are around 200 live openings in the feed.
+At the time of writing HireClover tracks around 88,000 open jobs from more than 3,000 companies and checks 160 countries for every role. The site works in six languages, and the whole stack — collectors in Python, search on Meilisearch, PostgreSQL and a Next.js frontend — runs on my own server.
 
-
-[hireclover.com](https://hireclover.com) — free to use
+[hireclover.com](https://hireclover.com)

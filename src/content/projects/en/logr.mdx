@@ -1,23 +1,23 @@
 ---
 title: logr
 slug: logr
-strapline: Open-source time tracker for freelancers
+strapline: Open-source, self-hostable time tracker with built-in invoicing
 category: Разработка
 ownership: own
 story:
-  title: "Built my own time tracker in a day and open-sourced it"
-  result: "Keyboard-first timer, live timeline and one-click invoices. Apache 2.0, and I track every billable hour of mine in it"
+  title: "Built my own time tracker in a day and grew it into a self-hostable app"
+  result: "Timer, clients, invoices with public links, reports and Jira sync — open source under AGPL-3.0, and I track every billable hour of mine in it"
   images:
     - /projects/Logr/landing-pair.png
     - /projects/Logr/dashboard-pair.png
-    - /projects/Logr/ui-kit.png
+    - /projects/Logr/invoice-pair.png
 link: https://logr.work
 tech:
   - Product Design
   - Next.js
   - React
-  - Supabase
-  - Vercel
+  - PocketBase
+  - Docker
 logo:
   asset:
     url: /projects/Logr/logo.png
@@ -30,28 +30,32 @@ media:
 
 ## Task
 
-I'm a freelancer and I track time every day. I'd tried Toggl, Clockify and Harvest — every time it was the same story: either expensive for basic features, or free but with a UI like a nuclear plant control panel. All I needed was simple: hit Space to start, hit it again to stop, and get an invoice at the end of the month. So I decided to build it myself.
+I'm a freelancer and I track time every day. I'd tried Toggl, Clockify and Harvest — every time it was the same story: either expensive for basic features, or free but with a UI like a nuclear plant control panel. And most trackers stop at “track”, so you still need a separate tool to bill the client. All I needed was simple: start a timer, see my day, and get an invoice at the end of the month. So I decided to build it myself.
 
 ## Solution
 
-I did the full product cycle on my own — from design to development. logr is a keyboard-first time tracker: Space to start/stop, Enter to add a client, Escape to close. No modals where they can be avoided.
+I did the full product cycle on my own — from design to development. The first version was built in a day: a keyboard-first timer, a timeline, clients and one-click invoices. Since then logr has grown into a full app — and it closes the loop: track → bill → get paid.
 
-The stack is deliberately lean — Next.js, React, Supabase for auth and database, Vercel for deployment. For the MVP I kept the schema as simple as possible: a single `user_app_state` table with JSONB for clients and sessions. Clients → Projects → Tasks with PENDING → ACTIVE → DONE statuses, manual session entry, one-click PDF invoices and CSV export, Google auth with cloud sync, a localStorage fallback for offline work, and dark/light themes.
+The landing page lets you try the timer right on the first screen, without signing up: pick a project, press Start, switch projects — every session lands in today’s list.
 
-<ProjectShot src="/projects/Logr/dashboard-pair.png" caption="Dashboard on web and mobile: timer, timeline, projects, billable hours and a daily AI recap" />
+<ProjectShot src="/projects/Logr/landing-pair.png" caption="Landing page on web and mobile with a timer you can try without an account" />
 
-Under the screens sits a small design system: every block — top bar, timer, timeline, projects and tasks, billable hours, goals, activity, daily summary, footer — is a component with desktop and mobile variants and both a filled and an empty state. That is why an empty account does not look like a broken one.
+Inside, the app moved to a sidebar layout with real pages — Dashboard, Projects, Sessions, Clients, Invoices, Reports and Settings — and a ⌘K command palette. Invoices are built from a client’s unbilled sessions and can be shared by a public link. A client can be marked as an employer with a salary, and logr turns it into an hourly rate. Worklogs can be pulled in from Jira Cloud, and an in-app AI assistant can answer “show unbilled for Acme and draft an invoice”.
 
-<ProjectShot src="/projects/Logr/ui-kit.png" caption="UI kit: components with desktop and mobile variants, filled and empty states" />
+<ProjectShot src="/projects/Logr/dashboard-pair.png" caption="Overview on web and mobile: timeline, projects, billable hours, daily summary, activity and goals" />
 
-Everything that needs a decision lives in a modal, designed for both breakpoints: manual entry, choosing or creating a project, new client, invoice, settings, inviting a teammate, exporting a report, deletions.
+<ProjectShot src="/projects/Logr/calendar-pair.png" caption="Week calendar on web and mobile: every session where it happened" />
 
-<ProjectShot src="/projects/Logr/modal-invoice-pair.png" caption="New invoice modal on web and mobile" />
+<ProjectShot src="/projects/Logr/sessions-pair.png" caption="Sessions on web and mobile: every entry with its amount and paid status" />
 
-<ProjectShot src="/projects/Logr/modal-settings-pair.png" caption="Settings modal on web and mobile" />
+<ProjectShot src="/projects/Logr/invoice-pair.png" caption="Invoice on web and mobile, built from a client’s unbilled sessions" />
+
+Under the screens sits a small design system: every block — timeline, projects and tasks, billable hours, goals, activity, daily summary — is a component with desktop and mobile variants and both a filled and an empty state. That is why an empty account does not look like a broken one.
+
+The backend moved from Supabase to self-hosted PocketBase, so the whole thing ships as one Docker Compose file: anyone can run their own copy and keep their data. The interface works in English, Ukrainian and Russian.
 
 ## Result
 
-logr is live and fully open-source under Apache 2.0 — I track all my own time exclusively through it, fixing bugs as I hit them. Real-time dogfooding. It's free for anyone to use: found a bug — open an issue, want a feature — PRs welcome.
+logr is live and fully open-source under AGPL-3.0 — I track all my own time exclusively through it, fixing bugs as I hit them. Real-time dogfooding. Use it at logr.work or host it yourself: found a bug — open an issue, want a feature — PRs welcome.
 
 [logr.work](https://logr.work) · [github.com/zerox9dev/logr](https://github.com/zerox9dev/logr)
