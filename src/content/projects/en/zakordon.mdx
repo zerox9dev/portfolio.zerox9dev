@@ -1,21 +1,21 @@
 ---
 title: Закордон
 slug: zakordon
-strapline: Guides and calculators for Ukrainians settling in Europe
+strapline: Fact-checked guides and calculators for Ukrainians abroad
 category: Разработка
 ownership: own
 story:
-  title: "Made a reference on life in Europe where every fact has a source"
-  result: "Eleven topics, calculators for permits and taxes, country comparisons — and an honest “no data” instead of a confident guess"
+  title: "Made a reference on life abroad where every fact has a source"
+  result: "12 topics across 48 countries, 1,650+ facts with a source and a check date, a temporary protection timeline, calculators and country rankings — and an honest “no data” instead of a confident guess"
   images:
     - /projects/Zakordon/home-pair.png
-    - /projects/Zakordon/tax-calculator-pair.png
-    - /projects/Zakordon/wages-pair.png
+    - /projects/Zakordon/protection-pair.png
+    - /projects/Zakordon/net-salary-pair.png
 link: https://zakordon.help
 tech:
   - Product Design
   - Astro
-  - Vercel
+  - Pagefind
   - SEO
 logo:
   asset:
@@ -24,7 +24,7 @@ logo:
 media:
   - asset:
       url: /projects/Zakordon/home-pair.png
-    description: "Закордон home on web and mobile: topics, comparisons and calculators"
+    description: "Закордон home on web and mobile: search, topics and countries"
 ---
 
 ## Task
@@ -35,22 +35,28 @@ I wanted a reference where every statement carries a source and a date, and wher
 
 ## Solution
 
-Закордон is a reference site for Ukrainians in Europe, built around eleven topics — residence permit, taxes, work permit, healthcare, education, banking, housing, social benefits, driving licence, documents and legalisation, consular services.
+Закордон is a reference site for Ukrainians abroad, built around twelve topics — temporary protection, residence permit, taxes, work permit, healthcare, education, banking, housing, social benefits, driving licence, documents and legalisation, consular services. It now covers 48 countries, from the EU to the US, Canada and the UAE.
 
-Every fact card links to the original source, usually a government portal, and carries its own status: when it was last updated, whether it has gone stale, or whether there is no reliable data yet. That last state matters — an honest "no data" is more useful than a confident guess.
+The site got an editorial redesign in blue and yellow: a search on the first screen (“PESEL”, “residence permit”) and the topics right next to it, so you get to an answer in one or two clicks.
 
-<ProjectShot src="/projects/Zakordon/topic-pair.png" caption="Topic page on web and mobile: countries and facts, each with a source" />
+<ProjectShot src="/projects/Zakordon/home-pair.png" caption="Home on web and mobile: search, topics and the number of checked facts" />
 
-On top of the guides there are calculators that answer the questions people actually ask: whether your income clears the threshold for a permit, how much is left after taxes, when your years add up to permanent residence, and which documents you still need to collect.
+Every article is built from fact cards. Each one links to the original source, usually a government portal, and carries its own status: when it was last checked, whether it has gone stale, or whether there is no reliable data yet. That last state matters — an honest “no data” is more useful than a confident guess.
 
-<ProjectShot src="/projects/Zakordon/tax-calculator-pair.png" caption="Tax calculator on web and mobile — what is left after income tax" />
+<ProjectShot src="/projects/Zakordon/article-pair.png" caption="Article on web and mobile: key facts as questions, each with a source" />
 
-And a comparison layer for choosing between countries: an overall score, wages, taxes, cost of living and mortgage availability for foreigners.
+Temporary protection became its own topic, with a timeline of every extension of the EU directive and a filter by country — the question people ask most often.
 
-<ProjectShot src="/projects/Zakordon/wages-pair.png" caption="Wages across countries on web and mobile" />
+<ProjectShot src="/projects/Zakordon/protection-pair.png" caption="Temporary protection timeline on web and mobile" />
+
+On top of the guides there are calculators and comparisons that answer what a move actually costs: whether your income covers living costs, how much of a salary is left after taxes and rent in each country, and a ranking that puts wages, costs and mortgages in one table.
+
+<ProjectShot src="/projects/Zakordon/net-salary-pair.png" caption="Net salary by country on web and mobile: taxes, rent and what is left" />
+
+<ProjectShot src="/projects/Zakordon/ranking-pair.png" caption="Country ranking on web and mobile" />
 
 ## Result
 
-The site is live and gets updated as the rules change — the whole point is that content ages visibly instead of quietly. Built as a static Astro site on Vercel, so pages stay fast and cheap to serve at any traffic.
+The site is live and gets updated as the rules change — the whole point is that content ages visibly instead of quietly. At the time of writing it holds more than 1,650 checked facts across 48 countries, with a Telegram forum for questions. Built as a static Astro site with Pagefind search, so pages stay fast and cheap to serve at any traffic.
 
 [zakordon.help](https://zakordon.help)
